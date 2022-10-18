@@ -7,7 +7,7 @@ import sys
 project = 'blm-mll-alpha'
 copyright = '2022, tonqlet(BIT)'
 author = 'tonqlet(BIT)'
-release = '1.0'
+release = '0.0.1'
 version = release
 
 # -- General configuration ---------------------------------------------------
