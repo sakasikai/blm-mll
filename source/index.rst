@@ -9,6 +9,9 @@ Welcome to blm-mll-alpha's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+   Tutorial
+   Command line tools
+   API
 
 
 
