@@ -1,13 +1,5 @@
 # API
 
-cp /Users/maiqi/Documents/typora/攻读/blm_mll_docs/doc/* /Users/maiqi/Desktop/projects/blm-mll/source/
-
-Tutorial
-
-Command line tools
-
-API
-
 
 
 ```bash

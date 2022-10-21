@@ -8,8 +8,9 @@ Welcome to blm-mll-alpha's documentation!
 
 .. toctree::
    :maxdepth: 2
-
+   Installation guide
    Tutorial
+   Quick Start
    Command line tools
    API
 
@@ -17,7 +18,6 @@ Welcome to blm-mll-alpha's documentation!
 
 Indices and tables
 ==================
-???
 
 * :ref:`genindex`
 * :ref:`modindex`
