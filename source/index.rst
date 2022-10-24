@@ -9,11 +9,11 @@ Welcome to blm-mll-alpha's documentation!
 .. toctree::
    :maxdepth: 3
 
-   Installation guide
    Tutorial
+   Installation guide
    Quick start
    Command line tools
-   API
+   Authors
 
 
 
