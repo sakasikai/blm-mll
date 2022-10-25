@@ -1,6 +1,23 @@
 # Authors
 
-- Main developer: xx [@github_id](https://github.com/xx)
+## **Author Contributions** 
 
+- Main developer: xx [@github_id](https://github.com/xx)
 - xx
-- lab
+
+
+
+
+
+## Contact
+
+Prof. Dr. Bin Liu, email: bliu@bliulab.net
+
+
+
+
+
+## **Citation** 
+
+xx
+

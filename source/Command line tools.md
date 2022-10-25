@@ -2,7 +2,7 @@
 
 # Command line tools
 
-==要包含blm的命令，介绍的时候，是从 blm + blm-mll 整体介绍的==
+要包含blm的命令，介绍的时候，是从 blm + blm-mll 整体介绍的
 
 > 特征提取、特征分析等方法是复用的，所以要从blm，blm-mll整体来说
 
@@ -10,46 +10,13 @@
 
 
 
+## Shared Command lines
+
+blm能做的，blm-mll都能做，且做的完全一样。
+
+这里，会覆盖所有的blm命令，但不会详细解释，会导引到blm项目
 
 
-```
-# in doctree directive
-Installation guide
-Tutorial
-Quick Start
-Command line tools
-API
-
-cp /Users/maiqi/Documents/typora/攻读/blm_mll_docs/doc/* /Users/maiqi/Desktop/projects/blm-mll/source/
-
-ga . && gcam 'e' && ggpush
-make html
-```
-
-```bash
-cam
-mkdocs new [name]
-
-# update source & page
-cd ~/Desktop/nlp-binfo-lab/多标签分类系统/blm-mll
-cp /Users/maiqi/Documents/typora/攻读/blm_mll_docs/api.md ./docs/
-
-# open page
-cam
-mkdocs serve
-```
-
-[weka br](http://waikato.github.io/meka/meka.classifiers.multilabel.BR/)
-
-[sk-multilearn](http://scikit.ml/api/0.1.0/modelselection.html#Performance)
-
-
-
-## blm CLI
-
-
-
-multi-label learning algorithms
 
 ## Sequence level multi-label learning algorithms
 

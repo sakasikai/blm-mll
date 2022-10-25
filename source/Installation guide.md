@@ -2,7 +2,7 @@
 
 
 
-## download stand-alone package
+## Download stand-alone package
 
 ```
 git clone xx
@@ -26,9 +26,11 @@ Install `pytorch >= 1.0` with the command: `conda install pytorch -c pytorch` or
 
 
 
-> 然后给出具体的指导
+
 
 ### Liunx
+
+> 在实验室GPU服务器可使用后，再来总结
 
 ```
 
@@ -110,4 +112,13 @@ import keras as k
 print(k.__version__)
 ```
 
+
+
 ### Windows
+
+同样推荐 anaconda / pip 安装
+
+```
+ 
+```
+

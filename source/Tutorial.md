@@ -1,6 +1,8 @@
 # Tutorial
 
-概括介绍
+概括介绍本项目，
+
+从blm介绍起，然后说清楚本项目和blm的关系，然后介绍本项目的特点（主要是多标记学习任务）和贡献
 
 
 
@@ -11,6 +13,10 @@
 生物学任务
 
 ### Sequenece-level multi-label learning tasks
+
+> 研究的任务
+
+
 
 ### Residue-level multi-label learning tasks
 
