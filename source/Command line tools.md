@@ -126,7 +126,7 @@ Divides the label space in to m subsets of size k, trains a Label Powerset class
 
 
 
-## Algorithm Adaptation
+### Algorithm Adaptation
 
 ### Traditional
 
