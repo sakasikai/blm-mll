@@ -41,7 +41,7 @@ Multi-label learning (MLL) is a supervised learning paradigm where each real-wor
 > Formal Definition
 
 According to Reference [x], we give the formal definition of multi-label learning framework. Suppose $\mathcal{X} = \R^d$ denotes the *d*-dimensional instance space,
-and $\mathcal{Y} = \{ y_1, y_2, \cdots , y_q\}$  denotes the label space with q possible class labels. The task of multilabel learning is to learn a function $h : \mathcal{X} → 2^{\mathcal{Y}}$
+and $$\mathcal{Y} = \{ y_1, y_2, \cdots , y_q\}$$  denotes the label space with q possible class labels. The task of multilabel learning is to learn a function $h : \mathcal{X} → 2^{\mathcal{Y}}$
 from the multi-label training set $\mathcal{D} = \{(x_i
 , Y_i)\ |\  1 ≤ i ≤ m\}$. For each multi-label example $(x_i , Y_i)$, $x_i ∈ \mathcal{X}$ is a d-dimensional feature vector
 $(x_{i1}, x_{i2}, · · · , x_{id})^⊤$ and $Y_i ⊆ \mathcal{Y}$ is the set of labels associated with $x_i$. For any unseen instance
