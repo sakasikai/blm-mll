@@ -40,7 +40,7 @@ Multi-label learning (MLL) is a supervised learning paradigm where each real-wor
 
 > Formal Definition
 
-According to Reference [x], we give the formal definition of multi-label learning framework. Suppose $\mathcal{X} = \R^d$ denotes the *d*-dimensional instance space,
+According to Reference [x], we give the formal definition of multi-label learning framework. Suppose $\mathcal{X} = {\R}^d$ denotes the *d*-dimensional instance space,
 and $\mathcal{Y} = \{ y_1, y_2, \cdots , y_q\}$  denotes the label space with q possible class labels. The task of multilabel learning is to learn a function $h : \mathcal{X} → 2^{\mathcal{Y}}$
 from the multi-label training set $\mathcal{D} = \{(x_i
 , Y_i)\ |\  1 ≤ i ≤ m\}$. For each multi-label example $(x_i , Y_i)$, $x_i ∈ \mathcal{X}$ is a d-dimensional feature vector
@@ -148,13 +148,13 @@ table x
 
 
 
-|               differences                | BLM-mll（mll process） | BLM  |
-| :--------------------------------------: | :--------------------: | :--: |
-| if performing multi-label learning tasks |          yes           |  no  |
-|     multi-label learning algorithms      |          80?           |  0   |
-|             feature analysis             |       removing c       |      |
-|              residue level               |     sliding window     |  x   |
-|                evaluation                |                        |      |
+|               differences                | BionSeq-BLM-mll（mll process） | BionSeq-BLM |
+| :--------------------------------------: | :----------------------------: | :---------: |
+| if performing multi-label learning tasks |              yes               |     no      |
+|     multi-label learning algorithms      |              80?               |      0      |
+|             feature analysis             |           removing c           |             |
+|              residue level               |         sliding window         |      x      |
+|                evaluation                |                                |             |
 
 table y
 
@@ -166,7 +166,9 @@ table y
 
 (鉴于上述blm和blm-mll两个系统的异同，给出作者使用本文档的建议
 
+()
 
+In view of the similarities and differences between BionSeq-BLM-mll and BionSeq-BLM, we 
 
 
 
