@@ -2,25 +2,23 @@
 
 ## Introduction
 
-> 概括介绍本项目，从 blm 说起
+（概括介绍本项目，从 blm 说起
 
 In order to uncover the meanings of “book of life”, 155 different biological language models (BLMs) for DNA, RNA and protein sequence analysis are introduced and discussed in [our previous study]() , which are able to extract the linguistic properties of “book of life”. We extend the BLMs into a system called BioSeq-BLM for automatically representing and analyzing the sequence. 
 
-> research niche
+（research niche
 
 Dispite the powerful analyiing capability for biological sequences, BLM fails dealing with multi-label learning problems for its one lablel learning assumption.
 
-> 介绍本系统
+（介绍本系统
 
 In this study, we upgrade system BioSeq-BLM to system BioSeq-BLM-Mll（名字保留修改） which utilizes multiple multi-label learning strategies and methods providied by BLM to deal with biological multi-label learning tasks.
 
-> 从贡献上，说本系统和BLM的变化
+（从贡献上，说本系统和BLM的变化
 
 Without changing the shared blcoks in BioSeq-BLM like BLMs construction and feature analysis, BLM-Mll brings a powerful multi-label learning module into BLM system which gives a one-stop process for multi-label learning researchers . Futhurmore, BLM-Mll can use nearly all single-label learning predictors in BLMs to serve as base-methods of a multi-label learning algorithm.
 
-
-
-> 介绍tutorial的结构，分几部分，每部分主要说什么
+（介绍tutorial的结构，分几部分，每部分主要说什么
 
 This tutorial can be split into x parts
 
@@ -34,11 +32,11 @@ part 3 help you learn how to deal with your multi-label learning task by BLM-MLL
 
 ## multi-label learning tasks
 
-> 一般性定义，研究的意义
+（一般性定义，研究的意义
 
 Multi-label learning (MLL) is a supervised learning paradigm where each real-world entity is associated with a set of labels simultaneously. During the past decade, signifificant amount of progresses have been made towards this recent learning paradigm for its potention in improving performance of problems where a pattern may have more than one associated class.
 
-> Formal Definition
+（Formal Definition
 
 According to Reference [x], we give the formal definition of multi-label learning framework. Suppose $\mathcal{X} = {\R}^d$ denotes the *d*-dimensional instance space,
 and $\mathcal{Y} = \{ y_1, y_2, \cdots , y_q\}$  denotes the label space with q possible class labels. The task of multilabel learning is to learn a function $h : \mathcal{X} → 2^{\mathcal{Y}}$
@@ -47,7 +45,7 @@ from the multi-label training set $\mathcal{D} = \{(x_i
 $(x_{i1}, x_{i2}, · · · , x_{id})^⊤$ and $Y_i ⊆ \mathcal{Y}$ is the set of labels associated with $x_i$. For any unseen instance
 $x ∈ \mathcal{X}$ , the multi-label classifier $h(·)$ predicts $h(x) ⊆ \mathcal{Y}$ as the set of proper labels for $x$.
 
-> 缩小到生物学中，提出面临的挑战，
+（缩小到生物学中，提出面临的挑战，
 
 In bio-informatics domain, there are many important multi-label learning tasks for biological analysis , such as RNA-associated subcellular localizations, protein subcellular localization, … , etc.  
 
@@ -78,7 +76,7 @@ As mentioned before Blm-mll is an updated version of bioseq-blm, so we firstly i
 
 （从blm介绍起，然后说清楚本项目和blm的关系，然后介绍本项目的特点（主要是多标记学习任务）和贡献
 
-> 介绍blm，其科学思想
+（介绍blm，其科学思想
 
 In paper X, we
 proposed the biological language models (BLMs) for DNA,
@@ -96,7 +94,7 @@ in linguistics.  (see Figure 1)
 
 
 
-> BLM能做什么，意义
+（BLM能做什么，意义
 
 BLMs mainly focuses on the biological neural language models to represent and analyze biological sequences based on deep learning techniques. We extend the BLMs to an automatic system called BioSeq-BLM
 (http://bliulab.net/BioSeq-BLM). Given the sequence data
@@ -104,9 +102,9 @@ for a specific sequence analysis task, BioSeq-BLM will automatically construct t
 
 
 
-> 指出在多标记学习上的缺口，引出本系统的研究空间
->
-> （BLMs，predictors 可以应用于mll，但是 BioSeq-BLM 却无法应用
+（指出在多标记学习上的缺口，引出本系统的研究空间
+
+（BLMs，predictors 可以应用于mll，但是 BioSeq-BLM 却无法应用
 
 Unfortunately, The BioSeq-BLM fails to unlock the potential of BLM in multi-label learning paradigm for its limitation on single label learning tasks. Inspired by this, we propose an updated version of the BioSeq-BLM called blm-mll to fully realize the tremendous potential of BLM.
 
@@ -114,7 +112,7 @@ Unfortunately, The BioSeq-BLM fails to unlock the potential of BLM in multi-labe
 
 ## blm-mll
 
-> 介绍blm-mll的功能，说出意义，引出和blm的关系，
+（介绍blm-mll的功能，说出意义，引出和blm的关系，
 
 blm-mll is a system which can automatically construct the BLM, build the predictors, evaluate the performance, and analyze the results for both the single-label learning tasks and the multi-label learning tasks. blm-mll is an updated version of the BioSeq-BLM system sharing all the BLMs with it and retaining x predictors to serve as sub-methods in multi-label learning methods.
 
@@ -166,8 +164,6 @@ table y
 
 (鉴于上述blm和blm-mll两个系统的异同，给出作者使用本文档的建议
 
-()
-
 In view of the similarities and differences between BionSeq-BLM-mll and BionSeq-BLM, we 
 
 
@@ -178,7 +174,7 @@ In view of the similarities and differences between BionSeq-BLM-mll and BionSeq-
 
 ## multi-label learning algorithms in blm-mll
 
-涉及到blm方法作为基方法，要清晰指出不同之处（哪些是blm的，哪些是blm-mll的）
+（涉及到blm方法作为基方法，要清晰指出不同之处（哪些是blm的，哪些是blm-mll的）
 
 |      |      |
 | ---- | ---- |
@@ -190,9 +186,9 @@ In view of the similarities and differences between BionSeq-BLM-mll and BionSeq-
 
 ## Conducting multi-label learning tasks with blm-mll
 
-介绍 scripts 和 cmd
+（介绍 scripts 和 cmd
 
-(Furthermore, use cases are provided in Quick Start
+（Furthermore, use cases are provided in Quick Start
 
 ### Example 1 RNA-associated subcellular localizations
 

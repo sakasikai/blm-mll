@@ -8,7 +8,7 @@ Tutorial
 Introduction
 ------------
 
-   概括介绍本项目，从 blm 说起
+（概括介绍本项目，从 blm 说起
 
 In order to uncover the meanings of “book of life”, 155 different
 biological language models (BLMs) for DNA, RNA and protein sequence
@@ -17,20 +17,20 @@ which are able to extract the linguistic properties of “book of life”.
 We extend the BLMs into a system called BioSeq-BLM for automatically
 representing and analyzing the sequence.
 
-   research niche
+（research niche
 
 Dispite the powerful analyiing capability for biological sequences, BLM
 fails dealing with multi-label learning problems for its one lablel
 learning assumption.
 
-   介绍本系统
+（介绍本系统
 
 In this study, we upgrade system BioSeq-BLM to system
 BioSeq-BLM-Mll（名字保留修改） which utilizes multiple multi-label
 learning strategies and methods providied by BLM to deal with biological
 multi-label learning tasks.
 
-   从贡献上，说本系统和BLM的变化
+（从贡献上，说本系统和BLM的变化
 
 Without changing the shared blcoks in BioSeq-BLM like BLMs construction
 and feature analysis, BLM-Mll brings a powerful multi-label learning
@@ -39,7 +39,7 @@ learning researchers . Futhurmore, BLM-Mll can use nearly all
 single-label learning predictors in BLMs to serve as base-methods of a
 multi-label learning algorithm.
 
-   介绍tutorial的结构，分几部分，每部分主要说什么
+（介绍tutorial的结构，分几部分，每部分主要说什么
 
 This tutorial can be split into x parts
 
@@ -53,7 +53,7 @@ BLM-MLL
 multi-label learning tasks
 --------------------------
 
-   一般性定义，研究的意义
+（一般性定义，研究的意义
 
 Multi-label learning (MLL) is a supervised learning paradigm where each
 real-world entity is associated with a set of labels simultaneously.
@@ -62,7 +62,7 @@ made towards this recent learning paradigm for its potention in
 improving performance of problems where a pattern may have more than one
 associated class.
 
-   Formal Definition
+（Formal Definition
 
 According to Reference [x], we give the formal definition of multi-label
 learning framework. Suppose :math:`\mathcal{X} = {\R}^d` denotes the
@@ -79,7 +79,7 @@ and :math:`Y_i ⊆ \mathcal{Y}` is the set of labels associated with
 multi-label classifier :math:`h(·)` predicts :math:`h(x) ⊆ \mathcal{Y}`
 as the set of proper labels for :math:`x`.
 
-   缩小到生物学中，提出面临的挑战，
+（缩小到生物学中，提出面临的挑战，
 
 In bio-informatics domain, there are many important multi-label learning
 tasks for biological analysis , such as RNA-associated subcellular
@@ -124,7 +124,7 @@ blm
 
 （从blm介绍起，然后说清楚本项目和blm的关系，然后介绍本项目的特点（主要是多标记学习任务）和贡献
 
-   介绍blm，其科学思想
+（介绍blm，其科学思想
 
 In paper X, we proposed the biological language models (BLMs) for DNA,
 RNA and protein sequences to automatically and systematically capture
@@ -147,7 +147,7 @@ semantic in linguistics. (see Figure 1)
 **Figure 1.** The similarities between protein sequence and natural
 language sentence.
 
-   BLM能做什么，意义
+（BLM能做什么，意义
 
 BLMs mainly focuses on the biological neural language models to
 represent and analyze biological sequences based on deep learning
@@ -159,9 +159,9 @@ The BioSeq-BLM is a useful tool for biological sequence analysis,
 computational proteomics and genomics, significantly contributing to the
 development of the bioinformatics.
 
-   指出在多标记学习上的缺口，引出本系统的研究空间
+（指出在多标记学习上的缺口，引出本系统的研究空间
 
-   （BLMs，predictors 可以应用于mll，但是 BioSeq-BLM 却无法应用
+（BLMs，predictors 可以应用于mll，但是 BioSeq-BLM 却无法应用
 
 Unfortunately, The BioSeq-BLM fails to unlock the potential of BLM in
 multi-label learning paradigm for its limitation on single label
@@ -172,7 +172,7 @@ BLM.
 blm-mll
 -------
 
-   介绍blm-mll的功能，说出意义，引出和blm的关系，
+（介绍blm-mll的功能，说出意义，引出和blm的关系，
 
 blm-mll is a system which can automatically construct the BLM, build the
 predictors, evaluate the performance, and analyze the results for both
@@ -234,15 +234,13 @@ How to use this document
 
 (鉴于上述blm和blm-mll两个系统的异同，给出作者使用本文档的建议
 
-()
-
 In view of the similarities and differences between BionSeq-BLM-mll and
 BionSeq-BLM, we
 
 multi-label learning algorithms in blm-mll
 ------------------------------------------
 
-涉及到blm方法作为基方法，要清晰指出不同之处（哪些是blm的，哪些是blm-mll的）
+（涉及到blm方法作为基方法，要清晰指出不同之处（哪些是blm的，哪些是blm-mll的）
 
 ==
 \  
@@ -253,9 +251,9 @@ multi-label learning algorithms in blm-mll
 Conducting multi-label learning tasks with blm-mll
 --------------------------------------------------
 
-介绍 scripts 和 cmd
+（介绍 scripts 和 cmd
 
-(Furthermore, use cases are provided in Quick Start
+（Furthermore, use cases are provided in Quick Start
 
 Example 1 RNA-associated subcellular localizations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
