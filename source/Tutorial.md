@@ -100,6 +100,8 @@ BLMs mainly focuses on the biological neural language models to represent and an
 (http://bliulab.net/BioSeq-BLM). Given the sequence data
 for a specific sequence analysis task, BioSeq-BLM will automatically construct the BLM, select the predictor, evaluate the performance, and analyze the results. The BioSeq-BLM is a useful tool for biological sequence analysis, computational proteomics and genomics, significantly contributing to the development of the bioinformatics.
 
+（导引blm的文档
+
 
 
 （指出在多标记学习上的缺口，引出本系统的研究空间
@@ -162,13 +164,9 @@ table y
 
 ## How to use this document
 
-(鉴于上述blm和blm-mll两个系统的异同，给出作者使用本文档的建议
+(鉴于上述blm和blm-mll两个系统的异同，以及blm现有文档的存量，给出作者使用本文档的建议
 
-In view of the similarities and differences between BionSeq-BLM-mll and BionSeq-BLM, we 
-
-
-
-
+~~Beyond the similarities and differences between BionSeq-BLM-mll and BionSeq-BLM~~
 
 
 
@@ -176,11 +174,37 @@ In view of the similarities and differences between BionSeq-BLM-mll and BionSeq-
 
 （涉及到blm方法作为基方法，要清晰指出不同之处（哪些是blm的，哪些是blm-mll的）
 
-|      |      |
-| ---- | ---- |
-|      |      |
-|      |      |
-|      |      |
+Following [paper](https://blog.csdn.net/nanhuaibeian/article/details/105773504) , the multi-label learning algorithms applied in blm-mll can be divided into two categories: 1) Problem Transformation and 2) Algorithm Adaptation. Besides, they can be categorized into two groups according to the biological data types we procees: Sequence level methods and Residue level methods. Here we use two hierarcical tables to 
+
+
+
+<h4>单元格跨行跨列:</h4>   <!--标题-->
+<table border="1" width="500px" cellspacing="10">
+<tr>
+  <th align="left">表头(左对齐)</th>
+  <th align="center">表头(居中)</th>
+  <th align="right">表头(右对齐)</th>
+</tr>
+<tr>
+  <td>行1，列1</td>
+  <td>行1，列2</td>
+  <td>行1，列3</td>
+</tr>
+<tr>
+  <td colspan="2" align="center">合并行单元格</td>
+  <td>行2，列3</td>
+</tr>
+<tr>
+  <td rowspan="2" align="center">合并列单元格</td>
+  <td>行3，列2</td>
+  <td>行3，列3</td>
+</tr>
+<tr>
+  <td>行4，列2</th>
+  <td>行4，列2</td>
+</tr>
+</table>
+
 
 
 
@@ -208,7 +232,7 @@ In view of the similarities and differences between BionSeq-BLM-mll and BionSeq-
 
 
 
-## Evaluation and interpsaretation of the blm-mll
+## Evaluation and interpretation of the blm-mll
 
 metrics
 
