@@ -1,21 +1,3 @@
 # DataSet
 
-
-
-## D1 name
-
-### Description
-
-
-
-### Data Access
-
-ref
-
-
-
-
-
-## D2 name
-
-…
+转移到代码仓库，不用文档说

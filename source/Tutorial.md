@@ -41,7 +41,7 @@ Multi-label learning (MLL) is a supervised learning paradigm where each real-wor
 > Formal Definition
 
 According to Reference [x], we give the formal definition of multi-label learning framework. Suppose $\mathcal{X} = \R^d$ denotes the *d*-dimensional instance space,
-and $$\mathcal{Y} = \{ y_1, y_2, \cdots , y_q\}$$  denotes the label space with q possible class labels. The task of multilabel learning is to learn a function $h : \mathcal{X} → 2^{\mathcal{Y}}$
+and $\mathcal{Y} = \{ y_1, y_2, \cdots , y_q\}$  denotes the label space with q possible class labels. The task of multilabel learning is to learn a function $h : \mathcal{X} → 2^{\mathcal{Y}}$
 from the multi-label training set $\mathcal{D} = \{(x_i
 , Y_i)\ |\  1 ≤ i ≤ m\}$. For each multi-label example $(x_i , Y_i)$, $x_i ∈ \mathcal{X}$ is a d-dimensional feature vector
 $(x_{i1}, x_{i2}, · · · , x_{id})^⊤$ and $Y_i ⊆ \mathcal{Y}$ is the set of labels associated with $x_i$. For any unseen instance
@@ -88,7 +88,7 @@ biological sequence, structure and function are similar as
 the relationships among sentence, syntactic and semantic
 in linguistics.  (see Figure 1)
 
-
+![a.png](./imgs/a.png)
 
 ![image-20221031101840416](/Users/maiqi/Documents/typora_img/image-20221031101840416.png)
 
@@ -126,53 +126,49 @@ blm-mll is a system which can automatically construct the BLM, build the predict
 
 ## similarities and differences
 
-The two system use the same code for single-label learning tasks, thus sharing the same cmds and documentation. However, there exists some differences of shared blocks in multi-label learning pipeline. ~~To help users better understand the relationship between the two system, we list the similarities and differences for multi-label learning task between them.~~
-
 (单标记流程，完全一样
 
-(多标记流程中，有共享的模块，也有mll新加入的，所以要厘清相同和不同之处
-
-|   similarities    | BLM-mll  |   BLM    |
-| :---------------: | :------: | :------: |
-| BLMs construction | the same | the same |
-|        xx         |          |          |
-|                   |          |          |
+For single-label learning tasks, the BionSeq-BLM-mll use the service of BionSeq-BLM totally, thus sharing the same command lines.
 
 
 
-|               differences                | BLM-mll | BLM  |
-| :--------------------------------------: | :-----: | :--: |
-| if performing multi-label learning tasks |   yes   |  no  |
-|     multi-label learning algorithms      |   80?   |  0   |
-|                                          |         |      |
+(多标记流程和单标记流程，有共享的模块，也有mll新加入的，所以要厘清相同和不同之处
+
+However, there are some biases in the shared blocks of BLM-mll for multi-label learning process. To help users better understand the multi-label learning process of blm-mll, we list the similarities and differences between BLM-mll multi-label learning process and BionSeq-BLM single-label learning process  in table x, y.
 
 
 
+|    similarities     | BionSeq-BLM-mll（mll process） | BionSeq-BLM |
+| :-----------------: | :----------------------------: | :---------: |
+|  BLMs construction  |            the same            |  the same   |
+|  feature analysis   |           retain ab            |     abc     |
+| parameter selection |                                |             |
+
+table x
 
 
 
+|               differences                | BLM-mll（mll process） | BLM  |
+| :--------------------------------------: | :--------------------: | :--: |
+| if performing multi-label learning tasks |          yes           |  no  |
+|     multi-label learning algorithms      |          80?           |  0   |
+|             feature analysis             |       removing c       |      |
+|              residue level               |     sliding window     |  x   |
+|                evaluation                |                        |      |
+
+table y
 
 
-
-- blm能做的，blm-mll都能做，且数据和命令行完全一样
-
-- 输入数据不同，类型，格式
-
-- 输出
-
-- 相似度
-
-- feature analysis
-
-  dimension reduction
-
-- evaluation
 
 
 
 ## How to use this document
 
-进一步，给出作者使用本文档，本系统的最佳方式。
+(鉴于上述blm和blm-mll两个系统的异同，给出作者使用本文档的建议
+
+
+
+
 
 
 
