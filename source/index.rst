@@ -9,7 +9,7 @@ Welcome to blm-mll-alpha's documentation!
 .. toctree::
    :maxdepth: 3
 
-   Tutorial
+   Tutorial.rst
    Installation guide
    Quick start
    Command line tools
