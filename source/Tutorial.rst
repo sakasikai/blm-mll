@@ -65,7 +65,7 @@ associated class.
    Formal Definition
 
 According to Reference [x], we give the formal definition of multi-label
-learning framework. Suppose :math:`\mathcal{X} = \R^d` denotes the
+learning framework. Suppose :math:`\mathcal{X} = {\R}^d` denotes the
 *d*-dimensional instance space, and
 :math:`\mathcal{Y} = \{ y_1, y_2, \cdots , y_q\}` denotes the label
 space with q possible class labels. The task of multilabel learning is
@@ -211,22 +211,21 @@ parameter selection
 
 table x
 
-+------------------------------------------+-----------------------+---+
-| differences                              | BLM-mll（mll          | B |
-|                                          | process）             | L |
-|                                          |                       | M |
-+==========================================+=======================+===+
-| if performing multi-label learning tasks | yes                   | n |
-|                                          |                       | o |
-+------------------------------------------+-----------------------+---+
-| multi-label learning algorithms          | 80?                   | 0 |
-+------------------------------------------+-----------------------+---+
-| feature analysis                         | removing c            |   |
-+------------------------------------------+-----------------------+---+
-| residue level                            | sliding window        | x |
-+------------------------------------------+-----------------------+---+
-| evaluation                               |                       |   |
-+------------------------------------------+-----------------------+---+
++----------------------------------+-------------------------+--------+
+| differences                      | BionSeq-BLM-mll（mll    | BionS  |
+|                                  | process）               | eq-BLM |
++==================================+=========================+========+
+| if performing multi-label        | yes                     | no     |
+| learning tasks                   |                         |        |
++----------------------------------+-------------------------+--------+
+| multi-label learning algorithms  | 80?                     | 0      |
++----------------------------------+-------------------------+--------+
+| feature analysis                 | removing c              |        |
++----------------------------------+-------------------------+--------+
+| residue level                    | sliding window          | x      |
++----------------------------------+-------------------------+--------+
+| evaluation                       |                         |        |
++----------------------------------+-------------------------+--------+
 
 table y
 
@@ -234,6 +233,11 @@ How to use this document
 ------------------------
 
 (鉴于上述blm和blm-mll两个系统的异同，给出作者使用本文档的建议
+
+()
+
+In view of the similarities and differences between BionSeq-BLM-mll and
+BionSeq-BLM, we
 
 multi-label learning algorithms in blm-mll
 ------------------------------------------
