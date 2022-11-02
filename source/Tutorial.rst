@@ -252,6 +252,37 @@ Adaptation. Besides, they can be categorized into two groups according
 to the biological data types we procees: Sequence level methods and
 Residue level methods. Here we use two hierarcical tables to
 
++---------------------------------------------+-------------------------------------+
+|              mll taxonomy                   |             methods                 |
+|                                             +-------------------------------------+
+|                                             |  mll algorithm   base algorithm     |
++========================+====================+==========================+==========+
+| Problem Transformation |      Binary        | Binary Relevance(BR)     |  ml + dl |
+|                        |                    +--------------------------+----------+
+|                        |                    |   Classifier Chains(CC)  |    ml    |
+|                        +--------------------+--------------------------+----------+
+|                        |Label Combination   |  Label Powerset (LP)     |  ml + dl |
+|                        +--------------------+--------------------------+----------+
+|                        |Pairwise & Threshold| Calibrated Label Ranking |  ml + dl |
+|                        |                    +--------------------------+----------+
+|                        |                    |    Fourclass Pairwise    |  ml + dl |
+|                        |                    +--------------------------+----------+
+|                        |                    |     Rank + Threshold	 |  ml + dl |
+|                        +--------------------+--------------------------+----------+
+|                        |  Ensembles of MLL  |               RakelD                |
+|                        |                    +-------------------------------------+
+|                        |                    |               RakelO                |
++------------------------+--------------------+-------------------------------------+
+|  Algorithm Adaptation  |      by kNN        |                ml_kNN               |
+|                        |                    +-------------------------------------+
+|                        |                    |           BRkNNaClassifier          |
+|                        |                    +-------------------------------------+
+|                        |                    |           BRkNNbClassifier          |
+|                        +--------------------+-------------------------------------+
+|                        | by neural networks |       MLARAM(Multi-label ARAM)      |
++------------------------+--------------------+-------------------------------------+ 
+
+
 .. raw:: html
 
    <h4>
