@@ -245,45 +245,70 @@ Following
 , the multi-label learning algorithms applied in blm-mll can be divided
 into two categories: 1) Problem Transformation and 2) Algorithm
 Adaptation. Besides, they can be categorized into two groups according
-to the biological data types we procees: Sequence level methods and
-Residue level methods. Here we use two hierarcical tables to
+to the biological problem we study: 1) Sequence level methods and 2)
+Residue level methods. In this section, we list all of the multi-label
+learning algorithms implemented in blm-mll in tables and give a brief
+introdcution to each of them.
 
-sequence level
+sequence-level problem
+~~~~~~~~~~~~~~~~~~~~~~
+
+Problem Transformation
+^^^^^^^^^^^^^^^^^^^^^^
++--------------------+--------------------------+-------------+
+|     mll taxonomy   |       mll algorithm      | base method |
++====================+==========================+=============+
+|      Binary        |   Binary Relevance(BR)   |   ML + dl   |
+|                    +--------------------------+-------------+
+|                    |   Classifier Chains(CC)  |     ml      |
++--------------------+--------------------------+-------------+
+|  Label Combination |  Label Powerset (LP)     |   ml + dl   |
++--------------------+--------------------------+-------------+
+|Pairwise & Threshold| Calibrated Label Ranking |   ml + dl   |
+|                    +--------------------------+             |
+|                    |    Fourclass Pairwise    |             |
+|                    +--------------------------+             |
+|                    |    Rank   Threshold      |             |
++--------------------+--------------------------+-------------+
+|  Ensembles of MLL  |      RakelD              |   ml + dl   |
+|                    +--------------------------+             |
+|                    |      RakelO              |             |
++--------------------+--------------------------+-------------+  
 
 
-   +---------------------------------------------+-------------------------------------+
-   |              mll taxonomy                   |             methods                 |
-   |                                             +-------------------------------------+
-   |                                             |    multi-label learning  |   base   |
-   +========================+====================+==========================+==========+
-   | Problem Transformation |      Binary        | Binary Relevance(BR)     |  ml + dl |
-   |                        |                    +--------------------------+----------+
-   |                        |                    |   Classifier Chains(CC)  |    ml    |
-   +                        +--------------------+--------------------------+----------+
-   |                        |  Label Combination |  Label Powerset (LP)     |  ml + dl |
-   +                        +--------------------+--------------------------+----------+
-   |                        |Pairwise & Threshold| Calibrated Label Ranking |  ml + dl |
-   |                        |                    +--------------------------+          |
-   |                        |                    |    Fourclass Pairwise    |          |
-   |                        |                    +--------------------------+          |
-   |                        |                    |     Rank + Threshold     |          |
-   +                        +--------------------+--------------------------+----------+
-   |                        |  Ensembles of MLL  |               RakelD                |
-   |                        |                    +-------------------------------------+
-   |                        |                    |               RakelO                |
-   +------------------------+--------------------+-------------------------------------+
-   |  Algorithm Adaptation  |      by kNN        |                ml_kNN               |
-   |                        |                    +-------------------------------------+
-   |                        |                    |           BRkNNaClassifier          |
-   |                        |                    +-------------------------------------+
-   |                        |                    |           BRkNNbClassifier          |
-   +                        +--------------------+-------------------------------------+
-   |                        | by neural networks |       MLARAM(Multi-label ARAM)      |
-   +------------------------+--------------------+-------------------------------------+ 
 
--  mll
--  ml
--  dl
+abbreviation in table
+
+-  mll means multi-lablel learning
+
+-  ml means machine learning methods in blm-mll: SVM, RF
+
+-  dl means deep learning methods in blm-mll: CNN, LSTM, GRU,
+   Transformer, Weighted-transformer
+
+Algorithm Adaptation
+^^^^^^^^^^^^^^^^^^^^
+
++--------------------+--------------------------+-------------+
+|     mll taxonomy   |             mll algorithm              |
++====================+==========================+=============+
+|       by kNN       |                ml_kNN                  |
+|                    +----------------------------------------+
+|                    |           BRkNNaClassifier             |
+|                    +----------------------------------------+
+|                    |           BRkNNbClassifier             |
++--------------------+----------------------------------------+
+| by neural networks |       MLARAM(Multi-label ARAM)         |
++--------------------+----------------------------------------+ 
+
+
+residue-level problem
+~~~~~~~~~~~~~~~~~~~~~
+
+just like blm do, we use a sliding window strategy in blm-mll to
+transform residue-level problems into sequence-level problems which
+means all of the N mll algorithms can be applied to residue-level
+problems.
 
 Conducting multi-label learning tasks with blm-mll
 --------------------------------------------------

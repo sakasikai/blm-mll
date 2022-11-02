@@ -174,49 +174,34 @@ table y
 
 （涉及到blm方法作为基方法，要清晰指出不同之处（哪些是blm的，哪些是blm-mll的）
 
-Following [paper](https://blog.csdn.net/nanhuaibeian/article/details/105773504) , the multi-label learning algorithms applied in blm-mll can be divided into two categories: 1) Problem Transformation and 2) Algorithm Adaptation. Besides, they can be categorized into two groups according to the biological data types we procees: Sequence level methods and Residue level methods. Here we use two hierarcical tables to 
+Following [paper](https://blog.csdn.net/nanhuaibeian/article/details/105773504) , the multi-label learning algorithms applied in blm-mll can be divided into two categories: 1) Problem Transformation and 2) Algorithm Adaptation. Besides, they can be categorized into two groups according to the biological problem we study: 1) Sequence level methods and 2) Residue level methods. In this section, we list all of the multi-label learning algorithms implemented in blm-mll in tables and give a brief introdcution to each of them. 
 
 
 
-sequence level
+### sequence-level problem
+
+#### Problem Transformation
 
 
 
-```reStructuredText
-+---------------------------------------------+-------------------------------------+
-|              mll taxonomy                   |             methods                 |
-|                                             +-------------------------------------+
-|                                             |    multi-label learning  |   base   |
-+========================+====================+==========================+==========+
-| Problem Transformation |      Binary        | Binary Relevance(BR)     |  ml + dl |
-|                        |                    +--------------------------+----------+
-|                        |                    |   Classifier Chains(CC)  |    ml    |
-+                        +--------------------+--------------------------+----------+
-|                        |  Label Combination |  Label Powerset (LP)     |  ml + dl |
-+                        +--------------------+--------------------------+----------+
-|                        |Pairwise & Threshold| Calibrated Label Ranking |  ml + dl |
-|                        |                    +--------------------------+          |
-|                        |                    |    Fourclass Pairwise    |          |
-|                        |                    +--------------------------+          |
-|                        |                    |     Rank + Threshold	   |          |
-+                        +--------------------+--------------------------+----------+
-|                        |  Ensembles of MLL  |               RakelD                |
-|                        |                    +-------------------------------------+
-|                        |                    |               RakelO                |
-+------------------------+--------------------+-------------------------------------+
-|  Algorithm Adaptation  |      by kNN        |                ml_kNN               |
-|                        |                    +-------------------------------------+
-|                        |                    |           BRkNNaClassifier          |
-|                        |                    +-------------------------------------+
-|                        |                    |           BRkNNbClassifier          |
-+                        +--------------------+-------------------------------------+
-|                        | by neural networks |       MLARAM(Multi-label ARAM)      |
-+------------------------+--------------------+-------------------------------------+ 
-```
 
-- mll
-- ml
-- dl
+
+abbreviation in table
+
+- mll means multi-lablel learning
+- ml means machine learning methods in blm-mll: SVM, RF
+
+- dl means deep learning methods in blm-mll: CNN, LSTM, GRU, Transformer, Weighted-transformer
+
+#### Algorithm Adaptation
+
+
+
+
+
+### residue-level problem
+
+just like blm do, we use a sliding window strategy in blm-mll to transform residue-level problems into sequence-level problems which means all of the N mll algorithms can be applied to residue-level problems.
 
 
 
