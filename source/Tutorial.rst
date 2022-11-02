@@ -250,7 +250,7 @@ Residue level methods. Here we use two hierarcical tables to
 
 sequence level
 
-::
+.. code:: restructuredtext
 
    +---------------------------------------------+-------------------------------------+
    |              mll taxonomy                   |             methods                 |
@@ -267,7 +267,7 @@ sequence level
    |                        |                    +--------------------------+          |
    |                        |                    |    Fourclass Pairwise    |          |
    |                        |                    +--------------------------+          |
-   |                        |                    |     Rank + Threshold     |          |
+   |                        |                    |     Rank + Threshold       |          |
    +                        +--------------------+--------------------------+----------+
    |                        |  Ensembles of MLL  |               RakelD                |
    |                        |                    +-------------------------------------+
