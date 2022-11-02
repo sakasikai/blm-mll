@@ -247,14 +247,15 @@ into two categories: 1) Problem Transformation and 2) Algorithm
 Adaptation. Besides, they can be categorized into two groups according
 to the biological problem we study: 1) Sequence level methods and 2)
 Residue level methods. In this section, we list all of the multi-label
-learning algorithms implemented in blm-mll in tables and give a brief
-introdcution to each of them.
+learning algorithms implemented in tables x. If users want to learn more
+about them, please refer to `command line
+tools <https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#tables>`__.
 
 sequence-level problem
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Problem Transformation
-^^^^^^^^^^^^^^^^^^^^^^
+Problem Transformation methods
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 +--------------------+--------------------------+-------------+
 |     mll taxonomy   |       mll algorithm      | base method |
 +====================+==========================+=============+
@@ -275,8 +276,6 @@ Problem Transformation
 |                    |      RakelO              |             |
 +--------------------+--------------------------+-------------+  
 
-
-
 abbreviation in table
 
 -  mll means multi-lablel learning
@@ -286,9 +285,8 @@ abbreviation in table
 -  dl means deep learning methods in blm-mll: CNN, LSTM, GRU,
    Transformer, Weighted-transformer
 
-Algorithm Adaptation
-^^^^^^^^^^^^^^^^^^^^
-
+Algorithm Adaptation methods
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 +--------------------+--------------------------+-------------+
 |     mll taxonomy   |             mll algorithm              |
 +====================+==========================+=============+
@@ -299,8 +297,7 @@ Algorithm Adaptation
 |                    |           BRkNNbClassifier             |
 +--------------------+----------------------------------------+
 | by neural networks |       MLARAM(Multi-label ARAM)         |
-+--------------------+----------------------------------------+ 
-
++--------------------+----------------------------------------+
 
 residue-level problem
 ~~~~~~~~~~~~~~~~~~~~~
@@ -310,29 +307,38 @@ transform residue-level problems into sequence-level problems which
 means all of the N mll algorithms can be applied to residue-level
 problems.
 
-Conducting multi-label learning tasks with blm-mll
---------------------------------------------------
+[STRIKEOUT:Conducting multi-label learning tasks with blm-mll]
 
 （介绍 scripts 和 cmd
 
 （Furthermore, use cases are provided in Quick Start
 
-Example 1 RNA-associated subcellular localizations
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Evaluation of the blm-mll
+-------------------------
 
-命令行，参数，数据
+Following
+`scikit-multilearn <http://scikit.ml/api/0.1.0/modelselection.html#Generalization-quality-measures>`__,
+six metrics are used to evaluate the performace of blm-mll.
 
-结果评估
+-  `Hamming
+   loss <http://scikit-learn.org/stable/modules/generated/sklearn.metrics.hamming_loss.html#sklearn.metrics.hamming_loss>`__
+   measures how well the classifier predicts each of the labels,
+   averaged over samples, then over labels
+-  `accuracy
+   score <http://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score>`__
+   measures how well the classifier predicts label combinations,
+   averaged over samples
+-  `jaccard
+   similarity <http://scikit-learn.org/stable/modules/generated/sklearn.metrics.jaccard_similarity_score.html#sklearn.metrics.jaccard_similarity_score>`__
+   measures the proportion of predicted labels for a sample to its
+   correct assignment, averaged over samples
+-  `precision <http://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_score.html#sklearn.metrics.precision_score>`__
+   measures how many samples with ,
+-  `recall <http://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html#sklearn.metrics.recall_score>`__
+   measures how many samples ,
+-  `F1
+   score <http://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html#sklearn.metrics.f1_score>`__
+   measures a weighted average of precision and recall, where both have
+   the same impact on the score
 
-Example 2 protein subcellular localization
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Example 3
-~~~~~~~~~
-
-Evaluation and interpretation of the blm-mll
---------------------------------------------
-
-metrics
-
-feature analysis
+These measures are conveniently provided by sklearn
