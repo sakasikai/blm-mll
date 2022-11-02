@@ -1,7 +1,3 @@
-.. contents::
-   :depth: 3
-..
-
 Tutorial
 ========
 
@@ -252,224 +248,43 @@ Adaptation. Besides, they can be categorized into two groups according
 to the biological data types we procees: Sequence level methods and
 Residue level methods. Here we use two hierarcical tables to
 
-+---------------------------------------------+-------------------------------------+
-|              mll taxonomy                   |             methods                 |
-|                                             +-------------------------------------+
-|                                             |  mll algorithm   base algorithm     |
-+========================+====================+==========================+==========+
-| Problem Transformation |      Binary        | Binary Relevance(BR)     |  ml + dl |
-|                        |                    +--------------------------+----------+
-|                        |                    |   Classifier Chains(CC)  |    ml    |
-|                        +--------------------+--------------------------+----------+
-|                        |Label Combination   |  Label Powerset (LP)     |  ml + dl |
-|                        +--------------------+--------------------------+----------+
-|                        |Pairwise & Threshold| Calibrated Label Ranking |  ml + dl |
-|                        |                    +--------------------------+----------+
-|                        |                    |    Fourclass Pairwise    |  ml + dl |
-|                        |                    +--------------------------+----------+
-|                        |                    |     Rank + Threshold	 |  ml + dl |
-|                        +--------------------+--------------------------+----------+
-|                        |  Ensembles of MLL  |               RakelD                |
-|                        |                    +-------------------------------------+
-|                        |                    |               RakelO                |
-+------------------------+--------------------+-------------------------------------+
-|  Algorithm Adaptation  |      by kNN        |                ml_kNN               |
-|                        |                    +-------------------------------------+
-|                        |                    |           BRkNNaClassifier          |
-|                        |                    +-------------------------------------+
-|                        |                    |           BRkNNbClassifier          |
-|                        +--------------------+-------------------------------------+
-|                        | by neural networks |       MLARAM(Multi-label ARAM)      |
-+------------------------+--------------------+-------------------------------------+ 
-
-
-.. raw:: html
-
-   <h4>
-
-单元格跨行跨列:
-
-.. raw:: html
-
-   </h4>
-
-.. raw:: html
-
-   <table border="1" width="500px" cellspacing="10">
-
-.. raw:: html
-
-   <tr>
-
-.. raw:: html
-
-   <th align="left">
-
-表头(左对齐)
-
-.. raw:: html
-
-   </th>
-
-.. raw:: html
-
-   <th align="center">
-
-表头(居中)
-
-.. raw:: html
-
-   </th>
-
-.. raw:: html
-
-   <th align="right">
-
-表头(右对齐)
-
-.. raw:: html
-
-   </th>
-
-.. raw:: html
-
-   </tr>
-
-.. raw:: html
-
-   <tr>
-
-.. raw:: html
-
-   <td>
-
-行1，列1
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td>
-
-行1，列2
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td>
-
-行1，列3
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   </tr>
-
-.. raw:: html
-
-   <tr>
-
-.. raw:: html
-
-   <td colspan="2" align="center">
-
-合并行单元格
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td>
-
-行2，列3
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   </tr>
-
-.. raw:: html
-
-   <tr>
-
-.. raw:: html
-
-   <td rowspan="2" align="center">
-
-合并列单元格
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td>
-
-行3，列2
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td>
-
-行3，列3
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   </tr>
-
-.. raw:: html
-
-   <tr>
-
-.. raw:: html
-
-   <td>
-
-行4，列2
-
-.. raw:: html
-
-   </th>
-
-.. raw:: html
-
-   <td>
-
-行4，列2
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   </tr>
-
-.. raw:: html
-
-   </table>
+sequence level
+
+::
+
+   +---------------------------------------------+-------------------------------------+
+   |              mll taxonomy                   |             methods                 |
+   |                                             +-------------------------------------+
+   |                                             |    multi-label learning  |   base   |
+   +========================+====================+==========================+==========+
+   | Problem Transformation |      Binary        | Binary Relevance(BR)     |  ml + dl |
+   |                        |                    +--------------------------+----------+
+   |                        |                    |   Classifier Chains(CC)  |    ml    |
+   +                        +--------------------+--------------------------+----------+
+   |                        |  Label Combination |  Label Powerset (LP)     |  ml + dl |
+   +                        +--------------------+--------------------------+----------+
+   |                        |Pairwise & Threshold| Calibrated Label Ranking |  ml + dl |
+   |                        |                    +--------------------------+          |
+   |                        |                    |    Fourclass Pairwise    |          |
+   |                        |                    +--------------------------+          |
+   |                        |                    |     Rank + Threshold     |          |
+   +                        +--------------------+--------------------------+----------+
+   |                        |  Ensembles of MLL  |               RakelD                |
+   |                        |                    +-------------------------------------+
+   |                        |                    |               RakelO                |
+   +------------------------+--------------------+-------------------------------------+
+   |  Algorithm Adaptation  |      by kNN        |                ml_kNN               |
+   |                        |                    +-------------------------------------+
+   |                        |                    |           BRkNNaClassifier          |
+   |                        |                    +-------------------------------------+
+   |                        |                    |           BRkNNbClassifier          |
+   +                        +--------------------+-------------------------------------+
+   |                        | by neural networks |       MLARAM(Multi-label ARAM)      |
+   +------------------------+--------------------+-------------------------------------+ 
+
+-  mll
+-  ml
+-  dl
 
 Conducting multi-label learning tasks with blm-mll
 --------------------------------------------------
