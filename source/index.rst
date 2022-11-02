@@ -9,11 +9,10 @@ Welcome to blm-mll-alpha's documentation!
 .. toctree::
    :maxdepth: 3
 
-   Tutorial.rst
    Installation guide
    Quick start
+   Tutorial.rst
    Command line tools
-   DataSet
    Authors
 
 
