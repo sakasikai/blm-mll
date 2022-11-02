@@ -250,7 +250,6 @@ Residue level methods. Here we use two hierarcical tables to
 
 sequence level
 
-.. code:: restructuredtext
 
    +---------------------------------------------+-------------------------------------+
    |              mll taxonomy                   |             methods                 |
