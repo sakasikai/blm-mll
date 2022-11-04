@@ -2,23 +2,1291 @@
 
 # Command line tools
 
-要包含blm的命令，介绍的时候，是从 blm + blm-mll 整体介绍的
+处理blm历史文档的几个思想：
 
-> 特征提取、特征分析等方法是复用的，所以要从blm，blm-mll整体来说
+- 在文档介绍blm模块时要简略，同时导引用户读论文和blm文档。
 
-> 因为用户有同时使用blm和blm-mll功能的需要，所以不能只写增量部分，会产生割裂，和不方便，所以在命令行层面，要都写
+  关键是尽可能地在发生这种简略的地方给出链接和导读。
 
+- 在文档的命令行介绍中，要把blm命令行和新系统命令行同时展现，使用户在复杂用例下只需一个新文档就可以查到所需的全部新老命令。即在命令行层面进行新老文档的深度融合。
 
-
-## Shared Command lines
-
-blm能做的，blm-mll都能做，且做的完全一样。
-
-这里，会覆盖所有的blm命令，但不会详细解释，会导引到blm项目
+- 为提高效率，blm命令行会保留原blm manual中的介绍风格。
 
 
 
-## Sequence level multi-label learning algorithms
+先概括介绍cmds的介绍结构，再查表
+
+结构：
+
+multi-label cmds
+
+==> 先介绍 cmds in shared blocks，
+
+==> 介绍新算法 cmds
+
+
+
+single-label cmds
+
+==> 这部分 和blm完全一致
+
+
+
+太多了，会分成两页
+
+
+
+## Single-label Learning Commands
+
+### FeatureExtractionSeq.py
+
+#### Synopsis
+
+Command line arguments for “FeatureExtractionSeq.py”:
+
+#### Required Options
+
+- `-category {DNA,RNA,Protein}`
+
+  The category of input sequences. 
+
+- `-mode{OHE,BOW,TF-IDF,TR,WE,TM,SR,AF} `
+
+  The feature extraction mode for input sequence which analogies with NLP, for example: bag of words (BOW).
+
+- `-seq_file[SEQ_FILE [SEQ_FILE ...]] `
+
+  The input file in FASTA format. 
+
+- `-label [LABEL [LABEL ...]] `
+
+  The corresponding label of input sequence files.
+
+
+
+#### Optional Options
+
+- `-h, --help `
+
+  Show this help message and exit.
+
+- `-words {Kmer,RevKmer,Mismatch,Subsequence,Top-NGram,DR,DT} `
+
+  If you select mode in ['BOW', 'TF-IDF', 'TR', 'WE', 'TM'], you should select word for corresponding mode, for example Mismatch. Pay attention to that different category has different words, please reference to manual.
+
+- `-method METHOD`
+
+  If you select mode in ['OHE', 'WE', 'TM', 'SR', 'AF'], you should select method for corresponding mode, for example, select 'LDA' for 'TM' mode, select 'word2vec' for 'WE' mode and so on. For different category, the methods belong to 'OHE' and 'SR' modeis different, please reference to manual. 
+
+- `-auto_opt {0,1,2}`
+
+  Choose whether automatically traverse the argument list. 2 is automatically traversing the argument list set ahead, 1 is automatically traversing the argument list in a smaller range, while 0 is not (default=0). 
+
+- `-cpu CPU`
+
+  The maximum number of CPU cores used for multiprocessing in generating frequency profile and the number of CPU cores used for multiprocessing during parameter selection process (default=1).
+
+- `-pp_file PP_FILE `
+
+  The physicochemical properties file user input. If input nothing, the default physicochemical properties is: DNA dinucleotide: Rise, Roll, Shift, Slide, Tilt, Twist. DNA trinucleotide: Dnase I, Bendability (DNAse). RNA: Rise, Roll, Shift, Slide, Tilt, Twist. Protein: Hydrophobicity, Hydrophilicity, Mass.
+
+- `-word_size[WORD_SIZE [WORD_SIZE ...]]`
+
+  The word size of sequences for specific words (the range of word_size is between 1 and 6).
+
+- `-mis_num[MIS_NUM [MIS_NUM ...]] `
+
+  For Mismatch words. The max value inexact matching, mis_num should smaller than word_size (the range of mis_num is between 1 and 6).
+
+- `-delta [DELTA [DELTA ...]]`
+
+  For Subsequence words. The value of penalized factor (the range of delta is between 0 and 1).
+
+- `-top_n [TOP_N [TOP_N ...]]`
+
+  The maximum distance between structure statuses (the range of delta is between 1 and 4). It works with Top-n-gram words.
+
+- `-max_dis[MAX_DIS [MAX_DIS ...]] `
+
+  The max distance value for DR words and DT words (default is from 1 to 4).
+
+- `-alpha ALPHA `
+
+  Damping parameter for PageRank used in 'TR' mode, default=0.85.
+
+- `-win_size WIN_SIZE`
+
+  The maximum distance between the current and predicted word within a sentence for ‘word2vec’ in ‘WE’ mode, etc.
+
+- `-vec_dim VEC_DIM`
+
+  The output dimension of feature vectors for 'Glove' model and dimensionality of a word vectors for 'word2vec' and 'fastText' method.
+
+- `-sg SG`
+
+  Training algorithm for 'word2vec' and 'fastText' method. 1 for skip-gram, otherwise CBOW.
+
+- `-in_tm{BOW,TF-IDF,TextRank} `
+
+  While topic model implement subject extraction from a text, the text need to be preprocessed by one of mode in choices.
+
+- `-com_prop COM_PROP`
+
+  If choose topic model mode, please set component proportion for output feature vectors.
+
+- `-oli {0,1}`
+
+  Choose one kind of Oligonucleotide(default=0): 0 represents dinucleotid; 1 represents trinucleotide. For MAC, GAC, NMBAC methods of 'SR' mode.
+
+- `-lag [LAG [LAG ...]]`
+
+  The value of lag (default=1). For DACC, TACC, ACC, ACC-PSSM, AC-PSSM or CC-PSSM methods and so on.
+
+- `-lamada[LAMADA [LAMADA ...]] `
+
+  The value of lamada (default=1). For MAC, PDT, PDT-Profile, GAC or NMBAC methods and so on
+
+- `-w [W [W ...]] `
+
+  The value of weight (default=0.1). For ZCPseKNC method.
+
+- `-k [K [K ...]]`
+
+  The value of Kmer, it works only with ZCPseKNC method.
+
+- `-n [N [N ...]]`
+
+  The maximum distance between structure statuses (default=1). It works with PDT-Profile method.
+
+- `-ui_file UI_FILE `
+
+  The user-defined physicochemical property file.
+
+- `-all_index `
+
+  Choose all physicochemical indices.
+
+- `-no_all_index `
+
+  Do not choose all physicochemical indices, default.
+
+- `-in_af `
+
+  Choose the input for 'AF' mode from 'OHE' mode.
+
+- `-lr LR `
+
+  The value of learning rate, it works only with 'AF' mode.
+
+- `-epochs EPOCHS `
+
+  The epoch number of train process for 'AF' mode.
+
+- `-batch_size BATCH_SIZE `
+
+  The size of mini-batch, it works only with 'AF' mode.
+
+- `-dropout DROPOUT `
+
+  The value of dropout prob, it works only with 'AF' mode.
+
+- `-fea_dim FEA_DIM `
+
+  The output dimension of feature vectors, it works only with 'AF' mode.
+
+- `-hidden_dim HIDDEN_DIM `
+
+  The size of the intermediate (a.k.a., feed forward) layer, it works only with 'AF' mode.
+
+- `-n_layer N_LAYER `
+
+  The number of units for LSTM and GRU, it works only with 'AF' mode.
+
+- `-motif_database {ELM,Mega} `
+
+  The database where input motif file comes from.
+
+- `-motif_file MOTIF_FILE `
+
+  The short linear motifs from ELM database or structural motifs from the MegaMotifBase.
+
+- `-score {ED,MD,CD,HD,JSC,CS,PCC,KLD,none}`
+
+  Choose whether calculate semantic similarity score and what method for calculation.
+
+- `-cv {5,10,j} `
+
+  The cross validation mode. 5 or 10: 5-fold or 10-fold cross validation, j: (character 'j') jackknife cross validation.
+
+- `-fixed_len FIXED_LEN`
+
+  The length of sequence will be fixed via cutting orpadding. If you don't set value for 'fixed_len', it will be the maximum length of all input sequences.
+
+- `-format {tab,svm,csv,tsv} `
+
+  The output format (default=csv). tab –Simple format, delimited by TAB. svm -- The libSVM training data format. csv, tsv -- The format that can be loaded into a spreadsheet program.
+
+- `-bp {0,1}`
+
+  Select use batch mode or not, the parameter will change the directory for generating file based on the method you choose.
+
+
+
+### FeatureExtractionRes.py
+
+#### Synopsis
+
+Command line arguments for “FeatureExtractionRes.py”:
+
+
+
+#### Required Options
+
+- `-category {DNA,RNA,Protein}` 
+
+  The category of input sequences. 
+
+- `-method `
+
+  Please select feature extraction method for residue level analysis. 
+
+- `-seq_file` 
+
+  The input sequence file in FASTA format. 
+
+- `-label_file` 
+
+  The corresponding label file. 
+
+  
+
+#### Optional Options
+
+- `-h, --help `
+
+  Show this help message and exit. 
+
+- `-trans {0,1} `
+
+  Select whether use sliding window technique to transform sequence-labelling question to classification question. 
+
+- `-window WINDOW `
+
+  The window size when construct sliding window technique for allocating every label a short sequence. 
+
+- `-fragment {0,1} `
+
+  Please choose whether use the fragment method, 1 is yes while 0 is no.
+
+- `-cpu CPU `
+
+  The maximum number of CPU cores used for multiprocessing in generating frequency profile.
+
+- `-pp_file PP_FILE `
+
+  The physicochemical properties file user input. If input nothing, the default physicochemical properties is: DNA dinucleotide: Rise, Roll, Shift, Slide, Tilt, Twist. DNA trinucleotide: Dnase I, Bendability (DNAse). RNA: Rise, Roll, Shift, Slide, Tilt, Twist. Protein: Hydrophobicity, Hydrophilicity, Mass.
+
+- `-fixed_len FIXED_LEN`
+
+  The length of sequence will be fixed via cutting or padding. If you don't set value for 'fixed_len', it will be the maximum length of all input sequences.
+
+- `-format {tab,svm,csv,tsv} `
+
+  The output format (default=csv). tab –Simple format, delimited by TAB. svm -- The libSVM training data format. csv, tsv -- The format that can be loaded into a spreadsheet program.
+
+- `-bp {0,1} `
+
+  Select use batch mode or not, the parameter will change the directory for generating file based on the method you choose.
+
+
+
+### FeatureAnalysis.py
+
+#### Synopsis
+
+Command line arguments for “FeatureAnalysis.py”:
+
+#### Required Options
+
+- `-vec_file[VEC_FILE [VEC_FILE ...]] `
+
+  The input feature vector files.
+
+- `-label [LABEL [LABEL ...]] `
+
+  The corresponding label of input vector files is required.
+
+#### Optional Options
+
+- `-h, --help `
+
+  Show this help message and exit.
+
+- `-sn {min-max-scale,standard-scale,L1-normalize,L2-normalize,none}`
+
+  Choose method of standardization or normalization for feature vectors.
+
+- `-cl {AP,DBSCAN,GMM,AGNES,Kmeans,none} `
+
+  Choose method for clustering.
+
+- `-cm {feature,sample} `
+
+  The mode for clustering.
+
+- `-nc NC `
+
+  The number of clusters.
+
+- `-fs{chi2,F-value,MIC,RFE,Tree,none} `
+
+  Select feature select method.
+
+- `-nf NF `
+
+  The number of features after feature selection.
+
+- `-dr{PCA, KernelPCA,TSVD,none} `
+
+  Choose method for dimension reduction.
+
+- `-np NP `
+
+  The dimension of main component after dimension reduction.
+
+- `-rdb {no,fs,dr}`
+
+  Reduce dimension by: 'no'---none; 'fs'---apply feature selection to parameter selection procedure; 'dr'--- apply dimension reduction to parameter selection procedure.
+
+- `-format {tab,svm,csv,tsv}`
+
+  The output format (default=csv). tab – Simple format, delimited by TAB. svm -- The libSVM training data format. csv, tsv -- The format that can be loaded into a spreadsheet program.
+
+
+
+### **MachineLearningSeq.py**
+
+#### Synopsis
+
+Command line arguments for “MachineLearningSeq.py”
+
+
+
+#### Required Options
+
+- `-ml {SVM,RF,CNN,LSTM,GRU,Transformer,WeightedTransformer,Reformer}`
+
+  The machine-learning algorithm for constructing predictor, for example: Support Vector Machine (SVM).
+
+- `-vec_file[VEC_FILE [VEC_FILE ...]] `
+
+  The input feature vector files.
+
+- `-label [LABEL [LABEL ...]] `
+
+  The corresponding label of input vector files is required.
+
+
+
+#### Optional Options
+
+- `-h, --help `
+
+  Show this help message and exit.
+
+- `-cpu CPU`
+
+  The number of CPU cores used for multiprocessing during parameter selection process (default=1).
+
+- `-grid [{0,1} [{0,1} ...]] `
+
+  Grid=0 for rough grid search, grid=1 for meticulous grid search.
+
+- `-cost [COST [COST ...]] `
+
+  Regularization parameter of 'SVM'.
+
+- `-gamma[GAMMA [GAMMA ...]] `
+
+  Kernel coefficient for 'rbf' of 'SVM'.
+
+- `-tree [TREE [TREE ...]] `
+
+  The number of trees in the forest for 'RF'.
+
+- `-lr LR `
+
+  The value of learning rate for deep learning.
+
+- `-epochs EPOCHS `
+
+  The epoch number for train deep model.
+
+- `-batch_size BATCH_SIZE `
+
+  The size of mini-batch for deep learning.
+
+- `-dropout DROPOUT `
+
+  The value of dropout prob for deep learning.
+
+- `-hidden_dim HIDDEN_DIM `
+
+  The size of the intermediate (a.k.a., feed forward) layer.
+
+- `-n_layer N_LAYER `
+
+  The number of units for 'LSTM' and 'GRU'.
+
+- `-out_channels OUT_CHANNELS `
+
+  The number of output channels for 'CNN'
+
+- `-kernel_size KERNEL_SIZE `
+
+  The size of stride for 'CNN'.
+
+- `-d_model D_MODEL`
+
+  The dimension of multi-head attention layer for Transformer or Weighted-Transformer.
+
+- `-d_ff D_FF `
+
+  The dimension of fully connected layer of Transformer or Weighted-Transformer.
+
+- `-heads HEADS `
+
+  The number of heads for Transformer or Weighted-Transformer.
+
+- `-metric {Acc,MCC,AUC,BAcc,F1} `
+
+  The metric for parameter selection
+
+- `-cv {5,10,j}`
+
+  The cross validation mode. 5 or 10: 5-fold or 10-fold cross validation, j: (character 'j') jackknife cross validation.
+
+- `-sp {none,over,under,combine} `
+
+  Select technique for oversampling.
+
+- `-ind_vec_file [IND_VEC_FILE [IND_VEC_FILE ...]]`
+
+  The feature vector files of independent test dataset.
+
+- `-format {tab,svm,csv,tsv}`
+
+  The input format (default=csv). tab –Simple format, delimited by TAB. svm --The libSVM training data format. csv, tsv --The format that can be loaded into a spreadsheet program.
+
+
+
+### **MachineLearningRes.py**
+
+#### Synopsis
+
+Command line arguments for “MachineLearningRes.py”:
+
+
+
+#### Required Options
+
+- `-ml {SVM,RF,CRF,CNN,LSTM,GRU,Transformer,Weighted-Transformer,Reformer}`
+
+  The machine-learning algorithm for constructing predictor, for example: Support Vector Machine (SVM).
+
+- `-vec_file[VEC_FILE [VEC_FILE ...]]`
+
+  The input feature vector file(s). If dichotomy, inputting positive sample before negative sample is required.
+
+- `-label_file `
+
+  The corresponding label file is required.
+
+
+
+#### Optional Options
+
+- `-h, --help `
+
+  Show this help message and exit.
+
+- `-cpu CPU`
+
+  The number of CPU cores used for multiprocessing during parameter selection process (default=1).
+
+- `-grid [{0,1} [{0,1} ...]] `
+
+  Grid=0 for rough grid search, grid=1 for meticulous grid search.
+
+- `-cost [COST [COST ...]] `
+
+  Regularization parameter of 'SVM'.
+
+- `-gamma[GAMMA [GAMMA ...]] `
+
+  Kernel coefficient for 'rbf' of 'SVM'.
+
+- `-tree [TREE [TREE ...]] `
+
+  The number of trees in the forest for 'RF'.
+
+- `-lr LR `
+
+  The value of learning rate for deep learning.
+
+- `-epochs EPOCHS `
+
+  The epoch number for training deep learning model.
+
+- `-batch_size BATCH_SIZE `
+
+  The size of mini-batch for deep learning.
+
+- `-dropout DROPOUT `
+
+  The value of dropout prob for deep learning.
+
+- `-hidden_dim HIDDEN_DIM `
+
+  The size of the intermediate (a.k.a., feed forward) layer.
+
+- `-n_layer N_LAYER `
+
+  The number of units for 'LSTM' and 'GRU'.
+
+- `-out_channels OUT_CHANNELS `
+
+  The number of output channels for 'CNN'
+
+- `-kernel_size KERNEL_SIZE `
+
+  The size of stride for 'CNN'.
+
+- `-d_model D_MODEL`
+
+  The dimension of multi-head attention layer for Transformer or Weighted-Transformer.
+
+- `-d_ff D_FF `
+
+  The dimension of fully connected layer of Transformer or Weighted-Transformer.
+
+- `-heads HEADS `
+
+  The number of heads for Transformer or Weighted-Transformer.
+
+- `-metric {Acc,MCC,AUC,BAcc,F1} `
+
+  The metric for parameter selection
+
+- `-cv {5,10,j}`
+
+  The cross validation mode. 5 or 10: 5-fold or 10-fold cross validation, j: (character 'j') jackknife cross validation.
+
+- `-sp {none,over,under,combine} `
+
+  Select technique for oversampling.
+
+- `-ind_vec_file [IND_VEC_FILE [IND_VEC_FILE ...]] `
+
+  The feature vector files of independent test dataset.
+
+- `-ind_label_file IND_LABEL_FILE `
+
+  The corresponding label file of independent test dataset.
+
+- `-format {tab,svm,csv,tsv}`
+
+  The input format (default=csv). tab –Simple format, delimited by TAB. svm --The libSVM training data format. csv, tsv --The format that can be loaded into a spreadsheet program.
+
+
+
+
+
+### BioSeq-BLM_Seq.py
+
+Command line arguments for “BioSeq-BLM_Seq.py”:
+
+Required Description
+
+-category {DNA,RNA,Protein} The category of input sequences.
+
+-mode{OHE,BOW,TF-IDF,TR,WE,
+
+TM,SR,AF}
+
+The feature extraction mode for input 
+
+sequence which analogies with NLP, for 
+
+example: bag of words (BOW).
+
+-ml {SVM,RF,CNN,LSTM,
+
+GRU,Transformer,Weighted
+
+Transformer,Reformer}
+
+The machine-learning algorithm for 
+
+constructing predictor, for example: 
+
+Support Vector Machine (SVM).
+
+-seq_file[SEQ_FILE [SEQ_FILE ...]] The input file in FASTA format.
+
+-label [LABEL [LABEL ...]] The corresponding label of input 
+
+sequence files.
+
+Optional Description
+
+-h, --help Show this help message and exit.**Manual of BioSeq-BLM**
+
+21
+
+-score {ED,MD,CD,HD,JSC,CS,
+
+PCC,KLD,none}
+
+Choose whether calculate semantic 
+
+similarity score and what method for 
+
+calculation.
+
+-words {Kmer,RevKmer,Mismatch,
+
+Subsequence,Top-NGram,
+
+DR,DT}
+
+If you select mode in ['BOW', 'TF-IDF', 
+
+'TR', 'WE', 'TM'], you should select word 
+
+for corresponding mode, for example 
+
+Mismatch. Pay attention to that different 
+
+category has different words, please 
+
+reference to manual.
+
+-method METHOD
+
+If you select mode in ['OHE', 'WE', 'TM', 
+
+'SR', 'AF'], you should select method for 
+
+corresponding mode, for example, select 
+
+'LDA' for 'TM' mode, select 'word2vec' for 
+
+'WE' mode and so on. For different 
+
+category, the methods belong to 'OHE' and 
+
+'SR' mode is different, please reference to 
+
+manual.
+
+-auto_opt {0,1,2}
+
+Choose whether automatically traverse the 
+
+argument list. 2 is automatically traversing 
+
+the argument list set ahead, 1 is 
+
+automatically traversing the argument list 
+
+in a smaller range, while 0 is not 
+
+(default=0).
+
+-cpu CPU
+
+The maximum number of CPU cores used 
+
+for multiprocessing in generating frequency 
+
+profile and the number of CPU cores used 
+
+for multiprocessing during parameter 
+
+selection process (default=1).
+
+-pp_file PP_FILE
+
+The physicochemical properties file user 
+
+input. If input nothing, the default 
+
+physicochemical properties is: DNA 
+
+dinucleotide: Rise, Roll, Shift, Slide, Tilt, 
+
+Twist. DNA trinucleotide: Dnase I, 
+
+Bendability (DNAse). RNA: Rise, Roll, Shift, 
+
+Slide, Tilt, Twist. Protein: Hydrophobicity, 
+
+Hydrophilicity, Mass.
+
+-word_size[WORD_SIZE 
+
+[WORD_SIZE ...]]
+
+The word size of sequences for specific 
+
+words (the range of word_size is between 1 
+
+and 6).
+
+-mis_num[MIS_NUM [MIS_NUM ...]]
+
+For Mismatch words. The max value inexact 
+
+matching, mis_num should smaller than 
+
+word_size (the range of mis_num is **Manual of BioSeq-BLM**
+
+22
+
+between 1 and 6).
+
+-delta [DELTA [DELTA ...]]
+
+For Subsequence words. The value of 
+
+penalized factor (the range of delta is 
+
+between 0 and 1).
+
+-top_n [TOP_N [TOP_N ...]]
+
+The maximum distance between structure 
+
+statuses (the range of delta is between 1 
+
+and 4). It works with Top-n-gram words.
+
+-max_dis[MAX_DIS [MAX_DIS ...]] The max distance value for DR words and 
+
+DT words (default is from 1 to 4).
+
+-alpha ALPHA Damping parameter for PageRank used in 
+
+'TR' mode, default=0.85.
+
+-win_size WIN_SIZE
+
+The maximum distance between the 
+
+current and predicted word within a 
+
+sentence for ‘word2vec’ in ‘WE’ mode, etc.
+
+-vec_dim VEC_DIM
+
+The output dimension of feature vectors for 
+
+'Glove' model and dimensionality of a word 
+
+vectors for 'word2vec' and 'fastText' 
+
+method.
+
+-sg SG
+
+Training algorithm for 'word2vec' and 
+
+'fastText' method. 1 for skip-gram, 
+
+otherwise CBOW.
+
+-in_tm{BOW,TF-IDF,TextRank}
+
+While topic model implement subject 
+
+extraction from a text, the text need to be 
+
+preprocessed by one of mode in choices.
+
+-com_prop COM_PROP
+
+If choose topic model mode, please set 
+
+component proportion for output feature 
+
+vectors.
+
+-oli {0,1}
+
+Choose one kind of Oligonucleotide 
+
+(default=0): 0 represents dinucleotid; 1 
+
+represents trinucleotide. For MAC, GAC, 
+
+NMBAC methods of 'SR' mode.
+
+-lag [LAG [LAG ...]]
+
+The value of lag (default=1). For DACC, 
+
+TACC, ACC, ACC-PSSM, AC-PSSM or 
+
+CC-PSSM methods and so on.
+
+-lamada[LAMADA [LAMADA ...]]
+
+The value of lamada (default=1). For MAC, 
+
+PDT, PDT-Profile, GAC or NMBAC methods 
+
+and so on
+
+-w [W [W ...]] The value of weight (default=0.1). For 
+
+ZCPseKNC method.**Manual of BioSeq-BLM**
+
+23
+
+-k [K [K ...]] The value of Kmer, it works only with 
+
+ZCPseKNC method.
+
+-n [N [N ...]]
+
+The maximum distance between structure 
+
+statuses (default=1). It works with 
+
+PDT-Profile method.
+
+-ui_file UI_FILE The user-defined physicochemical property 
+
+file.
+
+-all_index Choose all physicochemical indices.
+
+-no_all_index Do not choose all physicochemical indices, 
+
+default.
+
+-in_af Choose the input for 'AF' mode from 'OHE' 
+
+mode.
+
+-fea_dim FEA_DIM The output dimension of feature vectors, it 
+
+works only with 'AF' mode.
+
+-motif_database {ELM,Mega} The database where input motif file comes 
+
+from.
+
+-motif_file MOTIF_FILE
+
+The short linear motifs from ELM database 
+
+or structural motifs from the 
+
+MegaMotifBase.
+
+-sn {min-max-scale,standard-scale,
+
+L1-normalize,L2-normalize,none}
+
+Choose method of standardization or 
+
+normalization for feature vectors.
+
+-cl {AP,DBSCAN,GMM,
+
+AGNES,Kmeans,none} Choose method for clustering.
+
+-cm {feature,sample} The mode for clustering.
+
+-nc NC The number of clusters.
+
+-fs{chi2,F-value,MIC,RFE,Tree,none} Select feature select method.
+
+-nf NF The number of features after feature 
+
+selection.
+
+-dr{PCA, KernelPCA,TSVD,none} Choose method for dimension reduction.
+
+-np NP The dimension of main component after 
+
+dimension reduction.
+
+-rdb {no,fs,dr}
+
+Reduce dimension by: 'no'---none; 
+
+'fs'---apply feature selection to parameter 
+
+selection procedure; 'dr'--- apply dimension 
+
+reduction to parameter selection **Manual of BioSeq-BLM**
+
+24
+
+procedure.
+
+-grid [{0,1} [{0,1} ...]] Grid=0 for rough grid search, grid=1 for 
+
+meticulous grid search.
+
+-cost [COST [COST ...]] Regularization parameter of 'SVM'.
+
+-gamma[GAMMA [GAMMA ...]] Kernel coefficient for 'rbf' of 'SVM'.
+
+-tree [TREE [TREE ...]] The number of trees in the forest for 'RF'.
+
+-lr LR The value of learning rate for 'AF' mode and 
+
+deep learning.
+
+-epochs EPOCHS The epoch number for train deep model.
+
+-batch_size BATCH_SIZE The size of mini-batch for 'AF' mode and 
+
+deep learning.
+
+-dropout DROPOUT The value of dropout prob for 'AF' mode 
+
+and deep learning.
+
+-hidden_dim HIDDEN_DIM The size of the intermediate (a.k.a., feed 
+
+forward) layer.
+
+-n_layer N_LAYER The number of units for 'LSTM' and 'GRU'.
+
+-out_channels OUT_CHANNELS The number of output channels for 'CNN'
+
+-kernel_size KERNEL_SIZE The size of stride for 'CNN'.
+
+-d_model D_MODEL
+
+The dimension of multi-head attention 
+
+layer for Transformer or 
+
+Weighted-Transformer.
+
+-d_ff D_FF The dimension of fully connected layer of 
+
+Transformer or Weighted-Transformer.
+
+-heads HEADS The number of heads for Transformer or 
+
+Weighted-Transformer.
+
+-metric {Acc,MCC,AUC,BAcc,F1} The metric for parameter selection
+
+-cv {5,10,j}
+
+The cross validation mode. 5 or 10: 5-fold 
+
+or 10-fold cross validation, j: (character 'j') 
+
+jackknife cross validation.
+
+-sp {none,over,under,combine} Select technique for oversampling.**Manual of BioSeq-BLM**
+
+25
+
+-ind_seq_file 
+
+[IND_SEQ_FILE [IND_SEQ_FILE ...]]
+
+The independent test dataset in FASTA 
+
+format.
+
+-fixed_len FIXED_LEN
+
+The length of sequence will be fixed via 
+
+cutting orpadding. If you don't set value for 
+
+'fixed_len', it will be the maximum length of 
+
+all input sequences.
+
+-format {tab,svm,csv,tsv}
+
+The output format (default=csv). tab –
+
+Simple format, delimited by TAB. svm --
+
+The libSVM training data format. csv, tsv --
+
+The format that can be loaded into a 
+
+spreadsheet program.
+
+-bp {0,1}c
+
+Select use batch mode or not, the 
+
+parameter will change the directory for 
+
+generating file based on the method you 
+
+choose.
+
+
+
+### BioSeq-BLM_Res.py
+
+Command line arguments for “BioSeq-BLM_Res.py”:
+
+Required Description
+
+-category {DNA,RNA,Protein} The category of input sequences.
+
+-method Please select feature extraction method for 
+
+residue level analysis.
+
+-ml {SVM,RF,CRF,CNN,LSTM,
+
+GRU,Transformer,Weighted
+
+Transformer,Reformer}
+
+The machine-learning algorithm for 
+
+constructing predictor, for example: 
+
+Support Vector Machine (SVM).
+
+-seq_file The input file in FASTA format.
+
+-label_file The corresponding label file.
+
+Optional Description**Manual of BioSeq-BLM**
+
+18
+
+-h, --help Show this help message and exit.
+
+-trans {0,1}
+
+Select whether use sliding window 
+
+technique to transform sequence-labelling 
+
+question to classification question.
+
+-window WINDOW
+
+The window size when construct sliding 
+
+window technique for allocating every label 
+
+a short sequence.
+
+-fragment {0,1} Please choose whether use the fragment 
+
+method, 1 is yes while 0 is no.
+
+-cpu CPU
+
+The maximum number of CPU cores used 
+
+for multiprocessing in generating frequency 
+
+profile or The number of CPU cores used 
+
+for multiprocessing during parameter 
+
+selection process (default=1).
+
+-pp_file PP_FILE
+
+The physicochemical properties file user 
+
+input. If input nothing, the default 
+
+physicochemical properties is: DNA 
+
+dinucleotide: Rise, Roll, Shift, Slide, Tilt, 
+
+Twist. DNA trinucleotide: Dnase I, 
+
+Bendability (DNAse). RNA: Rise, Roll, Shift, 
+
+Slide, Tilt, Twist. Protein: Hydrophobicity, 
+
+Hydrophilicity, Mass.
+
+-sn {min-max-scale,standard-scale,
+
+L1-normalize,L2-normalize,none}
+
+Choose method of standardization or 
+
+normalization for feature vectors.
+
+-cl {AP,DBSCAN,GMM,
+
+AGNES,Kmeans,none} Choose method for clustering.
+
+-cm {feature,sample} The mode for clustering.
+
+-nc NC The number of clusters.
+
+-fs{chi2,F-value,MIC,RFE,Tree,none} Select feature select method.
+
+-nf NF The number of features after feature 
+
+selection.
+
+-dr{PCA, KernelPCA,TSVD,none} Choose method for dimension reduction.
+
+-np NP The dimension of main component after 
+
+dimension reduction.
+
+-rdb {no,fs,dr} Reduce dimension by: 'no'---none; 
+
+'fs'---apply feature selection to parameter **Manual of BioSeq-BLM**
+
+19
+
+selection procedure; 'dr'--- apply dimension 
+
+reduction to parameter selection 
+
+procedure.
+
+-grid [{0,1} [{0,1} ...]] Grid=0 for rough grid search, grid=1 for 
+
+meticulous grid search.
+
+-cost [COST [COST ...]] Regularization parameter of 'SVM'.
+
+-gamma[GAMMA [GAMMA ...]] Kernel coefficient for 'rbf' of 'SVM'.
+
+-tree [TREE [TREE ...]] The number of trees in the forest for 'RF'.
+
+-lr LR The value of learning rate for deep learning.
+
+-epochs EPOCHS The epoch number for train deep model.
+
+-batch_size BATCH_SIZE The size of mini-batch for deep learning.
+
+-dropout DROPOUT The value of dropout prob for deep 
+
+learning.
+
+-hidden_dim HIDDEN_DIM The size of the intermediate (a.k.a., feed 
+
+forward) layer.
+
+-n_layer N_LAYER The number of units for 'LSTM' and 'GRU'.
+
+-out_channels OUT_CHANNELS The number of output channels for 'CNN'
+
+-kernel_size KERNEL_SIZE The size of stride for 'CNN'.
+
+-d_model D_MODEL
+
+The dimension of multi-head attention 
+
+layer for Transformer or 
+
+Weighted-Transformer.
+
+-d_ff D_FF The dimension of fully connected layer of 
+
+Transformer or Weighted-Transformer.
+
+-heads HEADS The number of heads for Transformer or 
+
+Weighted-Transformer.
+
+-metric {Acc,MCC,AUC,BAcc,F1} The metric for parameter selection
+
+-cv {5,10,j}
+
+The cross validation mode. 5 or 10: 5-fold 
+
+or 10-fold cross validation, j: (character 'j') 
+
+jackknife cross validation.**Manual of BioSeq-BLM**
+
+20
+
+-sp {none,over,under,combine} Select technique for oversampling.
+
+-ind_seq_file IND_SEQ_FILE The independent test dataset in FASTA 
+
+format.
+
+-ind_label_file IND_LABEL_FILE The corresponding label file of independent 
+
+test dataset.
+
+-fixed_len FIXED_LEN
+
+The length of sequence will be fixed via 
+
+cutting orpadding. If you don't set value for 
+
+'fixed_len', it will be the maximum length of 
+
+all input sequences.
+
+-format {tab,svm,csv,tsv}
+
+The output format (default=csv). tab –
+
+Simple format, delimited by TAB. svm --
+
+The libSVM training data format. csv, tsv --
+
+The format that can be loaded into a 
+
+spreadsheet program.
+
+-bp {0,1}
+
+Select use batch mode or not, the 
+
+parameter will change the directory for 
+
+generating file based on the method you 
+
+choose.
+
+
+
+
+
+
+
+## Tables
+
+
+
+## References
+
+
+
+## Multi-label Learning Commands
+
+## Tables
+
+## Multi-label Learning algorithms
 
 ### Problem Transformation
 
@@ -241,3 +1509,9 @@ This method aims at increasing the classification speed by adding an extra ART l
 
 - transformed to sequence level problem 
   (by sliding window)
+
+
+
+
+
+## References

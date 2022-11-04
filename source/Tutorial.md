@@ -182,7 +182,27 @@ Following [paper](https://blog.csdn.net/nanhuaibeian/article/details/105773504) 
 
 #### Problem Transformation methods
 
-
+```reStructuredText
++--------------------+--------------------------+-------------+
+|     mll taxonomy   |       mll algorithm      | base method |
++====================+==========================+=============+
+|      Binary        |   Binary Relevance(BR)   |   ML + dl   |
+|                    +--------------------------+-------------+
+|                    |   Classifier Chains(CC)  |     ml      |
++--------------------+--------------------------+-------------+
+|  Label Combination |  Label Powerset (LP)     |   ml + dl   |
++--------------------+--------------------------+-------------+
+|Pairwise & Threshold| Calibrated Label Ranking |   ml + dl   |
+|                    +--------------------------+             |
+|                    |    Fourclass Pairwise    |             |
+|                    +--------------------------+             |
+|                    |    Rank   Threshold      |             |
++--------------------+--------------------------+-------------+
+|  Ensembles of MLL  |      RakelD              |   ml + dl   |
+|                    +--------------------------+             |
+|                    |      RakelO              |             |
++--------------------+--------------------------+-------------+  
+```
 
 
 
@@ -195,7 +215,19 @@ abbreviation in table
 
 #### Algorithm Adaptation methods
 
-
+```reStructuredText
++--------------------+--------------------------+-------------+
+|     mll taxonomy   |             mll algorithm              |
++====================+==========================+=============+
+|       by kNN       |                ml_kNN                  |
+|                    +----------------------------------------+
+|                    |           BRkNNaClassifier             |
+|                    +----------------------------------------+
+|                    |           BRkNNbClassifier             |
++--------------------+----------------------------------------+
+| by neural networks |       MLARAM(Multi-label ARAM)         |
++--------------------+----------------------------------------+ 
+```
 
 
 
