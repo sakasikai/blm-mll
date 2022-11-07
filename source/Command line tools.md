@@ -36,13 +36,283 @@ single-label cmds
 
 
 
+
+
+## Multi-label Learning Commands
+
+（介绍 BioSeq-BLM_Seq_mll.py & BioSeq-BLM_Res_mll.py
+
+（介绍如何使用，包括 mll 算法命令 ==(在下一季介绍)==  和 single-label 共享的命令 两部分（根据single-label cmds，分模块介绍如何使用？参考tutorial的异同表，顺便在后面引出single-label cmds）
+
+
+
+## Multi-label Learning algorithms
+
+（介绍 mll 算法命令
+
+
+
+### Taxonomy
+
+Problem Transformation
+
+- Binary
+
+- Label Combination
+
+- Pairwise & Threshold methods
+
+- Ensembles of mll
+
+Algorithm Adaptation
+
+- 
+
+### Binary
+
+### Label Combination
+
+### Pairwise & Threshold methods
+
+### Ensembles of mll
+
+
+
+#### RAkELd
+
+##### Synopsis
+
+Distinct RAndom k-labELsets multi-label classifier.
+
+Divides the label space in to equal partitions of size k, trains a Label Powerset classifier per partition and predicts by summing the result of all trained classifiers.
+
+
+
+##### BibTeX
+
+```tex
+@ARTICLE{5567103,
+    author={G. Tsoumakas and I. Katakis and I. Vlahavas},
+    journal={IEEE Transactions on Knowledge and Data Engineering},
+    title={Random k-Labelsets for Multilabel Classification},
+    year={2011},
+    volume={23},
+    number={7},
+    pages={1079-1089},
+    doi={10.1109/TKDE.2010.164},
+    ISSN={1041-4347},
+    month={July},
+}
+```
+
+
+
+##### Options
+
+- `-ml <method>`
+
+  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
+
+- `-mll_ls <size>` `--RAkEL_labelset_size <size>` should be within [1, labelset_size)
+
+  the desired size of each of the partitions, parameter k according to paper
+
+
+
+
+
+#### RAkELo
+
+##### Synopsis
+
+Overlapping RAndom k-labELsets multi-label classifier
+
+Divides the label space in to m subsets of size k, trains a Label Powerset classifier for each subset and assign a label to an instance if more than half of all classifiers (majority) from clusters that contain the label assigned the label to the instance.
+
+
+
+##### BibTeX
+
+```tex
+@ARTICLE{5567103,
+    author={G. Tsoumakas and I. Katakis and I. Vlahavas},
+    journal={IEEE Transactions on Knowledge and Data Engineering},
+    title={Random k-Labelsets for Multilabel Classification},
+    year={2011},
+    volume={23},
+    number={7},
+    pages={1079-1089},
+    doi={10.1109/TKDE.2010.164},
+    ISSN={1041-4347},
+    month={July},
+}
+```
+
+
+
+##### Options
+
+- `-ml <method>`
+
+  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
+
+- `-mll_ls <size>` ``--RAkEL_labelset_size <size>` should be within [1, labelset_size)
+
+  the desired size of each of the partitions, parameter k according to paper
+
+- `-mll_mc <count>` `--RAkELo_model_count <count>` 
+
+  the desired number of classifiers, parameter m according to paper.
+
+  assure that the product of labelset_size and model_count should be larger than the dimension of label space
+
+
+
+### 
+
+### Adaptation of kNN
+
+#### ML-KNN
+
+##### Synopsis
+
+
+
+##### BibTeX
+
+```tex
+@article{zhang2007ml,
+  title={ML-KNN: A lazy learning approach to multi-label learning},
+  author={Zhang, Min-Ling and Zhou, Zhi-Hua},
+  journal={Pattern recognition},
+  volume={40},
+  number={7},
+  pages={2038--2048},
+  year={2007},
+  publisher={Elsevier}
+}
+```
+
+
+
+##### Options
+
+- `-mll_k <number>` `--mll_kNN_k <number>` should be within [1, max_neighbors]
+
+  number of neighbours of each input instance to take into account
+
+- `-mll_s <value>` ` --MLkNN_s <value>` default 1.0
+
+  the smoothing parameter controlling the strength of uniform prior
+
+  （set to be 1 which yields the Laplace smoothing）
+
+- `-mll_ifn <number>` `--MLkNN_ignore_first_neighbours <number>`  should be within [1, max_neighbors]
+
+  number of neighbours of each input instance to take into account
+
+
+
+#### BRkNNa/BRkNNb
+
+##### Synopsis
+
+Binary Relevance multi-label classifier based on k-Nearest Neighbors method.
+
+The a version of the classifier assigns the labels that are assigned to at least half of the neighbors.
+
+
+
+The b version of the classifier assigns the most popular m labels of the neighbors, where m is the average number of labels assigned to the object’s neighbors.
+
+
+
+##### BibTeX
+
+```tex
+@inproceedings{EleftheriosSpyromitros2008,
+   author = {Eleftherios Spyromitros, Grigorios Tsoumakas, Ioannis Vlahavas},
+   booktitle = {Proc. 5th Hellenic Conference on Artificial Intelligence (SETN 2008)},
+   title = {An Empirical Study of Lazy Multilabel Classification Algorithms},
+   year = {2008},
+   location = {Syros, Greece}
+}
+```
+
+
+
+##### Options
+
+- `-mll_k <number>` `--mll_kNN_k <number>` should be within [1, max_neighbors]
+
+  number of neighbours of each input instance to take into account
+
+
+
+### Adaptation of Neural Network
+
+#### MLARAM
+
+##### Synopsis
+
+HARAM: A Hierarchical ARAM Neural Network for Large-Scale Text Classification
+
+This method aims at increasing the classification speed by adding an extra ART layer for clustering learned prototypes into large clusters. In this case the activation of all prototypes can be replaced by the activation of a small fraction of them, leading to a significant reduction of the classification time.
+
+
+
+##### BibTeX
+
+
+
+##### Options
+
+- `-mll_v <value> ` `--MLARAM_vigilance <value>` should be within [0, 1]
+
+  parameter for adaptive resonance theory networks,  controls how large a hyperbox can be, 1 it is small (no compression), 0 should assume all range. Normally set between 0.8 and 0.999, it is dataset dependent. It is responsible for the creation of the prototypes, therefore training of the network 
+
+- `-mll_t <value>` ` --MLARAM_threshold <value>`  should be within [0, 1)
+
+  controls how many prototypes participate by the prediction, can be changed for the testing phase
+
+
+
+
+
+### Residue level algorithms
+
+- transformed to sequence level problem 
+  (by sliding window)
+
+
+
+
+
+## 和 single-label 共享的命令 两部分
+
+要利用到下面的单标记
+
+
+
 ## Single-label Learning Commands
+
+### Intro
+
+来源：说明是blm命令的迁移版本
+
+内容：格式不同，
+
+作用：单独单标记，同时可以用mll的共享文档（怎么说？）
+
+
 
 ### FeatureExtractionSeq.py
 
 #### Synopsis
 
-Command line arguments for “FeatureExtractionSeq.py”:
+“FeatureExtractionSeq.py” is executive python script used for generating feature vectors based on biological language models at sequence level. For more details, please refer to the manual of BLM [3.2 Scripts for feature extraction based on BLMs]()
+
+
 
 #### Required Options
 
@@ -236,7 +506,7 @@ Command line arguments for “FeatureExtractionSeq.py”:
 
 #### Synopsis
 
-Command line arguments for “FeatureExtractionRes.py”:
+“FeatureExtractionRes.py” is executive python script used for generating feature vectors based on biological language models at residue level.  For more details, please refer to the manual of BLM [3.2 Scripts for feature extraction based on BLMs]()
 
 
 
@@ -304,7 +574,9 @@ Command line arguments for “FeatureExtractionRes.py”:
 
 #### Synopsis
 
-Command line arguments for “FeatureAnalysis.py”:
+“FeatureAnalysis.py” is an executive Python script used for feature analysis. For more details, please refer to the manual of BLM [3.3.1 Method for results analysis]()
+
+
 
 #### Required Options
 
@@ -368,7 +640,7 @@ Command line arguments for “FeatureAnalysis.py”:
 
 #### Synopsis
 
-Command line arguments for “MachineLearningSeq.py”
+“MachineLearningSeq.py” is an executive python script used for training predictors and evaluating their performance based on the input benchmark datasets. For more details, please refer to the manual of BLM [3.4 Scripts for machine learning algorithms]()
 
 
 
@@ -484,7 +756,7 @@ Command line arguments for “MachineLearningSeq.py”
 
 #### Synopsis
 
-Command line arguments for “MachineLearningRes.py”:
+“MachineLearningRes.py” is an executive python script used for training predictors and evaluating their performance based on the input benchmark datasets. For more details, please refer to the manual of BLM [3.4 Scripts for machine learning algorithms]()
 
 
 
@@ -504,7 +776,7 @@ Command line arguments for “MachineLearningRes.py”:
 
 
 
-#### Optional Options
+#### Required Options
 
 - `-h, --help `
 
@@ -604,911 +876,475 @@ Command line arguments for “MachineLearningRes.py”:
 
 ### BioSeq-BLM_Seq.py
 
-Command line arguments for “BioSeq-BLM_Seq.py”:
+#### Synopsis
 
-Required Description
+“BioSeq-BLM_Seq.py” is executive Python script used for achieving the one-stop
+function at sequence level. For more details, please refer to the manual of BLM [3.1 Directory structure]()
 
--category {DNA,RNA,Protein} The category of input sequences.
 
--mode{OHE,BOW,TF-IDF,TR,WE,
 
-TM,SR,AF}
+#### Required Options
 
-The feature extraction mode for input 
+- `-category {DNA,RNA,Protein} `
 
-sequence which analogies with NLP, for 
+  The category of input sequences.
 
-example: bag of words (BOW).
+- `-mode{OHE,BOW,TF-IDF,TR,WE,TM,SR,AF}`
 
--ml {SVM,RF,CNN,LSTM,
+  The feature extraction mode for input sequence which analogies with NLP, for example: bag of words (BOW).
 
-GRU,Transformer,Weighted
+- `-ml {SVM,RF,CNN,LSTM,GRU,Transformer,WeightedTransformer,Reformer}`
 
-Transformer,Reformer}
+  The machine-learning algorithm for constructing predictor, for example: Support Vector Machine (SVM).
 
-The machine-learning algorithm for 
+- `-seq_file[SEQ_FILE [SEQ_FILE ...]] `
 
-constructing predictor, for example: 
+  The input file in FASTA format.
 
-Support Vector Machine (SVM).
+- `-label [LABEL [LABEL ...]] `
 
--seq_file[SEQ_FILE [SEQ_FILE ...]] The input file in FASTA format.
+  The corresponding label of input sequence files.
 
--label [LABEL [LABEL ...]] The corresponding label of input 
 
-sequence files.
 
-Optional Description
+#### Optional Options
 
--h, --help Show this help message and exit.**Manual of BioSeq-BLM**
+- `-h, --help`
 
-21
+  Show this help message and exit.
 
--score {ED,MD,CD,HD,JSC,CS,
+- `-score {ED,MD,CD,HD,JSC,CS,PCC,KLD,none}`
 
-PCC,KLD,none}
+  Choose whether calculate semantic similarity score and what method for calculation.
 
-Choose whether calculate semantic 
+- `-words {Kmer,RevKmer,Mismatch,Subsequence,Top-NGram,DR,DT}`
 
-similarity score and what method for 
+  If you select mode in ['BOW', 'TF-IDF', 'TR', 'WE', 'TM'], you should select word for corresponding mode, for example Mismatch. Pay attention to that different category has different words, please reference to manual.
 
-calculation.
+- `-method METHODIf `
 
--words {Kmer,RevKmer,Mismatch,
+  you select mode in ['OHE', 'WE', 'TM', 'SR', 'AF'], you should select method for corresponding mode, for example, select 'LDA' for 'TM' mode, select 'word2vec' for 'WE' mode and so on. For different category, the methods belong to 'OHE' and 'SR' mode is different, please reference to manual.
 
-Subsequence,Top-NGram,
+- `-auto_opt {0,1,2}`
 
-DR,DT}
+  Choose whether automatically traverse the argument list. 2 is automatically traversing the argument list set ahead, 1 is automatically traversing the argument list in a smaller range, while 0 is not (default=0).
 
-If you select mode in ['BOW', 'TF-IDF', 
+- `-cpu CPU`
 
-'TR', 'WE', 'TM'], you should select word 
+  The maximum number of CPU cores used for multiprocessing in generating frequency profile and the number of CPU cores used for multiprocessing during parameter selection process (default=1).
 
-for corresponding mode, for example 
+- `-pp_file PP_FILE`
 
-Mismatch. Pay attention to that different 
+  The physicochemical properties file user input. If input nothing, the default physicochemical properties is: DNA dinucleotide: Rise, Roll, Shift, Slide, Tilt, Twist. DNA trinucleotide: Dnase I, Bendability (DNAse). RNA: Rise, Roll, Shift, Slide, Tilt, Twist. Protein: Hydrophobicity, Hydrophilicity, Mass.
 
-category has different words, please 
+- `-word_size[WORD_SIZE [WORD_SIZE ...]]`
 
-reference to manual.
+  The word size of sequences for specific words (the range of word_size is between 1 and 6).
 
--method METHOD
+- `-mis_num[MIS_NUM [MIS_NUM ...]]`
 
-If you select mode in ['OHE', 'WE', 'TM', 
+  For Mismatch words. The max value inexact matching, mis_num should smaller than word_size (the range of mis_num is between 1 and 6).
 
-'SR', 'AF'], you should select method for 
+- `-delta [DELTA [DELTA ...]]`
 
-corresponding mode, for example, select 
+  For Subsequence words. The value of penalized factor (the range of delta is between 0 and 1).
 
-'LDA' for 'TM' mode, select 'word2vec' for 
+- `-top_n [TOP_N [TOP_N ...]]`
 
-'WE' mode and so on. For different 
+  The maximum distance between structure statuses (the range of delta is between 1 and 4). It works with Top-n-gram words.
 
-category, the methods belong to 'OHE' and 
+- `-max_dis[MAX_DIS [MAX_DIS ...]] `
 
-'SR' mode is different, please reference to 
+  The max distance value for DR words and DT words (default is from 1 to 4).
 
-manual.
+- `-alpha ALPHA `
 
--auto_opt {0,1,2}
+  Damping parameter for PageRank used in 'TR' mode, default=0.85.
 
-Choose whether automatically traverse the 
+- `-win_size WIN_SIZE`
 
-argument list. 2 is automatically traversing 
+  The maximum distance between the current and predicted word within a sentence for ‘word2vec’ in ‘WE’ mode, etc.
 
-the argument list set ahead, 1 is 
+- `-vec_dim VEC_DIM`
 
-automatically traversing the argument list 
+  The output dimension of feature vectors for 'Glove' model and dimensionality of a word vectors for 'word2vec' and 'fastText' method.
 
-in a smaller range, while 0 is not 
+- `-sg SG`
 
-(default=0).
+  Training algorithm for 'word2vec' and 'fastText' method. 1 for skip-gram, otherwise CBOW.
 
--cpu CPU
+- `-in_tm{BOW,TF-IDF,TextRank}`
 
-The maximum number of CPU cores used 
+  While topic model implement subject extraction from a text, the text need to be preprocessed by one of mode in choices.
 
-for multiprocessing in generating frequency 
+- `-com_prop COM_PROP`
 
-profile and the number of CPU cores used 
+  If choose topic model mode, please set component proportion for output feature vectors.
 
-for multiprocessing during parameter 
+- `-oli {0,1}`
 
-selection process (default=1).
+  Choose one kind of Oligonucleotide (default=0): 0 represents dinucleotid; 1 represents trinucleotide. For MAC, GAC, NMBAC methods of 'SR' mode.
 
--pp_file PP_FILE
+- `-lag [LAG [LAG ...]]`
 
-The physicochemical properties file user 
+  The value of lag (default=1). For DACC, TACC, ACC, ACC-PSSM, AC-PSSM or CC-PSSM methods and so on.
 
-input. If input nothing, the default 
+- `-lamada[LAMADA [LAMADA ...]]`
 
-physicochemical properties is: DNA 
+  The value of lamada (default=1). For MAC, PDT, PDT-Profile, GAC or NMBAC methods and so on
 
-dinucleotide: Rise, Roll, Shift, Slide, Tilt, 
+- `-w [W [W ...]] `
 
-Twist. DNA trinucleotide: Dnase I, 
+  The value of weight (default=0.1). For ZCPseKNC method.
 
-Bendability (DNAse). RNA: Rise, Roll, Shift, 
+- `-k [K [K ...]] `
 
-Slide, Tilt, Twist. Protein: Hydrophobicity, 
+  The value of Kmer, it works only with ZCPseKNC method.
 
-Hydrophilicity, Mass.
+- `-n [N [N ...]]`
 
--word_size[WORD_SIZE 
+  The maximum distance between structure statuses (default=1). It works with PDT-Profile method.
 
-[WORD_SIZE ...]]
+- `-ui_file UI_FILE `
 
-The word size of sequences for specific 
+  The user-defined physicochemical property file.
 
-words (the range of word_size is between 1 
+- `-all_index `
 
-and 6).
+  Choose all physicochemical indices.
 
--mis_num[MIS_NUM [MIS_NUM ...]]
+- `-no_all_index `
 
-For Mismatch words. The max value inexact 
+  Do not choose all physicochemical indices, default.
 
-matching, mis_num should smaller than 
+- `-in_af `
 
-word_size (the range of mis_num is **Manual of BioSeq-BLM**
+  Choose the input for 'AF' mode from 'OHE' mode.
 
-22
+- `-fea_dim FEA_DIM `
 
-between 1 and 6).
+  The output dimension of feature vectors, it works only with 'AF' mode.
 
--delta [DELTA [DELTA ...]]
+- `-motif_database {ELM,Mega} `
 
-For Subsequence words. The value of 
+  The database where input motif file comes from.
 
-penalized factor (the range of delta is 
+- `-motif_file MOTIF_FILE`
 
-between 0 and 1).
+  The short linear motifs from ELM database or structural motifs from the MegaMotifBase.
 
--top_n [TOP_N [TOP_N ...]]
+- `-sn {min-max-scale,standard-scale,L1-normalize,L2-normalize,none}`
 
-The maximum distance between structure 
+  Choose method of standardization or normalization for feature vectors.
 
-statuses (the range of delta is between 1 
+- `-cl {AP,DBSCAN,GMM,AGNES,Kmeans,none} `
 
-and 4). It works with Top-n-gram words.
+  Choose method for clustering.
 
--max_dis[MAX_DIS [MAX_DIS ...]] The max distance value for DR words and 
+- `-cm {feature,sample} `
 
-DT words (default is from 1 to 4).
+  The mode for clustering.
 
--alpha ALPHA Damping parameter for PageRank used in 
+- `-nc NC `
 
-'TR' mode, default=0.85.
+  The number of clusters.
 
--win_size WIN_SIZE
+- `-fs{chi2,F-value,MIC,RFE,Tree,none} `
 
-The maximum distance between the 
+  Select feature select method.
 
-current and predicted word within a 
+- `-nf NF `
 
-sentence for ‘word2vec’ in ‘WE’ mode, etc.
+  The number of features after feature selection.
 
--vec_dim VEC_DIM
+- `-dr{PCA, KernelPCA,TSVD,none} `
 
-The output dimension of feature vectors for 
+  Choose method for dimension reduction.
 
-'Glove' model and dimensionality of a word 
+- `-np NP `
 
-vectors for 'word2vec' and 'fastText' 
+  The dimension of main component after dimension reduction.
 
-method.
+- `-rdb {no,fs,dr} `
 
--sg SG
+  Reduce dimension by: 'no'---none; 'fs'---apply feature selection to parameter selection procedure; 'dr'--- apply dimension reduction to parameter selection procedure.
 
-Training algorithm for 'word2vec' and 
+- `-grid [{0,1} [{0,1} ...]] `
 
-'fastText' method. 1 for skip-gram, 
+  Grid=0 for rough grid search, grid=1 for meticulous grid search.
 
-otherwise CBOW.
+- `-cost [COST [COST ...]] `
 
--in_tm{BOW,TF-IDF,TextRank}
+  Regularization parameter of 'SVM'.
 
-While topic model implement subject 
+- `-gamma[GAMMA [GAMMA ...]] `
 
-extraction from a text, the text need to be 
+  Kernel coefficient for 'rbf' of 'SVM'.
 
-preprocessed by one of mode in choices.
+- `-tree [TREE [TREE ...]] `
 
--com_prop COM_PROP
+  The number of trees in the forest for 'RF'.
 
-If choose topic model mode, please set 
+- `-lr LR `
 
-component proportion for output feature 
+  The value of learning rate for 'AF' mode and deep learning.
 
-vectors.
+- `-epochs EPOCHS `
 
--oli {0,1}
+  The epoch number for train deep model.
 
-Choose one kind of Oligonucleotide 
+- `-batch_size BATCH_SIZE `
 
-(default=0): 0 represents dinucleotid; 1 
+  The size of mini-batch for 'AF' mode and deep learning.
 
-represents trinucleotide. For MAC, GAC, 
+- `-dropout DROPOUT `
 
-NMBAC methods of 'SR' mode.
+  The value of dropout prob for 'AF' mode and deep learning.
 
--lag [LAG [LAG ...]]
+- `-hidden_dim HIDDEN_DIM `
 
-The value of lag (default=1). For DACC, 
+  The size of the intermediate (a.k.a., feed forward) layer.
 
-TACC, ACC, ACC-PSSM, AC-PSSM or 
+- `-n_layer N_LAYER `
 
-CC-PSSM methods and so on.
+  The number of units for 'LSTM' and 'GRU'.
 
--lamada[LAMADA [LAMADA ...]]
+- `-out_channels OUT_CHANNELS `
 
-The value of lamada (default=1). For MAC, 
+  The number of output channels for 'CNN'
 
-PDT, PDT-Profile, GAC or NMBAC methods 
+- `-kernel_size KERNEL_SIZE `
 
-and so on
+  The size of stride for 'CNN'.
 
--w [W [W ...]] The value of weight (default=0.1). For 
+- `-d_model D_MODEL`
 
-ZCPseKNC method.**Manual of BioSeq-BLM**
+  The dimension of multi-head attention layer for Transformer or Weighted-Transformer.
 
-23
+- `-d_ff D_FF `
 
--k [K [K ...]] The value of Kmer, it works only with 
+  The dimension of fully connected layer of Transformer or Weighted-Transformer.
 
-ZCPseKNC method.
+- `-heads HEADS `
 
--n [N [N ...]]
+  The number of heads for Transformer or Weighted-Transformer.
 
-The maximum distance between structure 
+- `-metric {Acc,MCC,AUC,BAcc,F1} `
 
-statuses (default=1). It works with 
+  The metric for parameter selection
 
-PDT-Profile method.
+- `-cv {5,10,j}`
 
--ui_file UI_FILE The user-defined physicochemical property 
+  The cross validation mode. 5 or 10: 5-fold or 10-fold cross validation, j: (character 'j') jackknife cross validation.
 
-file.
+- `-sp {none,over,under,combine} `
 
--all_index Choose all physicochemical indices.
+  Select technique for oversampling.
 
--no_all_index Do not choose all physicochemical indices, 
+- `-ind_seq_file [IND_SEQ_FILE [IND_SEQ_FILE ...]]`
 
-default.
+  The independent test dataset in FASTA format.
 
--in_af Choose the input for 'AF' mode from 'OHE' 
+- `-fixed_len FIXED_LEN`
 
-mode.
+  The length of sequence will be fixed via cutting orpadding. If you don't set value for 'fixed_len', it will be the maximum length of all input sequences.
 
--fea_dim FEA_DIM The output dimension of feature vectors, it 
+- `-format {tab,svm,csv,tsv}`
 
-works only with 'AF' mode.
+  The output format (default=csv). tab –Simple format, delimited by TAB. svm --The libSVM training data format. csv, tsv --The format that can be loaded into a spreadsheet program.
 
--motif_database {ELM,Mega} The database where input motif file comes 
+- `-bp {0,1}`
 
-from.
-
--motif_file MOTIF_FILE
-
-The short linear motifs from ELM database 
-
-or structural motifs from the 
-
-MegaMotifBase.
-
--sn {min-max-scale,standard-scale,
-
-L1-normalize,L2-normalize,none}
-
-Choose method of standardization or 
-
-normalization for feature vectors.
-
--cl {AP,DBSCAN,GMM,
-
-AGNES,Kmeans,none} Choose method for clustering.
-
--cm {feature,sample} The mode for clustering.
-
--nc NC The number of clusters.
-
--fs{chi2,F-value,MIC,RFE,Tree,none} Select feature select method.
-
--nf NF The number of features after feature 
-
-selection.
-
--dr{PCA, KernelPCA,TSVD,none} Choose method for dimension reduction.
-
--np NP The dimension of main component after 
-
-dimension reduction.
-
--rdb {no,fs,dr}
-
-Reduce dimension by: 'no'---none; 
-
-'fs'---apply feature selection to parameter 
-
-selection procedure; 'dr'--- apply dimension 
-
-reduction to parameter selection **Manual of BioSeq-BLM**
-
-24
-
-procedure.
-
--grid [{0,1} [{0,1} ...]] Grid=0 for rough grid search, grid=1 for 
-
-meticulous grid search.
-
--cost [COST [COST ...]] Regularization parameter of 'SVM'.
-
--gamma[GAMMA [GAMMA ...]] Kernel coefficient for 'rbf' of 'SVM'.
-
--tree [TREE [TREE ...]] The number of trees in the forest for 'RF'.
-
--lr LR The value of learning rate for 'AF' mode and 
-
-deep learning.
-
--epochs EPOCHS The epoch number for train deep model.
-
--batch_size BATCH_SIZE The size of mini-batch for 'AF' mode and 
-
-deep learning.
-
--dropout DROPOUT The value of dropout prob for 'AF' mode 
-
-and deep learning.
-
--hidden_dim HIDDEN_DIM The size of the intermediate (a.k.a., feed 
-
-forward) layer.
-
--n_layer N_LAYER The number of units for 'LSTM' and 'GRU'.
-
--out_channels OUT_CHANNELS The number of output channels for 'CNN'
-
--kernel_size KERNEL_SIZE The size of stride for 'CNN'.
-
--d_model D_MODEL
-
-The dimension of multi-head attention 
-
-layer for Transformer or 
-
-Weighted-Transformer.
-
--d_ff D_FF The dimension of fully connected layer of 
-
-Transformer or Weighted-Transformer.
-
--heads HEADS The number of heads for Transformer or 
-
-Weighted-Transformer.
-
--metric {Acc,MCC,AUC,BAcc,F1} The metric for parameter selection
-
--cv {5,10,j}
-
-The cross validation mode. 5 or 10: 5-fold 
-
-or 10-fold cross validation, j: (character 'j') 
-
-jackknife cross validation.
-
--sp {none,over,under,combine} Select technique for oversampling.**Manual of BioSeq-BLM**
-
-25
-
--ind_seq_file 
-
-[IND_SEQ_FILE [IND_SEQ_FILE ...]]
-
-The independent test dataset in FASTA 
-
-format.
-
--fixed_len FIXED_LEN
-
-The length of sequence will be fixed via 
-
-cutting orpadding. If you don't set value for 
-
-'fixed_len', it will be the maximum length of 
-
-all input sequences.
-
--format {tab,svm,csv,tsv}
-
-The output format (default=csv). tab –
-
-Simple format, delimited by TAB. svm --
-
-The libSVM training data format. csv, tsv --
-
-The format that can be loaded into a 
-
-spreadsheet program.
-
--bp {0,1}c
-
-Select use batch mode or not, the 
-
-parameter will change the directory for 
-
-generating file based on the method you 
-
-choose.
+  Select use batch mode or not, the parameter will change the directory for generating file based on the method you choose.
 
 
 
 ### BioSeq-BLM_Res.py
 
-Command line arguments for “BioSeq-BLM_Res.py”:
+#### Synopsis
 
-Required Description
+“BioSeq-BLM_Res.py” is executive Python script used for achieving the one-stop
+function at residue level. For more details, please refer to the manual of BLM [3.1 Directory structure]()
 
--category {DNA,RNA,Protein} The category of input sequences.
 
--method Please select feature extraction method for 
 
-residue level analysis.
+#### Required Options
 
--ml {SVM,RF,CRF,CNN,LSTM,
+- `-category {DNA,RNA,Protein} `
 
-GRU,Transformer,Weighted
+  The category of input sequences.
 
-Transformer,Reformer}
+- `-method `
 
-The machine-learning algorithm for 
+  Please select feature extraction method for residue level analysis.
 
-constructing predictor, for example: 
+- `-ml {SVM,RF,CRF,CNN,LSTM,GRU,Transformer,WeightedTransformer,Reformer}`
 
-Support Vector Machine (SVM).
+  The machine-learning algorithm for constructing predictor, for example: Support Vector Machine (SVM).
 
--seq_file The input file in FASTA format.
+- `-seq_file `
 
--label_file The corresponding label file.
+  The input file in FASTA format.
 
-Optional Description**Manual of BioSeq-BLM**
+- `-label_file `
 
-18
+  The corresponding label file.
 
--h, --help Show this help message and exit.
 
--trans {0,1}
 
-Select whether use sliding window 
+#### Optional Options
 
-technique to transform sequence-labelling 
+- `-h, --help `
 
-question to classification question.
+  Show this help message and exit.
 
--window WINDOW
+- `-trans {0,1}`
 
-The window size when construct sliding 
+  Select whether use sliding window technique to transform sequence-labelling question to classification question.
 
-window technique for allocating every label 
+- `-window WINDOW`
 
-a short sequence.
+  The window size when construct sliding window technique for allocating every label a short sequence.
 
--fragment {0,1} Please choose whether use the fragment 
+- `-fragment {0,1} `
 
-method, 1 is yes while 0 is no.
+  Please choose whether use the fragment method, 1 is yes while 0 is no.
 
--cpu CPU
+- `-cpu CPU`
 
-The maximum number of CPU cores used 
+  The maximum number of CPU cores used for multiprocessing in generating frequency profile or The number of CPU cores used for multiprocessing during parameter selection process (default=1).
 
-for multiprocessing in generating frequency 
+- `-pp_file PP_FILE`
 
-profile or The number of CPU cores used 
+  The physicochemical properties file user input. If input nothing, the default physicochemical properties is: DNA dinucleotide: Rise, Roll, Shift, Slide, Tilt, Twist. DNA trinucleotide: Dnase I, Bendability (DNAse). RNA: Rise, Roll, Shift, Slide, Tilt, Twist. Protein: Hydrophobicity, Hydrophilicity, Mass.
 
-for multiprocessing during parameter 
+- `-sn {min-max-scale,standard-scale,L1-normalize,L2-normalize,none}`
 
-selection process (default=1).
+  Choose method of standardization or normalization for feature vectors.
 
--pp_file PP_FILE
+- `-cl {AP,DBSCAN,GMM,AGNES,Kmeans,none} `
 
-The physicochemical properties file user 
+  Choose method for clustering.
 
-input. If input nothing, the default 
+- `-cm {feature,sample} `
 
-physicochemical properties is: DNA 
+  The mode for clustering.
 
-dinucleotide: Rise, Roll, Shift, Slide, Tilt, 
+- `-nc NC `
 
-Twist. DNA trinucleotide: Dnase I, 
+  The number of clusters.
 
-Bendability (DNAse). RNA: Rise, Roll, Shift, 
+- `-fs {chi2,F-value,MIC,RFE,Tree,none} `
 
-Slide, Tilt, Twist. Protein: Hydrophobicity, 
+  Select feature select method.
 
-Hydrophilicity, Mass.
+- `-nf NF `
 
--sn {min-max-scale,standard-scale,
+  The number of features after feature selection.
 
-L1-normalize,L2-normalize,none}
+- `-dr {PCA, KernelPCA,TSVD,none} `
 
-Choose method of standardization or 
+  Choose method for dimension reduction.
 
-normalization for feature vectors.
+- `-np NP `
 
--cl {AP,DBSCAN,GMM,
+  The dimension of main component after dimension reduction.
 
-AGNES,Kmeans,none} Choose method for clustering.
+- `-rdb {no,fs,dr} `
 
--cm {feature,sample} The mode for clustering.
+  Reduce dimension by: 'no'---none; 'fs'---apply feature selection to parameter selection procedure; 'dr'--- apply dimension reduction to parameter selection procedure.
 
--nc NC The number of clusters.
+- `-grid [{0,1} [{0,1} ...]] `
 
--fs{chi2,F-value,MIC,RFE,Tree,none} Select feature select method.
+  Grid=0 for rough grid search, grid=1 for meticulous grid search.
 
--nf NF The number of features after feature 
+- `-cost [COST [COST ...]] `
 
-selection.
+  Regularization parameter of 'SVM'.
 
--dr{PCA, KernelPCA,TSVD,none} Choose method for dimension reduction.
+- `-gamma [GAMMA [GAMMA ...]] `
 
--np NP The dimension of main component after 
+  Kernel coefficient for 'rbf' of 'SVM'.
 
-dimension reduction.
+- `-tree [TREE [TREE ...]] `
 
--rdb {no,fs,dr} Reduce dimension by: 'no'---none; 
+  The number of trees in the forest for 'RF'.
 
-'fs'---apply feature selection to parameter **Manual of BioSeq-BLM**
+- `-lr LR `
 
-19
+  The value of learning rate for deep learning.
 
-selection procedure; 'dr'--- apply dimension 
+- `-epochs EPOCHS `
 
-reduction to parameter selection 
+  The epoch number for train deep model.
 
-procedure.
+- `-batch_size BATCH_SIZE `
 
--grid [{0,1} [{0,1} ...]] Grid=0 for rough grid search, grid=1 for 
+  The size of mini-batch for deep learning.
 
-meticulous grid search.
+- `-dropout DROPOUT `
 
--cost [COST [COST ...]] Regularization parameter of 'SVM'.
+  The value of dropout prob for deep learning.
 
--gamma[GAMMA [GAMMA ...]] Kernel coefficient for 'rbf' of 'SVM'.
+- `-hidden_dim HIDDEN_DIM `
 
--tree [TREE [TREE ...]] The number of trees in the forest for 'RF'.
+  The size of the intermediate (a.k.a., feed forward) layer.
 
--lr LR The value of learning rate for deep learning.
+- `-n_layer N_LAYER `
 
--epochs EPOCHS The epoch number for train deep model.
+  The number of units for 'LSTM' and 'GRU'.
 
--batch_size BATCH_SIZE The size of mini-batch for deep learning.
+- `-out_channels OUT_CHANNELS `
 
--dropout DROPOUT The value of dropout prob for deep 
+  The number of output channels for 'CNN'
 
-learning.
+- `-kernel_size KERNEL_SIZE `
 
--hidden_dim HIDDEN_DIM The size of the intermediate (a.k.a., feed 
+  The size of stride for 'CNN'.
 
-forward) layer.
+- `-d_model D_MODEL`
 
--n_layer N_LAYER The number of units for 'LSTM' and 'GRU'.
+  The dimension of multi-head attention layer for Transformer or Weighted-Transformer.
 
--out_channels OUT_CHANNELS The number of output channels for 'CNN'
+- `-d_ff D_FF `
 
--kernel_size KERNEL_SIZE The size of stride for 'CNN'.
+  The dimension of fully connected layer of Transformer or Weighted-Transformer.
 
--d_model D_MODEL
+- `-heads HEADS `
 
-The dimension of multi-head attention 
+  The number of heads for Transformer or Weighted-Transformer.
 
-layer for Transformer or 
+- `-metric {Acc,MCC,AUC,BAcc,F1} `
 
-Weighted-Transformer.
+  The metric for parameter selection
 
--d_ff D_FF The dimension of fully connected layer of 
+- `-cv {5,10,j}`
 
-Transformer or Weighted-Transformer.
+  The cross validation mode. 5 or 10: 5-fold or 10-fold cross validation, j: (character 'j') jackknife cross validation.
 
--heads HEADS The number of heads for Transformer or 
+- `-sp {none,over,under,combine} `
 
-Weighted-Transformer.
+  Select technique for oversampling.
 
--metric {Acc,MCC,AUC,BAcc,F1} The metric for parameter selection
+- `-ind_seq_file IND_SEQ_FILE `
 
--cv {5,10,j}
+  The independent test dataset in FASTA format.
 
-The cross validation mode. 5 or 10: 5-fold 
+- `-ind_label_file IND_LABEL_FILE `
 
-or 10-fold cross validation, j: (character 'j') 
+  The corresponding label file of independent test dataset.
 
-jackknife cross validation.**Manual of BioSeq-BLM**
+- `-fixed_len FIXED_LEN`
 
-20
+  The length of sequence will be fixed via cutting orpadding. If you don't set value for 'fixed_len', it will be the maximum length of all input sequences.
 
--sp {none,over,under,combine} Select technique for oversampling.
+- `-format {tab,svm,csv,tsv}`
 
--ind_seq_file IND_SEQ_FILE The independent test dataset in FASTA 
+  The output format (default=csv). tab –Simple format, delimited by TAB. svm --The libSVM training data format. csv, tsv --The format that can be loaded into a spreadsheet program.
 
-format.
+- `-bp {0,1}`
 
--ind_label_file IND_LABEL_FILE The corresponding label file of independent 
-
-test dataset.
-
--fixed_len FIXED_LEN
-
-The length of sequence will be fixed via 
-
-cutting orpadding. If you don't set value for 
-
-'fixed_len', it will be the maximum length of 
-
-all input sequences.
-
--format {tab,svm,csv,tsv}
-
-The output format (default=csv). tab –
-
-Simple format, delimited by TAB. svm --
-
-The libSVM training data format. csv, tsv --
-
-The format that can be loaded into a 
-
-spreadsheet program.
-
--bp {0,1}
-
-Select use batch mode or not, the 
-
-parameter will change the directory for 
-
-generating file based on the method you 
-
-choose.
-
-
-
-
-
-
-
-## Tables
-
-
-
-## References
-
-
-
-## Multi-label Learning Commands
-
-## Tables
-
-## Multi-label Learning algorithms
-
-### Problem Transformation
-
-- Binary
-
-- Label Combination
-
-- Pairwise & Threshold methods
-
-- Ensembles of mll
-
-
-
-##### Ensembles of mll
-
-
-
-###### RAkELd
-
-##### Synopsis
-
-Distinct RAndom k-labELsets multi-label classifier.
-
-Divides the label space in to equal partitions of size k, trains a Label Powerset classifier per partition and predicts by summing the result of all trained classifiers.
-
-
-
-##### BibTeX
-
-```tex
-@ARTICLE{5567103,
-    author={G. Tsoumakas and I. Katakis and I. Vlahavas},
-    journal={IEEE Transactions on Knowledge and Data Engineering},
-    title={Random k-Labelsets for Multilabel Classification},
-    year={2011},
-    volume={23},
-    number={7},
-    pages={1079-1089},
-    doi={10.1109/TKDE.2010.164},
-    ISSN={1041-4347},
-    month={July},
-}
-```
-
-
-
-##### Options
-
-- `-ml <method>`
-
-  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
-
-- `-mll_ls <size>` `--RAkEL_labelset_size <size>` should be within [1, labelset_size)
-
-  the desired size of each of the partitions, parameter k according to paper
-
-
-
-
-
-#### RAkELo
-
-##### Synopsis
-
-Overlapping RAndom k-labELsets multi-label classifier
-
-Divides the label space in to m subsets of size k, trains a Label Powerset classifier for each subset and assign a label to an instance if more than half of all classifiers (majority) from clusters that contain the label assigned the label to the instance.
-
-
-
-##### BibTeX
-
-```tex
-@ARTICLE{5567103,
-    author={G. Tsoumakas and I. Katakis and I. Vlahavas},
-    journal={IEEE Transactions on Knowledge and Data Engineering},
-    title={Random k-Labelsets for Multilabel Classification},
-    year={2011},
-    volume={23},
-    number={7},
-    pages={1079-1089},
-    doi={10.1109/TKDE.2010.164},
-    ISSN={1041-4347},
-    month={July},
-}
-```
-
-
-
-##### Options
-
-- `-ml <method>`
-
-  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
-
-- `-mll_ls <size>` ``--RAkEL_labelset_size <size>` should be within [1, labelset_size)
-
-  the desired size of each of the partitions, parameter k according to paper
-
-- `-mll_mc <count>` `--RAkELo_model_count <count>` 
-
-  the desired number of classifiers, parameter m according to paper.
-
-  assure that the product of labelset_size and model_count should be larger than the dimension of label space
-
-
-
-### Algorithm Adaptation
-
-### Traditional
-
-#### ML-KNN
-
-##### Synopsis
-
-
-
-##### BibTeX
-
-```tex
-@article{zhang2007ml,
-  title={ML-KNN: A lazy learning approach to multi-label learning},
-  author={Zhang, Min-Ling and Zhou, Zhi-Hua},
-  journal={Pattern recognition},
-  volume={40},
-  number={7},
-  pages={2038--2048},
-  year={2007},
-  publisher={Elsevier}
-}
-```
-
-
-
-##### Options
-
-- `-mll_k <number>` `--mll_kNN_k <number>` should be within [1, max_neighbors]
-
-  number of neighbours of each input instance to take into account
-
-- `-mll_s <value>` ` --MLkNN_s <value>` default 1.0
-
-  the smoothing parameter controlling the strength of uniform prior
-
-  （set to be 1 which yields the Laplace smoothing）
-
-- `-mll_ifn <number>` `--MLkNN_ignore_first_neighbours <number>`  should be within [1, max_neighbors]
-
-  number of neighbours of each input instance to take into account
-
-
-
-#### BRkNNa/BRkNNb
-
-##### Synopsis
-
-Binary Relevance multi-label classifier based on k-Nearest Neighbors method.
-
-The a version of the classifier assigns the labels that are assigned to at least half of the neighbors.
-
-
-
-The b version of the classifier assigns the most popular m labels of the neighbors, where m is the average number of labels assigned to the object’s neighbors.
-
-
-
-##### BibTeX
-
-```tex
-@inproceedings{EleftheriosSpyromitros2008,
-   author = {Eleftherios Spyromitros, Grigorios Tsoumakas, Ioannis Vlahavas},
-   booktitle = {Proc. 5th Hellenic Conference on Artificial Intelligence (SETN 2008)},
-   title = {An Empirical Study of Lazy Multilabel Classification Algorithms},
-   year = {2008},
-   location = {Syros, Greece}
-}
-```
-
-
-
-##### Options
-
-- `-mll_k <number>` `--mll_kNN_k <number>` should be within [1, max_neighbors]
-
-  number of neighbours of each input instance to take into account
-
-
-
-#### MLARAM
-
-##### Synopsis
-
-HARAM: A Hierarchical ARAM Neural Network for Large-Scale Text Classification
-
-This method aims at increasing the classification speed by adding an extra ART layer for clustering learned prototypes into large clusters. In this case the activation of all prototypes can be replaced by the activation of a small fraction of them, leading to a significant reduction of the classification time.
-
-
-
-##### BibTeX
-
-
-
-##### Options
-
-- `-mll_v <value> ` `--MLARAM_vigilance <value>` should be within [0, 1]
-
-  parameter for adaptive resonance theory networks,  controls how large a hyperbox can be, 1 it is small (no compression), 0 should assume all range. Normally set between 0.8 and 0.999, it is dataset dependent. It is responsible for the creation of the prototypes, therefore training of the network 
-
-- `-mll_t <value>` ` --MLARAM_threshold <value>`  should be within [0, 1)
-
-  controls how many prototypes participate by the prediction, can be changed for the testing phase
-
-
-
-
-
-## Residue level multi-label learning algorithms
-
-### etc
-
-- transformed to sequence level problem 
-  (by sliding window)
+  Select use batch mode or not, the parameter will change the directory for generating file based on the method you choose.
 
 
 
