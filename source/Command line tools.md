@@ -168,8 +168,6 @@ Divides the label space in to m subsets of size k, trains a Label Powerset class
 
 
 
-### 
-
 ### Adaptation of kNN
 
 #### ML-KNN
@@ -310,7 +308,7 @@ This method aims at increasing the classification speed by adding an extra ART l
 
 #### Synopsis
 
-“FeatureExtractionSeq.py” is executive python script used for generating feature vectors based on biological language models at sequence level. For more details, please refer to the manual of BLM [3.2 Scripts for feature extraction based on BLMs]()
+“FeatureExtractionSeq.py” is executive python script used for generating feature vectors based on biological language models at sequence level. For more details, please refer to the manual of BLM [3.2 Scripts for feature extraction based on BLMs](https://blm-mll.readthedocs.io/en/latest/Command%20line%20tools.html#id4)
 
 
 
@@ -506,7 +504,7 @@ This method aims at increasing the classification speed by adding an extra ART l
 
 #### Synopsis
 
-“FeatureExtractionRes.py” is executive python script used for generating feature vectors based on biological language models at residue level.  For more details, please refer to the manual of BLM [3.2 Scripts for feature extraction based on BLMs]()
+“FeatureExtractionRes.py” is executive python script used for generating feature vectors based on biological language models at residue level.  For more details, please refer to the manual of BLM [3.2 Scripts for feature extraction based on BLMs](https://blm-mll.readthedocs.io/en/latest/Command%20line%20tools.html#id4)
 
 
 
