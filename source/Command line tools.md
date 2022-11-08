@@ -42,39 +42,158 @@ single-label cmds
 
 （介绍 BioSeq-BLM_Seq_mll.py & BioSeq-BLM_Res_mll.py
 
-（介绍如何使用，包括 mll 算法命令 ==(在下一季介绍)==  和 single-label 共享的命令 两部分（根据single-label cmds，分模块介绍如何使用？参考tutorial的异同表，顺便在后面引出single-label cmds）
+（介绍如何使用，包括 mll 算法命令 ==(在下一节介绍)==  和 single-label 共享的命令 两部分（根据single-label cmds，分模块介绍如何使用？参考tutorial的异同表，顺便在后面引出single-label cmds）
+
+~~（区分层次，Residue level algorithms ==> transformed to sequence level problem 
+(by sliding window)，share the same commands between~~
 
 
 
-## Multi-label Learning algorithms
+## Multi-label Learning Algorithms
 
 （介绍 mll 算法命令
 
+link to multi-label learning algorithms in blm-mll
 
 
-### Taxonomy
-
-Problem Transformation
-
-- Binary
-
-- Label Combination
-
-- Pairwise & Threshold methods
-
-- Ensembles of mll
-
-Algorithm Adaptation
-
-- 
 
 ### Binary
 
+#### Binary Relevance
+
+##### Synopsis
+
+Transforms a multi-label classification problem with L labels into L single-label separate binary classification problems using the same base classifier provided in the constructor. The prediction output is the union of all per label classifiers
+
+
+
+##### BibTeX
+
+
+
+##### Options
+
+- `-mll BR`
+
+- `-ml <method>`
+
+  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
+
+
+
+#### Classifier Chain
+
+##### Synopsis
+
+
+
+##### BibTeX
+
+
+
+##### Options
+
+- `-mll CC`
+
+- `-ml <method>`
+
+
+
 ### Label Combination
+
+#### LabelPowerSet
+
+##### Synopsis
+
+##### BibTeX
+
+
+
+##### Options
+
+- `-mll LP`
+
+- `-ml <method>`
+
+  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
+
+
 
 ### Pairwise & Threshold methods
 
+#### Calibrated Label Ranking
+
+##### Synopsis
+
+
+
+This is an algorithom implemented by MEKA. For more information, please refer to [meka documentation](http://waikato.github.io/meka/meka.classifiers.multilabel.FW/#synopsis).
+
+
+
+##### BibTeX
+
+
+
+##### Options
+
+- `-mll CLR`
+
+- `-ml <method>`
+
+  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
+
+
+
+
+
+#### Fourclass Pairwise
+
+##### Synopsis
+
+The Fourclass Pairwise (FW) method. Trains a multi-class base classifier for each pair of labels ($(L*(L-1))/2$ in total), each with four possible class values: {00,01,10,11} representing the possible combinations of relevant (1) /irrelevant (0) for the pair. Uses a voting + threshold scheme at testing time where e.g., 01 from pair jk gives one vote to label k; any label with votes above the threshold is considered relevant. 
+
+This is an algorithom implemented by MEKA. For more information, please refer to [meka documentation](http://waikato.github.io/meka/meka.classifiers.multilabel.FW/#synopsis).
+
+
+
+##### BibTeX
+
+
+
+##### Options
+
+- `-mll FW`
+
+- `-ml `
+
+
+
+
+
+#### Rank + Threshold
+
+##### Synopsis
+
+Duplicates multi-label examples into examples with one label each (one vs. rest). Trains a multi-class classifier, and uses a threshold to reconstitute a multi-label classification.
+
+This is an algorithom implemented by MEKA. For more information, please refer to [meka documentation](http://waikato.github.io/meka/meka.classifiers.multilabel.FW/#synopsis).
+
+##### BibTeX
+
+
+
+##### Options
+
+- `-mll RT`
+
+- `-ml `
+
+
+
 ### Ensembles of mll
+
+ensemble of LP, partition strategy …
 
 
 
@@ -108,6 +227,10 @@ Divides the label space in to equal partitions of size k, trains a Label Powerse
 
 
 ##### Options
+
+- `-mll RAkELd`
+
+  set the multi-label learning algorithm as RAkELd.
 
 - `-ml <method>`
 
@@ -152,6 +275,10 @@ Divides the label space in to m subsets of size k, trains a Label Powerset class
 
 ##### Options
 
+- `-mll RAkELo`
+
+  set the multi-label learning algorithm as RAkELo.
+
 - `-ml <method>`
 
   All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
@@ -194,6 +321,10 @@ Divides the label space in to m subsets of size k, trains a Label Powerset class
 
 
 ##### Options
+
+- `-mll MLkNN`
+
+  set the multi-label learning algorithm as ML-kNN.
 
 - `-mll_k <number>` `--mll_kNN_k <number>` should be within [1, max_neighbors]
 
@@ -241,6 +372,10 @@ The b version of the classifier assigns the most popular m labels of the neighbo
 
 ##### Options
 
+- `-mll <algorithm>`
+
+  set the multi-label learning algorithm as BRkNNa or BRkNNb.
+
 - `-mll_k <number>` `--mll_kNN_k <number>` should be within [1, max_neighbors]
 
   number of neighbours of each input instance to take into account
@@ -265,22 +400,17 @@ This method aims at increasing the classification speed by adding an extra ART l
 
 ##### Options
 
+- `-mll MLARAM`
+
+  set the multi-label learning algorithm as MLARAM.
+
 - `-mll_v <value> ` `--MLARAM_vigilance <value>` should be within [0, 1]
 
   parameter for adaptive resonance theory networks,  controls how large a hyperbox can be, 1 it is small (no compression), 0 should assume all range. Normally set between 0.8 and 0.999, it is dataset dependent. It is responsible for the creation of the prototypes, therefore training of the network 
 
 - `-mll_t <value>` ` --MLARAM_threshold <value>`  should be within [0, 1)
 
-  controls how many prototypes participate by the prediction, can be changed for the testing phase
-
-
-
-
-
-### Residue level algorithms
-
-- transformed to sequence level problem 
-  (by sliding window)
+  controls how many prototypes participate by the prediction, can be changed for the testing phase.
 
 
 
