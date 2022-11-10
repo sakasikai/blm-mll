@@ -75,6 +75,8 @@ Transforms a multi-label classification problem with L labels into L single-labe
 
 - `-mll BR`
 
+  set the multi-label learning algorithm as Binary Relevance.
+
 - `-ml <method>`
 
   All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
@@ -85,9 +87,28 @@ Transforms a multi-label classification problem with L labels into L single-labe
 
 ##### Synopsis
 
+Constructs a bayesian conditioned chain of per label classifiers
+
+This class provides implementation of Jesse Read’s problem transformation method called Classifier Chains. For L labels it trains L classifiers ordered in a chain according to the Bayesian chain rule.
+
+The first classifier is trained just on the input space, and then each next classifier is trained on the input space and all previous classifiers in the chain.
+
+The default classifier chains follow the same ordering as provided in the training set, i.e. label in column 0, then 1, etc.
+
 
 
 ##### BibTeX
+
+```tex
+@inproceedings{read2009classifier,
+  title={Classifier chains for multi-label classification},
+  author={Read, Jesse and Pfahringer, Bernhard and Holmes, Geoff and Frank, Eibe},
+  booktitle={Joint European Conference on Machine Learning and Knowledge Discovery in Databases},
+  pages={254--269},
+  year={2009},
+  organization={Springer}
+}
+```
 
 
 
@@ -95,23 +116,37 @@ Transforms a multi-label classification problem with L labels into L single-labe
 
 - `-mll CC`
 
+  set the multi-label learning algorithm as Classifier Chain.
+
 - `-ml <method>`
 
 
 
 ### Label Combination
 
-#### LabelPowerSet
+#### Label PowerSet
 
 ##### Synopsis
 
+Transform multi-label problem to a multi-class problem
+
+Label Powerset is a problem transformation approach to multi-label classification that transforms a multi-label problem to a multi-class problem with 1 multi-class classifier trained on all unique label combinations found in the training data.
+
+The method maps each combination to a unique combination id number, and performs multi-class classification using the classifier as multi-class classifier and combination ids as classes.
+
+
+
 ##### BibTeX
+
+
 
 
 
 ##### Options
 
 - `-mll LP`
+
+  set the multi-label learning algorithm as Label PowerSet.
 
 - `-ml <method>`
 
@@ -125,19 +160,36 @@ Transforms a multi-label classification problem with L labels into L single-labe
 
 ##### Synopsis
 
+This is an algorithom implemented by WEKA. For underlying implementation, please refer to [weka documentation](https://mulan.sourceforge.net/doc/).
 
-
-This is an algorithom implemented by MEKA. For more information, please refer to [meka documentation](http://waikato.github.io/meka/meka.classifiers.multilabel.FW/#synopsis).
+For more information, see Fuernkranz, Johannes, Huellermeier, Eyke, Loza Mencia, Eneldo, Brinker, Klaus (2008). Multilabel classification via calibrated label ranking. Machine Learning. 73(2):133--153.
 
 
 
 ##### BibTeX
+
+```tex
+@article{Fuernkranz2008,
+    author = {Fuernkranz, Johannes and Huellermeier, Eyke and Loza Mencia, Eneldo and Brinker, Klaus},
+    journal = {Machine Learning},
+    number = {2},
+    pages = {133--153},
+    title = {Multilabel classification via calibrated label ranking},
+    volume = {73},
+    year = {2008}
+ }
+ 
+```
+
+[ref](https://mulan.sourceforge.net/doc/)
 
 
 
 ##### Options
 
 - `-mll CLR`
+
+  set the multi-label learning algorithm as Calibrated Label Ranking.
 
 - `-ml <method>`
 
@@ -165,7 +217,10 @@ This is an algorithom implemented by MEKA. For more information, please refer to
 
 - `-mll FW`
 
-- `-ml `
+- `-ml <method>`
+
+  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
+
 
 
 
@@ -187,7 +242,11 @@ This is an algorithom implemented by MEKA. For more information, please refer to
 
 - `-mll RT`
 
-- `-ml `
+  set the multi-label learning algorithm as Rank + Threshold.
+
+- `-ml <method>`
+
+  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
 
 
 
@@ -301,6 +360,10 @@ Divides the label space in to m subsets of size k, trains a Label Powerset class
 
 ##### Synopsis
 
+kNN classification method adapted for multi-label classification
+
+MLkNN builds uses k-NearestNeighbors find nearest examples to a test class and uses Bayesian inference to select assigned labels.
+
 
 
 ##### BibTeX
@@ -349,8 +412,6 @@ Divides the label space in to m subsets of size k, trains a Label Powerset class
 Binary Relevance multi-label classifier based on k-Nearest Neighbors method.
 
 The a version of the classifier assigns the labels that are assigned to at least half of the neighbors.
-
-
 
 The b version of the classifier assigns the most popular m labels of the neighbors, where m is the average number of labels assigned to the object’s neighbors.
 
