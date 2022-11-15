@@ -88,8 +88,6 @@ in linguistics.  (see Figure 1)
 
 ![a.png](./imgs/a.png)
 
-![image-20221031101840416](/Users/maiqi/Documents/typora_img/image-20221031101840416.png)
-
 **Figure 1.** The similarities between protein sequence and natural language sentence.
 
 
@@ -126,9 +124,21 @@ blm-mll is a system which can automatically construct the BLM, build the predict
 
 ## similarities and differences
 
+show the flowchart of two systems, show the shared blocks, show the biases in blocks
+
+(这里要一张图，展现blm的单标记流程，流程中的模块
+
+(blm-mll嵌入进来，单标记和blm一样，多标记流程单列出来
+
+(其中有共享，有共享但偏差，也有全新的引入
+
+(在整体上看，blm-mll是整合了多标记和单标记两个流程的系统，凸显贡献
+
+
+
 (单标记流程，完全一样
 
-For single-label learning tasks, the BionSeq-BLM-mll use the service of BionSeq-BLM totally, thus sharing the same command lines.
+For single-label learning tasks, the BionSeq-BLM-mll multiplex the service of BionSeq-BLM totally, thus sharing the same command lines.
 
 
 

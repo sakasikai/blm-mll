@@ -10,476 +10,17 @@
 
 - 在文档的命令行介绍中，要把blm命令行和新系统命令行同时展现，使用户在复杂用例下只需一个新文档就可以查到所需的全部新老命令。即在命令行层面进行新老文档的深度融合。
 
-- 为提高效率，blm命令行会保留原blm manual中的介绍风格。
+- 为提高效率，blm命令行会保留原blm manual中的介绍风格
 
 
 
-先概括介绍cmds的介绍结构，再查表
+This page contains command lines of both the multi-label learning flow and the single-label learning flow of out proposed system blm-mll. 
 
-结构：
+The command lines of single-label learning flow are in script-oriented format which covers all the units of single-label learning flow in blm and blm-mll (both share the same command lines).
 
-multi-label cmds
+The command lines of multi-label learning flow are introduced in two sections: 1) Multi-label Learning Commands and 2) Multi-label Learning Algorithms. Section 1) is in script-oriented format descripting each function unit in the pipeline of blm-mll. Section 2) describes all of the Multi-label Learning Algorithms utilized in blm-mll which plays a prominent role of this project.  
 
-==> 先介绍 cmds in shared blocks，
 
-==> 介绍新算法 cmds
-
-
-
-single-label cmds
-
-==> 这部分 和blm完全一致
-
-
-
-太多了，会分成两页
-
-
-
-
-
-## Multi-label Learning Commands
-
-（介绍 BioSeq-BLM_Seq_mll.py & BioSeq-BLM_Res_mll.py
-
-（介绍如何使用，包括 mll 算法命令 ==(在下一节介绍)==  和 single-label 共享的命令 两部分（根据single-label cmds，分模块介绍如何使用？参考tutorial的异同表，顺便在后面引出single-label cmds）
-
-~~（区分层次，Residue level algorithms ==> transformed to sequence level problem 
-(by sliding window)，share the same commands between~~
-
-
-
-## Multi-label Learning Algorithms
-
-（介绍 mll 算法命令
-
-link to multi-label learning algorithms in blm-mll
-
-
-
-### Binary
-
-#### Binary Relevance
-
-##### Synopsis
-
-Transforms a multi-label classification problem with L labels into L single-label separate binary classification problems using the same base classifier provided in the constructor. The prediction output is the union of all per label classifiers
-
-
-
-##### BibTeX
-
-
-
-##### Options
-
-- `-mll BR`
-
-  set the multi-label learning algorithm as Binary Relevance.
-
-- `-ml <method>`
-
-  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
-
-
-
-#### Classifier Chain
-
-##### Synopsis
-
-Constructs a bayesian conditioned chain of per label classifiers
-
-This class provides implementation of Jesse Read’s problem transformation method called Classifier Chains. For L labels it trains L classifiers ordered in a chain according to the Bayesian chain rule.
-
-The first classifier is trained just on the input space, and then each next classifier is trained on the input space and all previous classifiers in the chain.
-
-The default classifier chains follow the same ordering as provided in the training set, i.e. label in column 0, then 1, etc.
-
-
-
-##### BibTeX
-
-```tex
-@inproceedings{read2009classifier,
-  title={Classifier chains for multi-label classification},
-  author={Read, Jesse and Pfahringer, Bernhard and Holmes, Geoff and Frank, Eibe},
-  booktitle={Joint European Conference on Machine Learning and Knowledge Discovery in Databases},
-  pages={254--269},
-  year={2009},
-  organization={Springer}
-}
-```
-
-
-
-##### Options
-
-- `-mll CC`
-
-  set the multi-label learning algorithm as Classifier Chain.
-
-- `-ml <method>`
-
-
-
-### Label Combination
-
-#### Label PowerSet
-
-##### Synopsis
-
-Transform multi-label problem to a multi-class problem
-
-Label Powerset is a problem transformation approach to multi-label classification that transforms a multi-label problem to a multi-class problem with 1 multi-class classifier trained on all unique label combinations found in the training data.
-
-The method maps each combination to a unique combination id number, and performs multi-class classification using the classifier as multi-class classifier and combination ids as classes.
-
-
-
-##### BibTeX
-
-
-
-
-
-##### Options
-
-- `-mll LP`
-
-  set the multi-label learning algorithm as Label PowerSet.
-
-- `-ml <method>`
-
-  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
-
-
-
-### Pairwise & Threshold methods
-
-#### Calibrated Label Ranking
-
-##### Synopsis
-
-This is an algorithom implemented by WEKA. For underlying implementation, please refer to [weka documentation](https://mulan.sourceforge.net/doc/).
-
-For more information, see Fuernkranz, Johannes, Huellermeier, Eyke, Loza Mencia, Eneldo, Brinker, Klaus (2008). Multilabel classification via calibrated label ranking. Machine Learning. 73(2):133--153.
-
-
-
-##### BibTeX
-
-```tex
-@article{Fuernkranz2008,
-    author = {Fuernkranz, Johannes and Huellermeier, Eyke and Loza Mencia, Eneldo and Brinker, Klaus},
-    journal = {Machine Learning},
-    number = {2},
-    pages = {133--153},
-    title = {Multilabel classification via calibrated label ranking},
-    volume = {73},
-    year = {2008}
- }
- 
-```
-
-[ref](https://mulan.sourceforge.net/doc/)
-
-
-
-##### Options
-
-- `-mll CLR`
-
-  set the multi-label learning algorithm as Calibrated Label Ranking.
-
-- `-ml <method>`
-
-  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
-
-
-
-
-
-#### Fourclass Pairwise
-
-##### Synopsis
-
-The Fourclass Pairwise (FW) method. Trains a multi-class base classifier for each pair of labels ($(L*(L-1))/2$ in total), each with four possible class values: {00,01,10,11} representing the possible combinations of relevant (1) /irrelevant (0) for the pair. Uses a voting + threshold scheme at testing time where e.g., 01 from pair jk gives one vote to label k; any label with votes above the threshold is considered relevant. 
-
-This is an algorithom implemented by MEKA. For more information, please refer to [meka documentation](http://waikato.github.io/meka/meka.classifiers.multilabel.FW/#synopsis).
-
-
-
-##### BibTeX
-
-
-
-##### Options
-
-- `-mll FW`
-
-- `-ml <method>`
-
-  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
-
-
-
-
-
-
-#### Rank + Threshold
-
-##### Synopsis
-
-Duplicates multi-label examples into examples with one label each (one vs. rest). Trains a multi-class classifier, and uses a threshold to reconstitute a multi-label classification.
-
-This is an algorithom implemented by MEKA. For more information, please refer to [meka documentation](http://waikato.github.io/meka/meka.classifiers.multilabel.FW/#synopsis).
-
-##### BibTeX
-
-
-
-##### Options
-
-- `-mll RT`
-
-  set the multi-label learning algorithm as Rank + Threshold.
-
-- `-ml <method>`
-
-  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
-
-
-
-### Ensembles of mll
-
-ensemble of LP, partition strategy …
-
-
-
-#### RAkELd
-
-##### Synopsis
-
-Distinct RAndom k-labELsets multi-label classifier.
-
-Divides the label space in to equal partitions of size k, trains a Label Powerset classifier per partition and predicts by summing the result of all trained classifiers.
-
-
-
-##### BibTeX
-
-```tex
-@ARTICLE{5567103,
-    author={G. Tsoumakas and I. Katakis and I. Vlahavas},
-    journal={IEEE Transactions on Knowledge and Data Engineering},
-    title={Random k-Labelsets for Multilabel Classification},
-    year={2011},
-    volume={23},
-    number={7},
-    pages={1079-1089},
-    doi={10.1109/TKDE.2010.164},
-    ISSN={1041-4347},
-    month={July},
-}
-```
-
-
-
-##### Options
-
-- `-mll RAkELd`
-
-  set the multi-label learning algorithm as RAkELd.
-
-- `-ml <method>`
-
-  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
-
-- `-mll_ls <size>` `--RAkEL_labelset_size <size>` should be within [1, labelset_size)
-
-  the desired size of each of the partitions, parameter k according to paper
-
-
-
-
-
-#### RAkELo
-
-##### Synopsis
-
-Overlapping RAndom k-labELsets multi-label classifier
-
-Divides the label space in to m subsets of size k, trains a Label Powerset classifier for each subset and assign a label to an instance if more than half of all classifiers (majority) from clusters that contain the label assigned the label to the instance.
-
-
-
-##### BibTeX
-
-```tex
-@ARTICLE{5567103,
-    author={G. Tsoumakas and I. Katakis and I. Vlahavas},
-    journal={IEEE Transactions on Knowledge and Data Engineering},
-    title={Random k-Labelsets for Multilabel Classification},
-    year={2011},
-    volume={23},
-    number={7},
-    pages={1079-1089},
-    doi={10.1109/TKDE.2010.164},
-    ISSN={1041-4347},
-    month={July},
-}
-```
-
-
-
-##### Options
-
-- `-mll RAkELo`
-
-  set the multi-label learning algorithm as RAkELo.
-
-- `-ml <method>`
-
-  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
-
-- `-mll_ls <size>` ``--RAkEL_labelset_size <size>` should be within [1, labelset_size)
-
-  the desired size of each of the partitions, parameter k according to paper
-
-- `-mll_mc <count>` `--RAkELo_model_count <count>` 
-
-  the desired number of classifiers, parameter m according to paper.
-
-  assure that the product of labelset_size and model_count should be larger than the dimension of label space
-
-
-
-### Adaptation of kNN
-
-#### ML-KNN
-
-##### Synopsis
-
-kNN classification method adapted for multi-label classification
-
-MLkNN builds uses k-NearestNeighbors find nearest examples to a test class and uses Bayesian inference to select assigned labels.
-
-
-
-##### BibTeX
-
-```tex
-@article{zhang2007ml,
-  title={ML-KNN: A lazy learning approach to multi-label learning},
-  author={Zhang, Min-Ling and Zhou, Zhi-Hua},
-  journal={Pattern recognition},
-  volume={40},
-  number={7},
-  pages={2038--2048},
-  year={2007},
-  publisher={Elsevier}
-}
-```
-
-
-
-##### Options
-
-- `-mll MLkNN`
-
-  set the multi-label learning algorithm as ML-kNN.
-
-- `-mll_k <number>` `--mll_kNN_k <number>` should be within [1, max_neighbors]
-
-  number of neighbours of each input instance to take into account
-
-- `-mll_s <value>` ` --MLkNN_s <value>` default 1.0
-
-  the smoothing parameter controlling the strength of uniform prior
-
-  （set to be 1 which yields the Laplace smoothing）
-
-- `-mll_ifn <number>` `--MLkNN_ignore_first_neighbours <number>`  should be within [1, max_neighbors]
-
-  number of neighbours of each input instance to take into account
-
-
-
-#### BRkNNa/BRkNNb
-
-##### Synopsis
-
-Binary Relevance multi-label classifier based on k-Nearest Neighbors method.
-
-The a version of the classifier assigns the labels that are assigned to at least half of the neighbors.
-
-The b version of the classifier assigns the most popular m labels of the neighbors, where m is the average number of labels assigned to the object’s neighbors.
-
-
-
-##### BibTeX
-
-```tex
-@inproceedings{EleftheriosSpyromitros2008,
-   author = {Eleftherios Spyromitros, Grigorios Tsoumakas, Ioannis Vlahavas},
-   booktitle = {Proc. 5th Hellenic Conference on Artificial Intelligence (SETN 2008)},
-   title = {An Empirical Study of Lazy Multilabel Classification Algorithms},
-   year = {2008},
-   location = {Syros, Greece}
-}
-```
-
-
-
-##### Options
-
-- `-mll <algorithm>`
-
-  set the multi-label learning algorithm as BRkNNa or BRkNNb.
-
-- `-mll_k <number>` `--mll_kNN_k <number>` should be within [1, max_neighbors]
-
-  number of neighbours of each input instance to take into account
-
-
-
-### Adaptation of Neural Network
-
-#### MLARAM
-
-##### Synopsis
-
-HARAM: A Hierarchical ARAM Neural Network for Large-Scale Text Classification
-
-This method aims at increasing the classification speed by adding an extra ART layer for clustering learned prototypes into large clusters. In this case the activation of all prototypes can be replaced by the activation of a small fraction of them, leading to a significant reduction of the classification time.
-
-
-
-##### BibTeX
-
-
-
-##### Options
-
-- `-mll MLARAM`
-
-  set the multi-label learning algorithm as MLARAM.
-
-- `-mll_v <value> ` `--MLARAM_vigilance <value>` should be within [0, 1]
-
-  parameter for adaptive resonance theory networks,  controls how large a hyperbox can be, 1 it is small (no compression), 0 should assume all range. Normally set between 0.8 and 0.999, it is dataset dependent. It is responsible for the creation of the prototypes, therefore training of the network 
-
-- `-mll_t <value>` ` --MLARAM_threshold <value>`  should be within [0, 1)
-
-  controls how many prototypes participate by the prediction, can be changed for the testing phase.
-
-
-
-
-
-## 和 single-label 共享的命令 两部分
-
-要利用到下面的单标记
 
 
 
@@ -491,7 +32,11 @@ This method aims at increasing the classification speed by adding an extra ART l
 
 内容：格式不同，
 
-作用：单独单标记，同时可以用mll的共享文档（怎么说？）
+作用：single-label learning flow
+
+
+
+ for both blm and blm-mll
 
 
 
@@ -1536,6 +1081,462 @@ function at residue level. For more details, please refer to the manual of BLM [
   Select use batch mode or not, the parameter will change the directory for generating file based on the method you choose.
 
 
+
+## Multi-label Learning Commands
+
+（介绍 BioSeq-BLM_Seq_mllearn.py & BioSeq-BLM_Res_mllearn.py
+
+In [tutorial x](x), we demonstrate the relationship between blm-mll and blm and know that the multi-label learning flow shares manny underlying services with single-label learning flow. In view of this, we add two scripts exposed to users for applying multi-label learning tasks. BioSeq-BLM_Seq_mll.py and BioSeq-BLM_Res_mll.py are
+
+
+
+### BioSeq-BLM_Seq_mll.py
+
+
+
+### BioSeq-BLM_Res_mll.py
+
+
+
+
+
+## Multi-label Learning Algorithms
+
+（介绍 mll 算法命令
+
+link to multi-label learning algorithms in blm-mll
+
+
+
+### Binary
+
+#### Binary Relevance
+
+##### Synopsis
+
+Transforms a multi-label classification problem with L labels into L single-label separate binary classification problems using the same base classifier provided in the constructor. The prediction output is the union of all per label classifiers
+
+
+
+##### BibTeX
+
+
+
+##### Options
+
+- `-mll BR`
+
+  set the multi-label learning algorithm as Binary Relevance.
+
+- `-ml <method>`
+
+  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
+
+
+
+#### Classifier Chain
+
+##### Synopsis
+
+Constructs a bayesian conditioned chain of per label classifiers
+
+This class provides implementation of Jesse Read’s problem transformation method called Classifier Chains. For L labels it trains L classifiers ordered in a chain according to the Bayesian chain rule.
+
+The first classifier is trained just on the input space, and then each next classifier is trained on the input space and all previous classifiers in the chain.
+
+The default classifier chains follow the same ordering as provided in the training set, i.e. label in column 0, then 1, etc.
+
+
+
+##### BibTeX
+
+```tex
+@inproceedings{read2009classifier,
+  title={Classifier chains for multi-label classification},
+  author={Read, Jesse and Pfahringer, Bernhard and Holmes, Geoff and Frank, Eibe},
+  booktitle={Joint European Conference on Machine Learning and Knowledge Discovery in Databases},
+  pages={254--269},
+  year={2009},
+  organization={Springer}
+}
+```
+
+
+
+##### Options
+
+- `-mll CC`
+
+  set the multi-label learning algorithm as Classifier Chain.
+
+- `-ml <method>`
+
+
+
+### Label Combination
+
+#### Label PowerSet
+
+##### Synopsis
+
+Transform multi-label problem to a multi-class problem
+
+Label Powerset is a problem transformation approach to multi-label classification that transforms a multi-label problem to a multi-class problem with 1 multi-class classifier trained on all unique label combinations found in the training data.
+
+The method maps each combination to a unique combination id number, and performs multi-class classification using the classifier as multi-class classifier and combination ids as classes.
+
+
+
+##### BibTeX
+
+
+
+
+
+##### Options
+
+- `-mll LP`
+
+  set the multi-label learning algorithm as Label PowerSet.
+
+- `-ml <method>`
+
+  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
+
+
+
+### Pairwise & Threshold methods
+
+Pairwise methods can work well, but they are very sensitive to the number of labels. One-vs-rest classifiers (e.g., `RT`) can be faster with large numbers of labels, but may not perform as well.
+
+link到[weka](http://waikato.github.io/meka/methods/)，并指出如果要细致的调优参数，要用weka的GUI或。。。
+
+
+
+#### Calibrated Label Ranking
+
+##### Synopsis
+
+This is an algorithom implemented by WEKA. For underlying implementation, please refer to [weka documentation](https://mulan.sourceforge.net/doc/).
+
+For more information, see Fuernkranz, Johannes, Huellermeier, Eyke, Loza Mencia, Eneldo, Brinker, Klaus (2008). Multilabel classification via calibrated label ranking. Machine Learning. 73(2):133--153.
+
+
+
+##### BibTeX
+
+```tex
+@article{Fuernkranz2008,
+    author = {Fuernkranz, Johannes and Huellermeier, Eyke and Loza Mencia, Eneldo and Brinker, Klaus},
+    journal = {Machine Learning},
+    number = {2},
+    pages = {133--153},
+    title = {Multilabel classification via calibrated label ranking},
+    volume = {73},
+    year = {2008}
+ }
+ 
+```
+
+[ref](https://mulan.sourceforge.net/doc/)
+
+
+
+##### Options
+
+- `-mll CLR`
+
+  set the multi-label learning algorithm as Calibrated Label Ranking.
+
+- `-ml <method>`
+
+  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
+
+
+
+
+
+#### Fourclass Pairwise
+
+##### Synopsis
+
+The Fourclass Pairwise (FW) method. Trains a multi-class base classifier for each pair of labels ($(L*(L-1))/2$ in total), each with four possible class values: {00,01,10,11} representing the possible combinations of relevant (1) /irrelevant (0) for the pair. Uses a voting + threshold scheme at testing time where e.g., 01 from pair jk gives one vote to label k; any label with votes above the threshold is considered relevant. 
+
+This is an algorithom implemented by MEKA. For more information, please refer to [meka documentation](http://waikato.github.io/meka/meka.classifiers.multilabel.FW/#synopsis).
+
+
+
+##### BibTeX
+
+
+
+##### Options
+
+- `-mll FW`
+
+- `-ml <method>`
+
+  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
+
+
+
+
+
+
+#### Rank+Threshold
+
+##### Synopsis
+
+Duplicates multi-label examples into examples with one label each (one vs. rest). Trains a multi-class classifier, and uses a threshold to reconstitute a multi-label classification.
+
+This is an algorithom implemented by MEKA. For more information, please refer to [meka documentation](http://waikato.github.io/meka/meka.classifiers.multilabel.FW/#synopsis).
+
+##### BibTeX
+
+
+
+##### Options
+
+- `-mll RT`
+
+  set the multi-label learning algorithm as Rank + Threshold.
+
+- `-ml <method>`
+
+  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
+
+
+
+### Ensembles of mll
+
+ensemble of LP, partition strategy …
+
+
+
+#### RAkELd
+
+##### Synopsis
+
+Distinct RAndom k-labELsets multi-label classifier.
+
+Divides the label space in to equal partitions of size k, trains a Label Powerset classifier per partition and predicts by summing the result of all trained classifiers.
+
+
+
+##### BibTeX
+
+```tex
+@ARTICLE{5567103,
+    author={G. Tsoumakas and I. Katakis and I. Vlahavas},
+    journal={IEEE Transactions on Knowledge and Data Engineering},
+    title={Random k-Labelsets for Multilabel Classification},
+    year={2011},
+    volume={23},
+    number={7},
+    pages={1079-1089},
+    doi={10.1109/TKDE.2010.164},
+    ISSN={1041-4347},
+    month={July},
+}
+```
+
+
+
+##### Options
+
+- `-mll RAkELd`
+
+  set the multi-label learning algorithm as RAkELd.
+
+- `-ml <method>`
+
+  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
+
+- `-mll_ls <size>` `--RAkEL_labelset_size <size>` should be within [1, labelset_size)
+
+  the desired size of each of the partitions, parameter k according to paper
+
+
+
+
+
+#### RAkELo
+
+##### Synopsis
+
+Overlapping RAndom k-labELsets multi-label classifier
+
+Divides the label space in to m subsets of size k, trains a Label Powerset classifier for each subset and assign a label to an instance if more than half of all classifiers (majority) from clusters that contain the label assigned the label to the instance.
+
+
+
+##### BibTeX
+
+```tex
+@ARTICLE{5567103,
+    author={G. Tsoumakas and I. Katakis and I. Vlahavas},
+    journal={IEEE Transactions on Knowledge and Data Engineering},
+    title={Random k-Labelsets for Multilabel Classification},
+    year={2011},
+    volume={23},
+    number={7},
+    pages={1079-1089},
+    doi={10.1109/TKDE.2010.164},
+    ISSN={1041-4347},
+    month={July},
+}
+```
+
+
+
+##### Options
+
+- `-mll RAkELo`
+
+  set the multi-label learning algorithm as RAkELo.
+
+- `-ml <method>`
+
+  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
+
+- `-mll_ls <size>` ``--RAkEL_labelset_size <size>` should be within [1, labelset_size)
+
+  the desired size of each of the partitions, parameter k according to paper
+
+- `-mll_mc <count>` `--RAkELo_model_count <count>` 
+
+  the desired number of classifiers, parameter m according to paper.
+
+  assure that the product of labelset_size and model_count should be larger than the dimension of label space
+
+
+
+### Adaptation of kNN
+
+#### ML-KNN
+
+##### Synopsis
+
+kNN classification method adapted for multi-label classification
+
+MLkNN builds uses k-NearestNeighbors find nearest examples to a test class and uses Bayesian inference to select assigned labels.
+
+
+
+##### BibTeX
+
+```tex
+@article{zhang2007ml,
+  title={ML-KNN: A lazy learning approach to multi-label learning},
+  author={Zhang, Min-Ling and Zhou, Zhi-Hua},
+  journal={Pattern recognition},
+  volume={40},
+  number={7},
+  pages={2038--2048},
+  year={2007},
+  publisher={Elsevier}
+}
+```
+
+
+
+##### Options
+
+- `-mll MLkNN`
+
+  set the multi-label learning algorithm as ML-kNN.
+
+- `-mll_k <number>` `--mll_kNN_k <number>` should be within [1, max_neighbors]
+
+  number of neighbours of each input instance to take into account
+
+- `-mll_s <value>` ` --MLkNN_s <value>` default 1.0
+
+  the smoothing parameter controlling the strength of uniform prior
+
+  （set to be 1 which yields the Laplace smoothing）
+
+- `-mll_ifn <number>` `--MLkNN_ignore_first_neighbours <number>`  should be within [1, max_neighbors]
+
+  number of neighbours of each input instance to take into account
+
+
+
+#### BRkNNa/BRkNNb
+
+##### Synopsis
+
+Binary Relevance multi-label classifier based on k-Nearest Neighbors method.
+
+The a version of the classifier assigns the labels that are assigned to at least half of the neighbors.
+
+The b version of the classifier assigns the most popular m labels of the neighbors, where m is the average number of labels assigned to the object’s neighbors.
+
+
+
+##### BibTeX
+
+```tex
+@inproceedings{EleftheriosSpyromitros2008,
+   author = {Eleftherios Spyromitros, Grigorios Tsoumakas, Ioannis Vlahavas},
+   booktitle = {Proc. 5th Hellenic Conference on Artificial Intelligence (SETN 2008)},
+   title = {An Empirical Study of Lazy Multilabel Classification Algorithms},
+   year = {2008},
+   location = {Syros, Greece}
+}
+```
+
+
+
+##### Options
+
+- `-mll <algorithm>`
+
+  set the multi-label learning algorithm as BRkNNa or BRkNNb.
+
+- `-mll_k <number>` `--mll_kNN_k <number>` should be within [1, max_neighbors]
+
+  number of neighbours of each input instance to take into account
+
+
+
+### Adaptation of Neural Network
+
+#### MLARAM
+
+##### Synopsis
+
+HARAM: A Hierarchical ARAM Neural Network for Large-Scale Text Classification
+
+This method aims at increasing the classification speed by adding an extra ART layer for clustering learned prototypes into large clusters. In this case the activation of all prototypes can be replaced by the activation of a small fraction of them, leading to a significant reduction of the classification time.
+
+
+
+##### BibTeX
+
+
+
+##### Options
+
+- `-mll MLARAM`
+
+  set the multi-label learning algorithm as MLARAM.
+
+- `-mll_v <value> ` `--MLARAM_vigilance <value>` should be within [0, 1]
+
+  parameter for adaptive resonance theory networks,  controls how large a hyperbox can be, 1 it is small (no compression), 0 should assume all range. Normally set between 0.8 and 0.999, it is dataset dependent. It is responsible for the creation of the prototypes, therefore training of the network 
+
+- `-mll_t <value>` ` --MLARAM_threshold <value>`  should be within [0, 1)
+
+  controls how many prototypes participate by the prediction, can be changed for the testing phase.
+
+
+
+
+
+## 和 single-label 共享的命令 两部分
+
+要利用到下面的单标记
 
 
 
