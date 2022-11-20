@@ -14,27 +14,29 @@
 
 
 
-This page contains command lines of both the multi-label learning flow and the single-label learning flow of out proposed system blm-mll. 
+Command line tools introduce command lines for both the multi-label learning flow and the single-label learning flow in out proposed system blm-mll. The command lines of both flow are script-oriented where a script provides adequate options for a general function block of system flow introduced in [section x](x) or a one-stop fcuntion for a specific learning task. 
 
-The command lines of single-label learning flow are in script-oriented format which covers all the units of single-label learning flow in blm and blm-mll (both share the same command lines).
+There are three sections in this page:
 
-The command lines of multi-label learning flow are introduced in two sections: 1) Multi-label Learning Commands and 2) Multi-label Learning Algorithms. Section 1) is in script-oriented format descripting each function unit in the pipeline of blm-mll. Section 2) describes all of the Multi-label Learning Algorithms utilized in blm-mll which plays a prominent role of this project.  
+- Single-label Learning Commands
+- Multi-label Learning Commands
+- Multi-label Learning Algorithms
 
+Section 1) covers all the units of single-label learning flow in blm and blm-mll(both system shares the same command lines), which helps users work with single-label learning tasks and blm services. 
 
+Section 2) introduces one-stop function scripts for multi-label learning flow in blm-mll, which helps users deal with multi-label learning tasks. 
+
+Section 3) describes all of the Multi-label Learning Algorithms utilized in blm-mll in a detailed way to help users understand the core difference between system blm-mll and system blm.
 
 
 
 ## Single-label Learning Commands
-
-### Intro
 
 来源：说明是blm命令的迁移版本
 
 内容：格式不同，
 
 作用：single-label learning flow
-
-
 
  for both blm and blm-mll
 
@@ -631,6 +633,8 @@ function at sequence level. For more details, please refer to the manual of BLM 
 
   The machine-learning algorithm for constructing predictor, for example: Support Vector Machine (SVM).
 
+  Different from options in blm corresponding script, `Reformer` method is unavaliable in blm-mll.
+
 - `-seq_file[SEQ_FILE [SEQ_FILE ...]] `
 
   The input file in FASTA format.
@@ -912,9 +916,11 @@ function at residue level. For more details, please refer to the manual of BLM [
 
   Please select feature extraction method for residue level analysis.
 
-- `-ml {SVM,RF,CRF,CNN,LSTM,GRU,Transformer,WeightedTransformer,Reformer}`
+- `-ml {SVM,RF,CRF,CNN,LSTM,GRU,Transformer,WeightedTransformer}`
 
   The machine-learning algorithm for constructing predictor, for example: Support Vector Machine (SVM).
+
+  Different from options in blm corresponding script, `Reformer` method is unavaliable in blm-mll.
 
 - `-seq_file `
 
@@ -1084,19 +1090,352 @@ function at residue level. For more details, please refer to the manual of BLM [
 
 ## Multi-label Learning Commands
 
-（介绍 BioSeq-BLM_Seq_mllearn.py & BioSeq-BLM_Res_mllearn.py
+We add two scripts for applying multi-label learning tasks: BioSeq-BLM_Seq_mll.py and BioSeq-BLM_Res_mll.py. The structure of multi-label learning scripts is the same as that of single-label Learning scripts presented above. It’s worth noting that there exists some changes in the options of multi-label learning commands. In [tutorial ?](x), we demonstrate the relationship between blm-mll and blm and know that the multi-label learning flow shares manny underlying services with single-label learning flow like feature extraction and feature analysis. Due to the differences between multi-label learning task and single-label Learning task, some function or methods provided by single-label Learning scripts are not avaliable in multi-label learning scripts. 
 
-In [tutorial x](x), we demonstrate the relationship between blm-mll and blm and know that the multi-label learning flow shares manny underlying services with single-label learning flow. In view of this, we add two scripts exposed to users for applying multi-label learning tasks. BioSeq-BLM_Seq_mll.py and BioSeq-BLM_Res_mll.py are
+For more infomation of the multi-label learning algorithms used in blm-mll, we give a detailed algorithm-oriented introduction in the next section [Multi-label Learning Algorithms](# Multi-label Learning Algorithms).
 
 
 
 ### BioSeq-BLM_Seq_mll.py
 
+#### Synopsis
+
+“BioSeq-BLM_Seq_mll.py” is an executive Python script used for achieving the one-stop multi-label learning
+function at sequence level.
+
+
+
+#### Required Options
+
+- `-category {DNA,RNA,Protein} `
+
+  The category of input sequences.
+
+- `-mode {OHE,BOW,TF-IDF,TR,WE,TM,SR}`
+
+  The feature extraction mode for input sequence which analogies with NLP, for example: bag of words (BOW).
+
+  Different from options in Single-label Learning scripts, `AF` mode and `Labeled-LDA` method of `TM` mode are unavaliable in blm-mll due to design.
+
+- `-mll {BR,CC,LP,RakelD,RakelO,CLR,FP,RT,MLkNN,BRkNNaClassifier,BRkNNbClassifier,MLARAM}`
+
+  The multi-label learning algorithom for conducting multi-label learning tasks, for example: Binary Relevance (BR). See [Multi-label Learning Algorithms](#Multi-label Learning Algorithms) for more information.
+
+- `-ml {SVM,RF,CNN,LSTM,GRU,Transformer,WeightedTransformer}`
+
+  The single-learning algorithm for constructing sub-predictors for the multi-label learning algorithom specified by `-mll` , for example: Support Vector Machine (SVM). This option is required only by multi-label learning algorithoms categoried as [Problem Transformation](#sequence-level problem). Pay attention to that different multi-label learning algorithom supports different set of sub-predictors, please refer to [multi-label learning algorithms in blm-mll](x). For more information about these single-learning algorithms, please refer to [blm manual](x). 
+
+- `-seq_file SEQ_FILE`
+
+  The input sequence file in FASTA format.
+
+- `-label_file LABEL_FILE`
+
+  The multi-label file corresponding to input sequence file in CSV format with a header.
+
+
+
+#### Optional Options
+
+- `-h, --help`
+
+  Show this help message and exit.
+
+- `-words {Kmer,RevKmer,Mismatch,Subsequence,Top-NGram,DR,DT}`
+
+  If you select mode in ['BOW', 'TF-IDF', 'TR', 'WE', 'TM'], you should select word for corresponding mode, for example Mismatch. Pay attention to that different category has different words, please reference to [manual](bliu?).
+
+- `-method METHODIf `
+
+  If you select mode in ['OHE', 'WE', 'TM', 'SR'], you should select method for corresponding mode, for example, select 'LDA' for 'TM' mode, select 'word2vec' for 'WE' mode and so on. For different category, the methods belong to 'OHE' and 'SR' mode is different, please reference to manual.
+
+- `-auto_opt {0,1,2}`
+
+  Choose whether automatically traverse the argument list. 2 is automatically traversing the argument list set ahead, 1 is automatically traversing the argument list in a smaller range, while 0 is not (default=0).
+
+- `-cpu CPU`
+
+  The maximum number of CPU cores used for multiprocessing in generating frequency profile and the number of CPU cores used for multiprocessing during parameter selection process (default=1).
+
+- `-pp_file PP_FILE`
+
+  The physicochemical properties file user input. If input nothing, the default physicochemical properties is: DNA dinucleotide: Rise, Roll, Shift, Slide, Tilt, Twist. DNA trinucleotide: Dnase I, Bendability (DNAse). RNA: Rise, Roll, Shift, Slide, Tilt, Twist. Protein: Hydrophobicity, Hydrophilicity, Mass.
+
+- `-word_size[WORD_SIZE [WORD_SIZE ...]]`
+
+  The word size of sequences for specific words (the range of word_size is between 1 and 6).
+
+- `-mis_num[MIS_NUM [MIS_NUM ...]]`
+
+  For Mismatch words. The max value inexact matching, mis_num should smaller than word_size (the range of mis_num is between 1 and 6).
+
+- `-delta [DELTA [DELTA ...]]`
+
+  For Subsequence words. The value of penalized factor (the range of delta is between 0 and 1).
+
+- `-top_n [TOP_N [TOP_N ...]]`
+
+  The maximum distance between structure statuses (the range of delta is between 1 and 4). It works with Top-n-gram words.
+
+- `-max_dis[MAX_DIS [MAX_DIS ...]] `
+
+  The max distance value for DR words and DT words (default is from 1 to 4).
+
+- `-grid [{0,1} [{0,1} ...]] `
+
+  Grid=0 for rough grid search, grid=1 for meticulous grid search.
+
+- `-alpha ALPHA `
+
+  Damping parameter for PageRank used in 'TR' mode, default=0.85.
+
+- `-win_size WIN_SIZE`
+
+  The maximum distance between the current and predicted word within a sentence for ‘word2vec’ in ‘WE’ mode, etc.
+
+- `-vec_dim VEC_DIM`
+
+  The output dimension of feature vectors for 'Glove' model and dimensionality of a word vectors for 'word2vec' and 'fastText' method.
+
+- `-sg SG`
+
+  Training algorithm for 'word2vec' and 'fastText' method. 1 for skip-gram, otherwise CBOW.
+
+- `-in_tm{BOW,TF-IDF,TextRank}`
+
+  While topic model implement subject extraction from a text, the text need to be preprocessed by one of mode in choices.
+
+- `-com_prop COM_PROP`
+
+  If choose topic model mode, please set component proportion for output feature vectors.
+
+- `-oli {0,1}`
+
+  Choose one kind of Oligonucleotide (default=0): 0 represents dinucleotid; 1 represents trinucleotide. For MAC, GAC, NMBAC methods of 'SR' mode.
+
+- `-lag [LAG [LAG ...]]`
+
+  The value of lag (default=1). For DACC, TACC, ACC, ACC-PSSM, AC-PSSM or CC-PSSM methods and so on.
+
+- `-lamada[LAMADA [LAMADA ...]]`
+
+  The value of lamada (default=1). For MAC, PDT, PDT-Profile, GAC or NMBAC methods and so on
+
+- `-w [W [W ...]] `
+
+  The value of weight (default=0.1). For ZCPseKNC method.
+
+- `-k [K [K ...]] `
+
+  The value of Kmer, it works only with ZCPseKNC method.
+
+- `-n [N [N ...]]`
+
+  The maximum distance between structure statuses (default=1). It works with PDT-Profile method.
+
+- `-ui_file UI_FILE `
+
+  The user-defined physicochemical property file.
+
+- `-all_index `
+
+  Choose all physicochemical indices.
+
+- `-no_all_index `
+
+  Do not choose all physicochemical indices, default.
+
+  
+
+- `-motif_database {ELM,Mega} `
+
+  The database where input motif file comes from.
+
+- `-motif_file MOTIF_FILE`
+
+  The short linear motifs from ELM database or structural motifs from the MegaMotifBase.
+
+- `-sn {min-max-scale,standard-scale,L1-normalize,L2-normalize,none}`
+
+  Choose method of standardization or normalization for feature vectors.
+
+- `-cl {AP,DBSCAN,GMM,AGNES,Kmeans,none} `
+
+  Choose method for clustering.
+
+- `-cm {feature,sample} `
+
+  The mode for clustering.
+
+- `-nc NC `
+
+  The number of clusters.
+
+- `-dr{PCA, KernelPCA,TSVD,none} `
+
+  Choose method for dimension reduction.
+
+- `-np NP `
+
+  The dimension of main component after dimension reduction.
+
+  
+
+- `-rdb {no,dr} `
+
+  Reduce dimension by: 
+
+  'no'---none; 
+
+  'dr'--- apply dimension reduction to parameter selection procedure.
+
+  
+
+- `-cost [COST_LOW [COST_HIGH [STEP]]] `
+
+  Regularization parameter of 'SVM'. 
+
+  Produce a sequence of parameter from low (inclusive)
+      to high (exclusive) by step(default is 1) for parameter selection. If high is None (the default), then low is produced only.
+
+- `-gamma[GAMMA_LOW [GAMMA_HIGH [STEP]]] `
+
+  Kernel coefficient for 'rbf' of 'SVM'.
+
+  Produce a sequence of parameter from low (inclusive)
+      to high (exclusive) by step(default is 1) for parameter selection. If high is None (the default), then low is produced only.
+
+- `-tree [TREE_LOW [TREE_HIGH [STEP]]] `
+
+  Produce a sequence of parameter from low (inclusive)
+      to high (exclusive) by step(default is 1) for parameter selection. If high is None (the default), then low is produced only.
+
+- `-lr LR `
+
+  The value of learning rate for deep learning.
+
+- `-epochs EPOCHS `
+
+  The epoch number for train deep model.
+
+- `-batch_size BATCH_SIZE `
+
+  The size of mini-batch for deep learning.
+
+- `-dropout DROPOUT `
+
+  The value of dropout prob for deep learning.
+
+- `-hidden_dim HIDDEN_DIM `
+
+  The size of the intermediate (a.k.a., feed forward) layer.
+
+- `-n_layer N_LAYER `
+
+  The number of units for 'LSTM' and 'GRU'.
+
+- `-out_channels OUT_CHANNELS `
+
+  The number of output channels for 'CNN'
+
+- `-kernel_size KERNEL_SIZE `
+
+  The size of stride for 'CNN'.
+
+- `-d_model D_MODEL`
+
+  The dimension of multi-head attention layer for Transformer or Weighted-Transformer.
+
+- `-d_ff D_FF `
+
+  The dimension of fully connected layer of Transformer or Weighted-Transformer.
+
+- `-heads HEADS `
+
+  The number of heads for Transformer or Weighted-Transformer.
+
+- `-metric {Acc,F1} `
+
+  The metric for parameter selection(default=F1)
+
+- `-cv {5,10,j}`
+
+  The cross validation mode. 5 or 10: 5-fold or 10-fold cross validation, j: (character 'j') jackknife cross validation.
+
+- `-ind_seq_file [IND_SEQ_FILE [IND_SEQ_FILE ...]]`
+
+  ==The independent test dataset in FASTA format.==
+
+- `-fixed_len FIXED_LEN`
+
+  The length of sequence will be fixed via cutting orpadding. If you don't set value for 'fixed_len', it will be the maximum length of all input sequences.
+
+- `-format {tab,svm,csv,tsv}`
+
+  The output format (default=csv). 
+
+  tab --Simple format, delimited by TAB. 
+
+  svm --The libSVM training data format. 
+
+  csv, tsv --The format that can be loaded into a spreadsheet program.
+
+- `-bp {0,1}`
+
+  Select use batch mode or not, the parameter will change the directory for generating file based on the method you choose.
+
+
+
+> note
+>
+> compared with single-label learning flow
+>
+> remove blmx, feature selection, sampling 
+>
+> require mll and ml where ml means but not 
+
 
 
 ### BioSeq-BLM_Res_mll.py
 
+#### Synopsis
 
+“BioSeq-BLM_Seq_mll.py” is an executive Python script used for achieving the one-stop multi-label learning
+function at sequence level.
+
+
+
+#### Required Options
+
+- `-category {DNA,RNA,Protein} `
+
+  The category of input sequences.
+
+- `-method `
+
+  Please select feature extraction method for residue level analysis.
+
+- `-ml {SVM,RF,CRF,CNN,LSTM,GRU,Transformer,WeightedTransformer}`
+
+  The machine-learning algorithm for constructing predictor, for example: Support Vector Machine (SVM).
+
+  Different from options in blm corresponding script, `Reformer` method is unavaliable in blm-mll.
+
+- `-seq_file `
+
+  The input file in FASTA format.
+
+- `-label_file `
+
+  The corresponding label file.
+
+
+
+#### Optional Options
+
+- `-h, --help `
+
+  Show this help message and exit.
 
 
 
@@ -1514,6 +1853,10 @@ This method aims at increasing the classification speed by adding an extra ART l
 
 ##### BibTeX
 
+```
+
+```
+
 
 
 ##### Options
@@ -1529,15 +1872,3 @@ This method aims at increasing the classification speed by adding an extra ART l
 - `-mll_t <value>` ` --MLARAM_threshold <value>`  should be within [0, 1)
 
   controls how many prototypes participate by the prediction, can be changed for the testing phase.
-
-
-
-
-
-## 和 single-label 共享的命令 两部分
-
-要利用到下面的单标记
-
-
-
-## References
