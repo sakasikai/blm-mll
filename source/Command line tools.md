@@ -633,8 +633,6 @@ function at sequence level. For more details, please refer to the manual of BLM 
 
   The machine-learning algorithm for constructing predictor, for example: Support Vector Machine (SVM).
 
-  Different from options in blm corresponding script, `Reformer` method is unavaliable in blm-mll.
-
 - `-seq_file[SEQ_FILE [SEQ_FILE ...]] `
 
   The input file in FASTA format.
@@ -1131,7 +1129,7 @@ function at sequence level.
 
 - `-label_file LABEL_FILE`
 
-  The multi-label file corresponding to input sequence file in CSV format with a header.
+  The multi-label file corresponding to input sequence file in CSV format with a header. Each following line holds $q$ dimentional multi-label label of a specific sequence.
 
 
 
@@ -1245,8 +1243,6 @@ function at sequence level.
 
   Do not choose all physicochemical indices, default.
 
-  
-
 - `-motif_database {ELM,Mega} `
 
   The database where input motif file comes from.
@@ -1271,15 +1267,13 @@ function at sequence level.
 
   The number of clusters.
 
-- `-dr{PCA, KernelPCA,TSVD,none} `
+- `-dr{PCA,KernelPCA,TSVD,none} `
 
   Choose method for dimension reduction.
 
 - `-np NP `
 
   The dimension of main component after dimension reduction.
-
-  
 
 - `-rdb {no,dr} `
 
@@ -1288,8 +1282,6 @@ function at sequence level.
   'no'---none; 
 
   'dr'--- apply dimension reduction to parameter selection procedure.
-
-  
 
 - `-cost [COST_LOW [COST_HIGH [STEP]]] `
 
@@ -1316,7 +1308,7 @@ function at sequence level.
 
 - `-epochs EPOCHS `
 
-  The epoch number for train deep model.
+  The epoch number for deep model training.
 
 - `-batch_size BATCH_SIZE `
 
@@ -1362,9 +1354,13 @@ function at sequence level.
 
   The cross validation mode. 5 or 10: 5-fold or 10-fold cross validation, j: (character 'j') jackknife cross validation.
 
-- `-ind_seq_file [IND_SEQ_FILE [IND_SEQ_FILE ...]]`
+- `-ind_seq_file IND_SEQ_FILE`
 
-  ==The independent test dataset in FASTA format.==
+  The independent test dataset in FASTA format.
+
+- `-ind_label_file IND_LABEL_FILE`
+
+  The corresponding multi-label file of independent test dataset in CSV format.
 
 - `-fixed_len FIXED_LEN`
 
@@ -1390,7 +1386,7 @@ function at sequence level.
 >
 > compared with single-label learning flow
 >
-> remove blmx, feature selection, sampling 
+> remove blmx, feature selection， rdb, sampling 
 >
 > require mll and ml where ml means but not 
 
@@ -1400,7 +1396,7 @@ function at sequence level.
 
 #### Synopsis
 
-“BioSeq-BLM_Seq_mll.py” is an executive Python script used for achieving the one-stop multi-label learning
+“BioSeq-BLM_Res_mll.py” is an executive Python script used for achieving the one-stop multi-label learning
 function at sequence level.
 
 
@@ -1415,19 +1411,27 @@ function at sequence level.
 
   Please select feature extraction method for residue level analysis.
 
-- `-ml {SVM,RF,CRF,CNN,LSTM,GRU,Transformer,WeightedTransformer}`
+- `-mll {BR,CC,LP,RakelD,RakelO,CLR,FP,RT,MLkNN,BRkNNaClassifier,BRkNNbClassifier,MLARAM}`
 
-  The machine-learning algorithm for constructing predictor, for example: Support Vector Machine (SVM).
+  The multi-label learning algorithom for conducting multi-label learning tasks, for example: Binary Relevance (BR). See [Multi-label Learning Algorithms](#Multi-label Learning Algorithms) for more information.
 
-  Different from options in blm corresponding script, `Reformer` method is unavaliable in blm-mll.
+- `-ml {SVM,RF,CNN,LSTM,GRU,Transformer,WeightedTransformer}`
 
-- `-seq_file `
+  The single-learning algorithm for constructing sub-predictors for the multi-label learning algorithom specified by `-mll` , for example: Support Vector Machine (SVM). This option is required only by multi-label learning algorithoms categoried as [Problem Transformation](#sequence-level problem). Pay attention to that different multi-label learning algorithom supports different set of sub-predictors, please refer to [multi-label learning algorithms in blm-mll](x). For more information about these single-learning algorithms, please refer to [blm manual](x). 
 
-  The input file in FASTA format.
+- `-window WINDOW`
 
-- `-label_file `
+  use sliding window technique to transform sequence-labelling question to classification question.
 
-  The corresponding label file.
+  The window size when construct sliding window technique for allocating every label a short sequence.
+
+- `-seq_file SEQ_FILE`
+
+  The input sequence file in FASTA format.
+
+- `-label_file LABEL_FILE`
+
+  The multi-label file corresponding to input sequence file in CSV format with a header. Each following line holds $L*q$ multi-label labels of a specific sequence, where $L$ is the number of residues in the sequence and $q$ is the dimension of multi-label of every residue.
 
 
 
@@ -1437,13 +1441,150 @@ function at sequence level.
 
   Show this help message and exit.
 
+- `-cpu CPU`
+
+  The maximum number of CPU cores used for multiprocessing in generating frequency profile or The number of CPU cores used for multiprocessing during parameter selection process (default=1).
+
+- `-pp_file PP_FILE`
+
+  The physicochemical properties file user input. If input nothing, the default physicochemical properties is: DNA dinucleotide: Rise, Roll, Shift, Slide, Tilt, Twist. DNA trinucleotide: Dnase I, Bendability (DNAse). RNA: Rise, Roll, Shift, Slide, Tilt, Twist. Protein: Hydrophobicity, Hydrophilicity, Mass.
+
+- `-sn {min-max-scale,standard-scale,L1-normalize,L2-normalize,none}`
+
+  Choose method of standardization or normalization for feature vectors.
+
+- `-cl {AP,DBSCAN,GMM,AGNES,Kmeans,none} `
+
+  Choose method for clustering.
+
+- `-cm {feature,sample} `
+
+  The mode for clustering.
+
+- `-nc NC `
+
+  The number of clusters.
+
+- `-dr {PCA,KernelPCA,TSVD,none} `
+
+  Choose method for dimension reduction.
+
+- `-np NP `
+
+  The dimension of main component after dimension reduction.
+
+- `-rdb {no,dr} `
+
+  Reduce dimension by: 
+
+  'no'---none; 
+
+  'dr'---apply dimension reduction to parameter selection procedure.
+
+- `-grid [{0,1} [{0,1} ...]] `
+
+  Grid=0 for rough grid search, grid=1 for meticulous grid search.
+
+- `-cost [COST_LOW [COST_HIGH [STEP]]] `
+
+  Regularization parameter of 'SVM'. 
+
+  Produce a sequence of parameter from low (inclusive)
+      to high (exclusive) by step(default is 1) for parameter selection. If high is None (the default), then low is produced only.
+
+- `-gamma[GAMMA_LOW [GAMMA_HIGH [STEP]]] `
+
+  Kernel coefficient for 'rbf' of 'SVM'.
+
+  Produce a sequence of parameter from low (inclusive)
+      to high (exclusive) by step(default is 1) for parameter selection. If high is None (the default), then low is produced only.
+
+- `-tree [TREE_LOW [TREE_HIGH [STEP]]] `
+
+  Produce a sequence of parameter from low (inclusive)
+      to high (exclusive) by step(default is 1) for parameter selection. If high is None (the default), then low is produced only.
+
+- `-lr LR `
+
+  The value of learning rate for deep learning.
+
+- `-epochs EPOCHS `
+
+  The epoch number for deep model training.
+
+- `-batch_size BATCH_SIZE `
+
+  The size of mini-batch for deep learning.
+
+- `-dropout DROPOUT `
+
+  The value of dropout prob for deep learning.
+
+- `-hidden_dim HIDDEN_DIM `
+
+  The size of the intermediate (a.k.a., feed forward) layer.
+
+- `-n_layer N_LAYER `
+
+  The number of units for 'LSTM' and 'GRU'.
+
+- `-out_channels OUT_CHANNELS `
+
+  The number of output channels for 'CNN'
+
+- `-kernel_size KERNEL_SIZE `
+
+  The size of stride for 'CNN'.
+
+- `-d_model D_MODEL`
+
+  The dimension of multi-head attention layer for Transformer or Weighted-Transformer.
+
+- `-d_ff D_FF `
+
+  The dimension of fully connected layer of Transformer or Weighted-Transformer.
+
+- `-heads HEADS `
+
+  The number of heads for Transformer or Weighted-Transformer.
+
+- `-metric {Acc,MCC,AUC,BAcc,F1} `
+
+  The metric for parameter selection
+
+- `-cv {5,10,j}`
+
+  The cross validation mode. 5 or 10: 5-fold or 10-fold cross validation, j: (character 'j') jackknife cross validation.
+
+- `-ind_seq_file IND_SEQ_FILE `
+
+  The independent test dataset in FASTA format.
+
+- `-ind_label_file IND_LABEL_FILE `
+
+  The corresponding multi-label file of independent test dataset in CSV format.
+
+- `-fixed_len FIXED_LEN`
+
+  The length of sequence will be fixed via cutting orpadding. If you don't set value for 'fixed_len', it will be the maximum length of all input sequences.
+
+- `-format {tab,svm,csv,tsv}`
+
+  The output format (default=csv). tab –Simple format, delimited by TAB. svm --The libSVM training data format. csv, tsv --The format that can be loaded into a spreadsheet program.
+
+- `-bp {0,1}`
+
+  Select use batch mode or not, the parameter will change the directory for generating file based on the method you choose.
+
 
 
 ## Multi-label Learning Algorithms
 
 （介绍 mll 算法命令
 
-link to multi-label learning algorithms in blm-mll
+For, see tutorial [multi-label learning algorithms in blm-mll](x), we introduced …
+
+In this section
 
 
 
