@@ -68,7 +68,7 @@ In this study, we divide multi-label learning tasks of bio-informatics domain in
 To solve this problem, we propose a system called BLM-mll which can automatically build blms to represent sequence data and construct multi-label learning predictors to study and evaluate, which is provend to show comparable or even obviously better performance than the
 exiting state-of-the-art predictors published in literatures.
 
-As mentioned before Blm-mll is an updated version of bioseq-blm, so we firstly introduce BLM in the following section. Then, we introduce BLM-mll and the similarities and differences to help users to better understand our system.
+As mentioned before Blm-mll is an updated system of bioseq-blm, so we firstly introduce BLM in the following section. Then, we introduce BLM-mll and the similarities and differences to help users to better understand our system.
 
 
 
@@ -114,7 +114,9 @@ Unfortunately, The BioSeq-BLM fails to unlock the potential of BLM in multi-labe
 
 （介绍blm-mll的功能，说出意义，引出和blm的关系，
 
-blm-mll is a system which can automatically construct the BLM, build the predictors, evaluate the performance, and analyze the results for both the single-label learning tasks and the multi-label learning tasks. blm-mll is an updated version of the BioSeq-BLM system sharing all the BLMs with it and retaining x predictors to serve as sub-methods in multi-label learning methods.
+blm-mll is a system which can automatically construct the BLM, build the predictors, evaluate the performance, and analyze the results for both the single-label learning tasks and the multi-label learning tasks. It is an updated version of the BioSeq-BLM system sharing the same single-label learning functions, meanwhile, expanding properties of BioSeq-BLM system like BLMs、feature analysis framework to multi-label learning domain. 
+
+
 
 (指明和blm的区别后，
 

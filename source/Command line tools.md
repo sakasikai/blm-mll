@@ -14,7 +14,7 @@
 
 
 
-Command line tools introduce command lines for both the multi-label learning flow and the single-label learning flow in out proposed system blm-mll. The command lines of both flow are script-oriented where a script provides adequate options for a general function block of system flow introduced in [section x](x) or a one-stop fcuntion for a specific learning task. 
+This page introduces command lines for both the multi-label learning flow and the single-label learning flow in out proposed system blm-mll. Moreover, all multi-label learning algorithms utilized in the systems and their corresbonding options are introduced as well. The command lines of both flow are script-oriented where a script provides adequate options for a general function block of system flow (see in [流程图 tutorial](x) ) or a one-stop fcuntion for a specific task. While the multi-label learning algorithms are introduced algorithm-oriented.
 
 There are three sections in this page:
 
@@ -22,23 +22,21 @@ There are three sections in this page:
 - Multi-label Learning Commands
 - Multi-label Learning Algorithms
 
-Section 1) covers all the units of single-label learning flow in blm and blm-mll(both system shares the same command lines), which helps users work with single-label learning tasks and blm services. 
+Section 1) introduces seven scripts to cover each block of single-label learning flow introduced in [tutorial x](x) and the content is the same as section x in [blm manual](x).
 
-Section 2) introduces one-stop function scripts for multi-label learning flow in blm-mll, which helps users deal with multi-label learning tasks. 
+Section 2) introduces two one-stop function scripts in blm-mll for multi-label learning flow, which help users conducting multi-label learning tasks with blm-mll. 
 
-Section 3) describes all of the Multi-label Learning Algorithms utilized in blm-mll in a detailed way to help users understand the core difference between system blm-mll and system blm.
+Section 3) describes the details of multi-label learning algorithms utilized in blm-mll to help users better understand the advantages of blm-mll system.
 
 
 
 ## Single-label Learning Commands
 
-来源：说明是blm命令的迁移版本
+BioSeq-BLM is an updated system of BioSeq-BLM sharing the same single-label learning functions and command line tools. In this section, we move the command lines sections from blm manual to this documen. And group them as single-label learning commands serving as a comparison with multi-label learning commands in the next section. The intention of this format is for the scenario in which users deal with both single-label learning and multi-label learning tasks. 
 
-内容：格式不同，
 
-作用：single-label learning flow
 
- for both blm and blm-mll
+~~In addition, blocks like Feature Extraction and Feature Analysis are independent from learning paradigm,~~
 
 
 
