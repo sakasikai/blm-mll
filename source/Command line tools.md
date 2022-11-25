@@ -32,11 +32,9 @@ Section 3) describes the details of multi-label learning algorithms utilized in 
 
 ## Single-label Learning Commands
 
-BioSeq-BLM is an updated system of BioSeq-BLM sharing the same single-label learning functions and command line tools. In this section, we move the command lines sections from blm manual to this documen. And group them as single-label learning commands serving as a comparison with multi-label learning commands in the next section. The intention of this format is for the scenario in which users deal with both single-label learning and multi-label learning tasks. 
+BioSeq-BLM is an updated system of BioSeq-BLM sharing the same single-label learning functions and command line tools. In this section, we move the command lines sections from blm manual to this documen. And group them as single-label learning commands serving as a comparison with multi-label learning commands in the next section. The intention of adding this section is for the scenario in which users deal with both single-label learning and multi-label learning tasks. For complete materials for these scripts, please refer to [manual](y).
 
-
-
-~~In addition, blocks like Feature Extraction and Feature Analysis are independent from learning paradigm,~~
+These section introduces scripts about feature extraction, feature analysis and one-stop function for conduting single-label learning tasks using services provided by other scipts.
 
 
 
@@ -1086,7 +1084,7 @@ function at residue level. For more details, please refer to the manual of BLM [
 
 ## Multi-label Learning Commands
 
-We add two scripts for applying multi-label learning tasks: BioSeq-BLM_Seq_mll.py and BioSeq-BLM_Res_mll.py. The structure of multi-label learning scripts is the same as that of single-label Learning scripts presented above. It’s worth noting that there exists some changes in the options of multi-label learning commands. In [tutorial ?](x), we demonstrate the relationship between blm-mll and blm and know that the multi-label learning flow shares manny underlying services with single-label learning flow like feature extraction and feature analysis. Due to the differences between multi-label learning task and single-label Learning task, some function or methods provided by single-label Learning scripts are not avaliable in multi-label learning scripts. 
+We add two scripts for applying multi-label learning tasks: BioSeq-BLM_Seq_mll.py and BioSeq-BLM_Res_mll.py. The structure of multi-label learning scripts is the same as that of single-label Learning scripts presented above. It’s worth noting that there exists some changes in the options of multi-label learning commands. In [tutorial ?](x), we demonstrate the relationship between blm-mll and blm and know that the multi-label learning flow shares manny underlying services with single-label learning flow like feature extraction and feature analysis. Due to the differences between multi-label learning and single-label Learning task, some function or methods provided by single-label Learning scripts are not avaliable in multi-label learning scripts, resulting in some differences. 
 
 For more infomation of the multi-label learning algorithms used in blm-mll, we give a detailed algorithm-oriented introduction in the next section [Multi-label Learning Algorithms](# Multi-label Learning Algorithms).
 
@@ -1384,7 +1382,7 @@ function at sequence level.
 >
 > compared with single-label learning flow
 >
-> remove blmx, feature selection， rdb, sampling 
+> remove blmx, feature selection, rdb, sampling 
 >
 > require mll and ml where ml means but not 
 
@@ -1578,11 +1576,25 @@ function at sequence level.
 
 ## Multi-label Learning Algorithms
 
-（介绍 mll 算法命令
+In this section, we introduce command lines and details for each multi-label learning algorithms used in blm-mll for sake of using your multi-label learning tasks easier. For more infomation, see tutorial [multi-label learning algorithms in blm-mll](x). 
 
-For, see tutorial [multi-label learning algorithms in blm-mll](x), we introduced …
 
-In this section
+
+BibTeX of scikit-multilearn
+
+```
+@ARTICLE{2017arXiv170201460S,
+  author = {{Szyma{\'n}ski}, P. and {Kajdanowicz}, T.},
+  title = "{A scikit-based Python environment for performing multi-label classification}",
+  journal = {ArXiv e-prints},
+  archivePrefix = "arXiv",
+  eprint = {1702.01460},
+  primaryClass = "cs.LG",
+  keywords = {Computer Science - Learning, Computer Science - Mathematical Software},
+  year = 2017,
+  month = feb
+}
+```
 
 
 
@@ -1593,10 +1605,6 @@ In this section
 ##### Synopsis
 
 Transforms a multi-label classification problem with L labels into L single-label separate binary classification problems using the same base classifier provided in the constructor. The prediction output is the union of all per label classifiers
-
-
-
-##### BibTeX
 
 
 
@@ -1665,12 +1673,6 @@ The method maps each combination to a unique combination id number, and performs
 
 
 
-##### BibTeX
-
-
-
-
-
 ##### Options
 
 - `-mll LP`
@@ -1705,15 +1707,14 @@ For more information, see Fuernkranz, Johannes, Huellermeier, Eyke, Loza Mencia,
 
 ```tex
 @article{Fuernkranz2008,
-    author = {Fuernkranz, Johannes and Huellermeier, Eyke and Loza Mencia, Eneldo and Brinker, Klaus},
-    journal = {Machine Learning},
-    number = {2},
-    pages = {133--153},
-    title = {Multilabel classification via calibrated label ranking},
-    volume = {73},
-    year = {2008}
- }
- 
+  author = {Fuernkranz, Johannes and Huellermeier, Eyke and Loza Mencia, Eneldo and Brinker, Klaus},
+  journal = {Machine Learning},
+  number = {2},
+  pages = {133--153},
+  title = {Multilabel classification via calibrated label ranking},
+  volume = {73},
+  year = {2008},
+}
 ```
 
 [ref](https://mulan.sourceforge.net/doc/)
@@ -1746,6 +1747,19 @@ This is an algorithom implemented by MEKA. For more information, please refer to
 
 ##### BibTeX
 
+```tex
+@article{MEKA,
+  author = {Read, Jesse and Reutemann, Peter and Pfahringer, Bernhard and Holmes, Geoff},
+  title = {{MEKA}: A Multi-label/Multi-target Extension to {Weka}},
+  journal = {Journal of Machine Learning Research},
+  year = {2016},
+  volume = {17},
+  number = {21},
+  pages = {1--5},
+  url = {http://jmlr.org/papers/v17/12-164.html},
+}
+```
+
 
 
 ##### Options
@@ -1759,8 +1773,6 @@ This is an algorithom implemented by MEKA. For more information, please refer to
 
 
 
-
-
 #### Rank+Threshold
 
 ##### Synopsis
@@ -1769,7 +1781,22 @@ Duplicates multi-label examples into examples with one label each (one vs. rest)
 
 This is an algorithom implemented by MEKA. For more information, please refer to [meka documentation](http://waikato.github.io/meka/meka.classifiers.multilabel.FW/#synopsis).
 
+
+
 ##### BibTeX
+
+```tex
+@article{MEKA,
+  author = {Read, Jesse and Reutemann, Peter and Pfahringer, Bernhard and Holmes, Geoff},
+  title = {{MEKA}: A Multi-label/Multi-target Extension to {Weka}},
+  journal = {Journal of Machine Learning Research},
+  year = {2016},
+  volume = {17},
+  number = {21},
+  pages = {1--5},
+  url = {http://jmlr.org/papers/v17/12-164.html},
+}
+```
 
 
 
@@ -1805,16 +1832,16 @@ Divides the label space in to equal partitions of size k, trains a Label Powerse
 
 ```tex
 @ARTICLE{5567103,
-    author={G. Tsoumakas and I. Katakis and I. Vlahavas},
-    journal={IEEE Transactions on Knowledge and Data Engineering},
-    title={Random k-Labelsets for Multilabel Classification},
-    year={2011},
-    volume={23},
-    number={7},
-    pages={1079-1089},
-    doi={10.1109/TKDE.2010.164},
-    ISSN={1041-4347},
-    month={July},
+  author={G. Tsoumakas and I. Katakis and I. Vlahavas},
+  journal={IEEE Transactions on Knowledge and Data Engineering},
+  title={Random k-Labelsets for Multilabel Classification},
+  year={2011},
+  volume={23},
+  number={7},
+  pages={1079-1089},
+  doi={10.1109/TKDE.2010.164},
+  ISSN={1041-4347},
+  month={July},
 }
 ```
 
@@ -1836,8 +1863,6 @@ Divides the label space in to equal partitions of size k, trains a Label Powerse
 
 
 
-
-
 #### RAkELo
 
 ##### Synopsis
@@ -1852,16 +1877,16 @@ Divides the label space in to m subsets of size k, trains a Label Powerset class
 
 ```tex
 @ARTICLE{5567103,
-    author={G. Tsoumakas and I. Katakis and I. Vlahavas},
-    journal={IEEE Transactions on Knowledge and Data Engineering},
-    title={Random k-Labelsets for Multilabel Classification},
-    year={2011},
-    volume={23},
-    number={7},
-    pages={1079-1089},
-    doi={10.1109/TKDE.2010.164},
-    ISSN={1041-4347},
-    month={July},
+  author={G. Tsoumakas and I. Katakis and I. Vlahavas},
+  journal={IEEE Transactions on Knowledge and Data Engineering},
+  title={Random k-Labelsets for Multilabel Classification},
+  year={2011},
+  volume={23},
+  number={7},
+  pages={1079-1089},
+  doi={10.1109/TKDE.2010.164},
+  ISSN={1041-4347},
+  month={July}, 
 }
 ```
 
@@ -1956,11 +1981,11 @@ The b version of the classifier assigns the most popular m labels of the neighbo
 
 ```tex
 @inproceedings{EleftheriosSpyromitros2008,
-   author = {Eleftherios Spyromitros, Grigorios Tsoumakas, Ioannis Vlahavas},
-   booktitle = {Proc. 5th Hellenic Conference on Artificial Intelligence (SETN 2008)},
-   title = {An Empirical Study of Lazy Multilabel Classification Algorithms},
-   year = {2008},
-   location = {Syros, Greece}
+  author = {Eleftherios Spyromitros, Grigorios Tsoumakas, Ioannis Vlahavas},
+  booktitle = {Proc. 5th Hellenic Conference on Artificial Intelligence (SETN 2008)},
+  title = {An Empirical Study of Lazy Multilabel Classification Algorithms},
+  year = {2008},
+  location = {Syros, Greece}
 }
 ```
 
@@ -1993,7 +2018,18 @@ This method aims at increasing the classification speed by adding an extra ART l
 ##### BibTeX
 
 ```
-
+@INPROCEEDINGS{7395756,
+  author={F. Benites and E. Sapozhnikova},
+  booktitle={2015 IEEE International Conference on Data Mining Workshop (ICDMW)},
+  title={HARAM: A Hierarchical ARAM Neural Network for Large-Scale Text Classification},
+  year={2015},
+  volume={},
+  number={},
+  pages={847-854},
+  doi={10.1109/ICDMW.2015.14},
+  ISSN={2375-9259},
+  month={Nov},
+}
 ```
 
 
