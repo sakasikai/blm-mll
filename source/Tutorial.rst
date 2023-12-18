@@ -1,4 +1,6 @@
-# Introduction
+# Tutorial
+
+## Introduction
 
 > focus on multi-label learning tasks in bioinfomatics
 
@@ -48,7 +50,7 @@ Additional Information (how to cite)
 
 
 
-# Architecture
+## Architecture
 
 We propose a general MLL strategy framework, which can deal with both sequence-level and residue-level MLL problem. 
 
@@ -119,7 +121,7 @@ just like blm do, we use a sliding window strategy in blm-mll to transform resid
 
 
 
-# Pipeline
+## Pipeline
 
 Given the sequence data and labels for a specific biological MLL task, our system will automatically extract features, construct the compound predictor in case of the strategy, evaluate the performance, and analyze the results.
 
@@ -129,13 +131,13 @@ Given the sequence data and labels for a specific biological MLL task, our syste
 
 
 
-# Validation
+## Validation
 
 
 
 
 
-# Command line tools
+## Command line tools
 
 介绍如何使用，具体 导航到 单独页
 
