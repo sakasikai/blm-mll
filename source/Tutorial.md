@@ -1,192 +1,58 @@
-# Tutorial
+# Introduction
 
-## Introduction
+> focus on multi-label learning tasks in bioinfomatics
 
-（概括介绍本项目，从 blm 说起
+With the rapid development of biological sequencing, Genome and Protein sequences are growing rapidly but their structure and function and are still unknown. 
 
-In order to uncover the meanings of “book of life”, 155 different biological language models (BLMs) for DNA, RNA and protein sequence analysis are introduced and discussed in [our previous study]() , which are able to extract the linguistic properties of “book of life”. We extend the BLMs into a system called BioSeq-BLM for automatically representing and analyzing the sequence. 
+Compared with traditional lab-based methods, bioinfomatics plays an important role in exploring the relationship barried in the huge amont of biological sequences in various databases. 
 
-（research niche
+Many statistical approach of pattern recognition and deep learning technologies have been applied in the filed of bioinformatics and achive great success. However many of them are restricted by the classical *only-one-label-per-pattern* supervised learning paradigm (also known as single-label learning, SLL) and fail to satisfy that requires mutiple outputs against a pattern(aka multi-label learning, MLL).  
 
-Dispite the powerful analyiing capability for biological sequences, BLM fails dealing with multi-label learning problems for its one lablel learning assumption.
+It’s worth noting that many biological tasks comply MLL paradigm such as gene function prediction, protein function prediction, proteins 3D structure prediction and protein subcellular multilocation prediction (proteins may simultaneously exist at, or move between, two or more different subcellular locations).
 
-（介绍本系统
+> research niche => contribution => meanings
 
-In this study, we upgrade system BioSeq-BLM to system BioSeq-BLM-Mll（名字保留修改） which utilizes multiple multi-label learning strategies and methods providied by BLM to deal with biological multi-label learning tasks.
+Dispite many works have promoted this very important field in bioinformatcis, they sitll suffer from some problems such as the ignorance of relationships between labels and the limited performance. Moverover,  and lack of generalization of the complicated flow of MLL.
 
-（从贡献上，说本系统和BLM的变化
+In this work, we propose a lightweight multi-label learnig framework to help researchers quickly find candidates of MLL problem transformation strategy combined with base SLL classifiers to apply to their specific biological MLL problems.
 
-Without changing the shared blcoks in BioSeq-BLM like BLMs construction and feature analysis, BLM-Mll brings a powerful multi-label learning module into BLM system which gives a one-stop process for multi-label learning researchers . Futhurmore, BLM-Mll can use nearly all single-label learning predictors in BLMs to serve as base-methods of a multi-label learning algorithm.
 
-（介绍tutorial的结构，分几部分，每部分主要说什么
 
-This tutorial can be split into x parts
+To make study of MLL in bioinformatcis easily and efficiently, we develop a system called 😾 to implement the MLL framework which also provide a automatic flow including representation, modeling, training, testment and evaluation.
 
-part 1 give you an intro to multi-label learning task in bioinfo
 
-part 2 will tell you how BLM-MLL tackle multi-label learning task
 
-part 3 help you learn how to deal with your multi-label learning task by BLM-MLL
+The experiments on seven datasets have proved that the system achives highly comparable or even superior results than that  of existing state-of-the-art works, which means our system is a powerful tool capable of improving performance or serving as benchmark for extensive MLL applications in bioinformatcis. 
 
+Instead of complicated customization workflow for a specific MLL problem, our work raise a general framework and provide systemetic approaches for studying both sequence-level and residue-level MLL problems in bioinformatcis from different strategies. This means our system can be applied in many different MLL tasks in bioinformatcis and inspire more powerful customized methods, which is expected to give a widespread influence on this very important field.
 
+It is worth noting that the data representation module in our system meaning are supported by BioSeq-BLM which constructs a BLM against biological sequeces while gets restricted in SLL paradigm due to the complicated modeling and training methods of MLL paradigm. From this point of view, our automatic system extending the BLM into an MLL flow is of great significance for better application of the BLM in bioinformatcis, bringing new technologies and powerful reference for the MLL study in bioinformatcis.
 
-## multi-label learning tasks
 
-（一般性定义，研究的意义
 
-Multi-label learning (MLL) is a supervised learning paradigm where each real-world entity is associated with a set of labels simultaneously. During the past decade, signifificant amount of progresses have been made towards this recent learning paradigm for its potention in improving performance of problems where a pattern may have more than one associated class.
+> navigation of chapters
 
-（Formal Definition
+For the working flow of system, please refer to Architecture and Pipeline
 
-According to Reference [x], we give the formal definition of multi-label learning framework. Suppose $\mathcal{X} = {\R}^d$ denotes the *d*-dimensional instance space,
-and $\mathcal{Y} = \{ y_1, y_2, \cdots , y_q\}$  denotes the label space with q possible class labels. The task of multilabel learning is to learn a function $h : \mathcal{X} → 2^{\mathcal{Y}}$
-from the multi-label training set $\mathcal{D} = \{(x_i
-, Y_i)\ |\  1 ≤ i ≤ m\}$. For each multi-label example $(x_i , Y_i)$, $x_i ∈ \mathcal{X}$ is a d-dimensional feature vector
-$(x_{i1}, x_{i2}, · · · , x_{id})^⊤$ and $Y_i ⊆ \mathcal{Y}$ is the set of labels associated with $x_i$. For any unseen instance
-$x ∈ \mathcal{X}$ , the multi-label classifier $h(·)$ predicts $h(x) ⊆ \mathcal{Y}$ as the set of proper labels for $x$.
+For the validation of system, please refer to Validation
 
-（缩小到生物学中，提出面临的挑战，
+For the manual of the system, please refer to Command line tools
 
-In bio-informatics domain, there are many important multi-label learning tasks for biological analysis , such as RNA-associated subcellular localizations, protein subcellular localization, … , etc.  
+For the quick start of the system, please refer to Quick start
 
+For the access of the stand-alone package of the system, please refer to Installation Download
 
+Additional Information (how to cite)
 
-In this study, we divide multi-label learning tasks of bio-informatics domain into two class:
 
-- Sequenece-level multi-label learning tasks
 
-  (研究任务的范式
 
-  A biological sequence of length $L$ can be represented as $S=R_1R_2,\cdots,R_n$, where $R_i$ is the $i$-th Residue in sequence S. In sequenece-level multi-label learning tasks, the whole sequence $S$ is associated with a label set of q dimensions, which can be represented as $y=(y_1, y_2,\cdots, y_q)$.
 
-- Residue-level multi-label learning tasks
+# Architecture
 
-  A biological sequence of length $L$ can be represented as $S=R_1R_2,\cdots,R_n$, where $R_i$ is the $i$-th Residue in sequence S. In sequenece-level multi-label learning tasks, each residue $R_i$ is associated with a label set of q dimensions, which can be represented as $y=(y_1, y_2,\cdots, y_q)$.
+We propose a general MLL strategy framework, which can deal with both sequence-level and residue-level MLL problem. 
 
-
-
-To solve this problem, we propose a system called BLM-mll which can automatically build blms to represent sequence data and construct multi-label learning predictors to study and evaluate, which is provend to show comparable or even obviously better performance than the
-exiting state-of-the-art predictors published in literatures.
-
-As mentioned before Blm-mll is an updated system of bioseq-blm, so we firstly introduce BLM in the following section. Then, we introduce BLM-mll and the similarities and differences to help users to better understand our system.
-
-
-
-## blm
-
-（从blm介绍起，然后说清楚本项目和blm的关系，然后介绍本项目的特点（主要是多标记学习任务）和贡献
-
-（介绍blm，其科学思想
-
-In paper X, we
-proposed the biological language models (BLMs) for DNA,
-RNA and protein sequences to automatically and systematically capture the linguistic
-features ‘of book of life’. The idea of BLM comes from the analogy between natural languages and biological sequences. Furthermore, the relationships among
-biological sequence, structure and function are similar as
-the relationships among sentence, syntactic and semantic
-in linguistics.  (see Figure 1)
-
-![a.png](./imgs/a.png)
-
-**Figure 1.** The similarities between protein sequence and natural language sentence.
-
-
-
-（BLM能做什么，意义
-
-BLMs mainly focuses on the biological neural language models to represent and analyze biological sequences based on deep learning techniques. We extend the BLMs to an automatic system called BioSeq-BLM
-(http://bliulab.net/BioSeq-BLM). Given the sequence data
-for a specific sequence analysis task, BioSeq-BLM will automatically construct the BLM, select the predictor, evaluate the performance, and analyze the results. The BioSeq-BLM is a useful tool for biological sequence analysis, computational proteomics and genomics, significantly contributing to the development of the bioinformatics.
-
-（导引blm的文档
-
-
-
-（指出在多标记学习上的缺口，引出本系统的研究空间
-
-（BLMs，predictors 可以应用于mll，但是 BioSeq-BLM 却无法应用
-
-Unfortunately, The BioSeq-BLM fails to unlock the potential of BLM in multi-label learning paradigm for its limitation on single label learning tasks. Inspired by this, we propose an updated version of the BioSeq-BLM called blm-mll to fully realize the tremendous potential of BLM.
-
-
-
-## blm-mll
-
-（介绍blm-mll的功能，说出意义，引出和blm的关系，
-
-blm-mll is a system which can automatically construct the BLM, build the predictors, evaluate the performance, and analyze the results for both the single-label learning tasks and the multi-label learning tasks. It is an updated version of the BioSeq-BLM system sharing the same single-label learning functions, meanwhile, expanding properties of BioSeq-BLM system like BLMs、feature analysis framework to multi-label learning domain. 
-
-
-
-(指明和blm的区别后，
-
-(也指明本文档和blm旧文档之间的关系，
-
-
-
-## similarities and differences
-
-show the flowchart of two systems, show the shared blocks, show the biases in blocks
-
-(这里要一张图，展现blm的单标记流程，流程中的模块
-
-(blm-mll嵌入进来，单标记和blm一样，多标记流程单列出来
-
-(其中有共享，有共享但偏差，也有全新的引入
-
-(在整体上看，blm-mll是整合了多标记和单标记两个流程的系统，凸显贡献
-
-
-
-(单标记流程，完全一样
-
-For single-label learning tasks, the BionSeq-BLM-mll multiplex the service of BionSeq-BLM totally, thus sharing the same command lines.
-
-
-
-(多标记流程和单标记流程，有共享的模块，也有mll新加入的，所以要厘清相同和不同之处
-
-However, there are some biases in the shared blocks of BLM-mll for multi-label learning process. To help users better understand the multi-label learning process of blm-mll, we list the similarities and differences between BLM-mll multi-label learning process and BionSeq-BLM single-label learning process  in table x, y.
-
-
-
-|    similarities     | BionSeq-BLM-mll（mll process） | BionSeq-BLM |
-| :-----------------: | :----------------------------: | :---------: |
-|  BLMs construction  |            the same            |  the same   |
-|  feature analysis   |           retain ab            |     abc     |
-| parameter selection |                                |             |
-
-table x
-
-
-
-|               differences                | BionSeq-BLM-mll（mll process） | BionSeq-BLM |
-| :--------------------------------------: | :----------------------------: | :---------: |
-| if performing multi-label learning tasks |              yes               |     no      |
-|     multi-label learning algorithms      |              80?               |      0      |
-|             feature analysis             |           removing c           |             |
-|              residue level               |         sliding window         |      x      |
-|                evaluation                |                                |             |
-
-table y
-
-
-
-
-
-## How to use this document
-
-(鉴于上述blm和blm-mll两个系统的异同，以及blm现有文档的存量，给出作者使用本文档的建议
-
-~~Beyond the similarities and differences between BionSeq-BLM-mll and BionSeq-BLM~~
-
-
-
-## multi-label learning algorithms in blm-mll
-
-（涉及到blm方法作为基方法，要清晰指出不同之处（哪些是blm的，哪些是blm-mll的）
-
-Following [paper](https://blog.csdn.net/nanhuaibeian/article/details/105773504) , the multi-label learning algorithms applied in blm-mll can be divided into two categories: 1) Problem Transformation and 2) Algorithm Adaptation. Besides, they can be categorized into two groups according to the biological problem we study: 1) Sequence level methods and 2) Residue level methods. In this section, we list all of the multi-label learning algorithms implemented in tables x. If users want to learn more about them, please refer to [command line tools](https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#tables).
+For sequence-level problem, the strategies can be categrized into two groups, i.e. Problem Transformation and Algorithm Adaptation. 
 
 
 
@@ -195,25 +61,25 @@ Following [paper](https://blog.csdn.net/nanhuaibeian/article/details/105773504) 
 #### Problem Transformation methods
 
 ```reStructuredText
-+--------------------+--------------------------+-------------+
-|     mll taxonomy   |       mll algorithm      | base method |
-+====================+==========================+=============+
-|      Binary        |   Binary Relevance(BR)   |   ML + dl   |
-|                    +--------------------------+-------------+
-|                    |   Classifier Chains(CC)  |     ml      |
-+--------------------+--------------------------+-------------+
-|  Label Combination |  Label Powerset (LP)     |   ml + dl   |
-+--------------------+--------------------------+-------------+
-|Pairwise & Threshold| Calibrated Label Ranking |   ml + dl   |
-|                    +--------------------------+             |
-|                    |    Fourclass Pairwise    |             |
-|                    +--------------------------+             |
-|                    |    Rank   Threshold      |             |
-+--------------------+--------------------------+-------------+
-|  Ensembles of MLL  |      RakelD              |   ml + dl   |
-|                    +--------------------------+             |
-|                    |      RakelO              |             |
-+--------------------+--------------------------+-------------+  
++----------------------+--------------------------+-------------+
+|      mll taxonomy    |       mll algorithm      | base method |
++======================+==========================+=============+
+|                      |   Binary Relevance(BR)   |   ML + dl   |
+|       Binary         +--------------------------+-------------+
+|                      |   Classifier Chains(CC)  |     ml      |
++----------------------+--------------------------+-------------+
+|   Label Combination  |    Label Powerset (LP)   |   ml + dl   |
++----------------------+--------------------------+-------------+
+|                      | Calibrated Label Ranking |             |
+|                      +--------------------------+             |
+| Pairwise & Threshold |    Fourclass Pairwise    |   ml + dl   |
+|                      +--------------------------+             |
+|                      |     Rank   Threshold     |             |
++----------------------+--------------------------+-------------+
+|                      |      RakelD              |             |
+|   Ensembles of MLL   +--------------------------+   ml + dl   |
+|                      |      RakelO              |             |
++----------------------+--------------------------+-------------+  
 ```
 
 
@@ -249,23 +115,33 @@ just like blm do, we use a sliding window strategy in blm-mll to transform resid
 
 
 
-~~Conducting multi-label learning tasks with blm-mll~~
-
-（介绍 scripts 和 cmd
-
-（Furthermore, use cases are provided in Quick Start
 
 
 
-## Evaluation of the blm-mll
 
-Following [scikit-multilearn](http://scikit.ml/api/0.1.0/modelselection.html#Generalization-quality-measures),  six metrics are used to evaluate the performace of blm-mll. 
+# Pipeline
 
-- [Hamming loss](http://scikit-learn.org/stable/modules/generated/sklearn.metrics.hamming_loss.html#sklearn.metrics.hamming_loss) measures how well the classifier predicts each of the labels, averaged over samples, then over labels
-- [accuracy score](http://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score) measures how well the classifier predicts label combinations, averaged over samples
-- [jaccard similarity](http://scikit-learn.org/stable/modules/generated/sklearn.metrics.jaccard_similarity_score.html#sklearn.metrics.jaccard_similarity_score) measures the proportion of predicted labels for a sample to its correct assignment, averaged over samples
-- [precision](http://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_score.html#sklearn.metrics.precision_score) measures how many samples with ,
-- [recall](http://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html#sklearn.metrics.recall_score) measures how many samples ,
-- [F1 score](http://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html#sklearn.metrics.f1_score) measures a weighted average of precision and recall, where both have the same impact on the score
+Given the sequence data and labels for a specific biological MLL task, our system will automatically extract features, construct the compound predictor in case of the strategy, evaluate the performance, and analyze the results.
 
-These measures are conveniently provided by sklearn
+
+
+图！
+
+
+
+# Validation
+
+
+
+
+
+# Command line tools
+
+介绍如何使用，具体 导航到 单独页
+
+
+
+
+
+
+
