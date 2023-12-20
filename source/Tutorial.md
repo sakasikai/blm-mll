@@ -97,7 +97,7 @@ table b)
 
 There are two main important tasks in biological sequence analysis, including residue-level analysis and sequence-level analysis. The aim of the residue-level analysis task is to study the properties of the residues while the aim of the sequence-level analysis task is to investigate the structure and function characteristics of the entire sequence. 
 
-Given that the learning paradigm of sequence-level problems fits our MLL strategy framework well and residue-level problem can be decomposed into multiple sequence-level problems, we apply a sliding window strategy following []()  in our system extending our MLL strategy framework to both residue-level and sequence-level problems.
+Given that the learning paradigm of sequence-level problems fits our MLL strategy framework well and residue-level problem can be decomposed into multiple sequence-level problems, we apply a sliding window strategy following[] in our system extending our MLL strategy framework to both residue-level and sequence-level problems.
 
 
 
@@ -105,7 +105,7 @@ Given that the learning paradigm of sequence-level problems fits our MLL strateg
 
 In this work we not only implement the Algorithm Architecture introduced above, but also embed it into an automatic system which requires only raw multi-label resource as input and give standard multi-label prediction as output. The overview flowchart of our system is shown in [Figure 1](#figure1). Given the raw biological data with multi-labels for a general biological multi-label learning task, our system will automatically extract features by a BLM feature descriptor, construct multi-label predictors in case of the strategy specified, fit data, perform prediction and evaluate the performance.
 
-A maunal is also supplied to help users configure representation learning, multi-label strategy, base predictor construction and evaluation strategy etc by command line tools. For more details, please refer to [command line tools](https://blm-mll.readthedocs.io/en/latest/Command line tools.html).
+A maunal is also supplied to help users configure representation learning, multi-label strategy, base predictor construction and evaluation strategy etc by command line tools. For more details, please refer to [command line tools](https://blm-mll.readthedocs.io/en/latest/Command\ line\ tools.html).
 
 (figure1)=
 
