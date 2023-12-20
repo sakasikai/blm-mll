@@ -105,7 +105,7 @@ Given that the learning paradigm of sequence-level problems fits our MLL strateg
 
 In this work we not only implement the Algorithm Architecture introduced above, but also embed it into an automatic system which requires only raw multi-label resource as input and give standard multi-label prediction as output. The overview flowchart of our system is shown in [Figure 1](#figure1). Given the raw biological data with multi-labels for a general biological multi-label learning task, our system will automatically extract features by a BLM feature descriptor, construct multi-label predictors in case of the strategy specified, fit data, perform prediction and evaluate the performance.
 
-A maunal is also supplied to help users configure representation learning, multi-label strategy, base predictor construction and evaluation strategy etc by command line tools. For more details, please refer to [command line tools](https://blm-mll.readthedocs.io/en/latest/Command\ line\ tools.html).
+A maunal is also supplied to help users configure representation learning, multi-label strategy, base predictor construction and evaluation strategy etc by command line tools. For more details, please refer to [command line tools](https://blm-mll.readthedocs.io/en/latest/CommandLineTools.html).
 
 (figure1)=
 
