@@ -10,10 +10,9 @@ Welcome to blm-mll-alpha's documentation!
    :maxdepth: 3
 
    Installation guide
-   Quick start
-   Tutorial.rst
+   Tutorial
    Command line tools
-   Authors
+   Additional Information
 
 
 

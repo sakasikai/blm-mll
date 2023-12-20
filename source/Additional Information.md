@@ -1,11 +1,10 @@
-# Authors
+# Additional Information
 
-## **Author Contributions** 
+## **Authors and Contributions** 
 
-- Main developer: xx [@github_id](https://github.com/xx)
-- xx
-
-
+- Zhang Qi
+- Li Hongliang
+- Liu bin
 
 
 
@@ -15,11 +14,7 @@ Prof. Dr. Bin Liu, email: bliu@bliulab.net
 
 
 
-
-
 ## **Citation** 
-
-xx
 
 https://blm-mll.readthedocs.io/en/latest/
 
