@@ -73,6 +73,8 @@ table a)
 
 
 
+(algorithmAdaptationMethods)=
+
 ### Algorithm Adaptation methods
 
 This strategy tackle multi-label learning problem by adapting popular learning techniques to deal with multi-label data directly. Here we give four light-weighted and efficient algorithms:

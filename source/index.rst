@@ -7,7 +7,7 @@ Welcome to blm-mll-alpha's documentation!
 =========================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    InstallationGuide
    Tutorial
