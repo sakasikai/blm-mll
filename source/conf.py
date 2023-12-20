@@ -15,6 +15,8 @@ version = release
 
 # extensions = ['myst_parser']
 extensions = [
+    'sphinx_rtd_theme',
+    'myst_parser',
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.coverage',
@@ -24,7 +26,22 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.todo',
     'sphinx.ext.viewcode',
-    'myst_parser'
+]
+
+myst_enable_extensions = [
+    "amsmath",
+    "attrs_inline",
+    "colon_fence",
+    "deflist",
+    "dollarmath",
+    "fieldlist",
+    "html_admonition",
+    "html_image",
+    "replacements",
+    "smartquotes",
+    "strikethrough",
+    "substitution",
+    "tasklist",
 ]
 
 templates_path = ['_templates']
@@ -40,14 +57,14 @@ source_suffix = {
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'sphinx_rtd_theme'
-# html_static_path = ['_static']
+html_static_path = ['_static']
 
 
 # on_rtd is whether we are on readthedocs.org
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
-
-if not on_rtd:  # only set the theme if we're building docs locally
-    html_theme = 'sphinx_rtd_theme'
+# on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+#
+# if not on_rtd:  # only set the theme if we're building docs locally
+#     html_theme = 'sphinx_rtd_theme'
 
 html_use_smartypants = True
 html_last_updated_fmt = '%b %d, %Y'

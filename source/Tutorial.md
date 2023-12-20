@@ -48,7 +48,7 @@ Additional Information (how to cite), please refer to /
 
 ## Algorithm Architecture
 
-We propose a general MLL strategy framework, which can deal with both sequence-level and residue-level MLL analysis problem. Both of two level problem share the same MLL algorithm architecture, which can be categrized into two groups, i.e. Problem Transformation and Algorithm Adaptation. The implementation of this MLL algorithm architecture are listed in [table a)](#tableA) and [table b)](#tableB). The technique taken by residue-level construction is introduced in [Residue-level vs Sequence-level](#Residue-level vs Sequence-level). 
+We propose a general MLL strategy framework, which can deal with both sequence-level and residue-level MLL analysis problem. Both of two level problem share the same MLL algorithm architecture, which can be categrized into two groups, i.e. Problem Transformation and Algorithm Adaptation. The implementation of this MLL algorithm architecture are listed in [table a)](#tableA) and [table b)](#tableB). The technique taken by residue-level construction is introduced in [Residue-level vs Sequence-level](#Residue-level-vs-Sequence-level). 
 
 
 
@@ -61,7 +61,7 @@ This strategy transforms MLL problem into other well-established learning scenar
 - *Pairwise and Threshold* strategy transforms the multi-label problem into the *label ranking* problem, where ranking among labels is fulfilled by techniques of pairwise comparison.
 - *Ensembles of MLL* strategy partitions label space and trains a Label Powerset(LP) classifier per partition with a base multi-class classifier. The labelsets partitioned may be disjoint(RakelD) or non-overlapping(RakelO).
 
-<a name="tableA"></a>
+(tableA)=
 
 ![tableA.png](./imgs/tableA.png)
 
@@ -81,13 +81,17 @@ This strategy tackle multi-label learning problem by adapting popular learning t
 - BRkNNaClassifier, BRkNNbClassifier are Binary Relevance multi-label classifier based on k-Nearest Neighbors methods which assign the labels that are assigned to at least half of the neighbors.
 - MLARAM is an ART classifier which uses clustering of learned prototypes into large clusters improve performance.
 
-<a name="tableB"></a> 
+
+
+(tableB)=
 
 ![tableB.png](./imgs/tableB.png)
 
 table b)
 
 
+
+(Residue-level-vs-Sequence-level)=
 
 ### Residue-level vs Sequence-level
 
@@ -101,9 +105,9 @@ Given that the learning paradigm of sequence-level problems fits our MLL strateg
 
 In this work we not only implement the Algorithm Architecture introduced above, but also embed it into an automatic system which requires only raw multi-label resource as input and give standard multi-label prediction as output. The overview flowchart of our system is shown in [Figure 1](#figure1). Given the raw biological data with multi-labels for a general biological multi-label learning task, our system will automatically extract features by a BLM feature descriptor, construct multi-label predictors in case of the strategy specified, fit data, perform prediction and evaluate the performance.
 
-A maunal is also supplied to help users configure representation learning, multi-label strategy, base predictor construction and evaluation strategy etc by command line tools. For more details, please refer to [command line tools](./Command line tools.md).
+A maunal is also supplied to help users configure representation learning, multi-label strategy, base predictor construction and evaluation strategy etc by command line tools. For more details, please refer to [command line tools](https://blm-mll.readthedocs.io/en/latest/Command line tools.html).
 
-<a name="figure1"></a> 
+(figure1)=
 
 ![overview.png](./imgs/overview.png)
 
