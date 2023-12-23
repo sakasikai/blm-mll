@@ -1,100 +1,56 @@
 # Installation Guide
 
-
-
 ## Download stand-alone package
 
-```
-git clone xx
+clone the reposity using Git or checkout with SVN.
+
+```bash
+git clone https://github.com/tonqletSpace/BioSeq-BLM-mllearn
 ```
 
 
 
 ## Set up the environment
 
-> 先说要下载哪些包，版本要求
+Before using the system, Python engine and some core dependencies need be installed and configured first. We recommend to install Python 3.x 64-bit (especially 3.8 64-bit) engine and use [Anaconda](https://www.anaconda.com/download) to manage the entire Python environment. We supply a configuration file as follow which specifies dependencies our system requires minimally, and name it `venv_initial.yaml`.
 
-给出版本建议
-
-If you want to install xx from this repository, you need to install the dependencies first.
-
-Install `pytorch >= 1.0` with the command: `conda install pytorch -c pytorch` or refer to `pytorch` website [https://pytorch.org](https://pytorch.org/).
-
-```
-
-```
-
-
-
-
-
-### Liunx 20.04
-
-```
-# ana_venv.yaml
-name: blm_mll_linux
+```bash
+# venv_initial.yaml
+name: blm_mll_linux # virtual environment name
 channels:
-  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/cloud/conda-forge
-  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/main
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
-  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/main/
-  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/free/
-  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/cloud/conda-forge/
-  - pytorch
+	# add channels or mirrors to improve speed
+  # - pytorch
+  
 dependencies:
-	- python==3.8.5
-  - pandas
-  - tqdm
+  - python==3.8.5
   - numpy
   - matplotlib
   - scipy
   - scikit-learn
   - imbalanced-learn
+  - pytorch>=1.0
+  - pandas
+  - tqdm
   - skorch
-  - six
-  - joblib
-  - docx
-  - liac-arff
-  - tensorflow-gpu>=2.6.0
-  - pytorch
-  - networkx
   - gensim
+  - networkx
+```
 
-# 新环境，基础依赖
-conda env create -f ana_venv.yaml
+Use anaconda command lines to create virtual environment with the configuration file.
 
-conda activate blm_mll_linux
+```bash
+# creat virtual Python environment from configuration file.
+conda env create -f venv_initial.yaml
 
-# scikit-multilearn bleeding-edge version
+# conda activate blm_mll_linux
+conda activate mll_ux_test
+```
+
+Our system depends on [scikit-multilearn](https://github.com/scikit-multilearn/scikit-multilearn) module and need to install the bleeding-edge version of because the latest release have some essential bugs. To install the bleeding-edge version of scikit-multilearn, clone this repository and run `setup.py`
+
+```bash
 git clone https://github.com/scikit-multilearn/scikit-multilearn.git
 cd scikit-multilearn
 
-# 修改参数
-method=
-encoding=
-
 python setup.py install
 ```
-
-
-
-### Windows
-
-同样推荐 anaconda / pip 安装
-
-```
- 
-```
-
-
-
-
-
-```bash
-mkdir software
-cd 
-
-wget https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-blast-2.13.0+-src.tar.gz
-```
-

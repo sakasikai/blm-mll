@@ -508,27 +508,13 @@ flow at residue level.
 
 
 
+
+
+(multi-label-learning-algorithms)=
+
 ## Multi-label Learning Algorithms
 
-In this section, we describe detailed options for each multi-label learning algorithms supplied in our system for better training setting. For more infomation, see [Algorithm Adaptation methods](https://blm-mll.readthedocs.io/en/latest/Tutorial.html#algorithm-adaptation-methods) in Tutorial. 
-
-
-
-BibTeX of scikit-multilearn
-
-```
-@ARTICLE{2017arXiv170201460S,
-  author = {{Szyma{\'n}ski}, P. and {Kajdanowicz}, T.},
-  title = "{A scikit-based Python environment for performing multi-label classification}",
-  journal = {ArXiv e-prints},
-  archivePrefix = "arXiv",
-  eprint = {1702.01460},
-  primaryClass = "cs.LG",
-  keywords = {Computer Science - Learning, Computer Science - Mathematical Software},
-  year = 2017,
-  month = feb
-}
-```
+In this section, we describe detailed options for each multi-label learning algorithms supplied in our system for better training setting. For more infomation, see [Algorithm Adaptation](https://blm-mll.readthedocs.io/en/latest/Tutorial.html#algorithm-adaptation-methods) in Tutorial. 
 
 
 
@@ -986,7 +972,21 @@ This method aims at increasing the classification speed by adding an extra ART l
 
 
 
+BibTeX of scikit-multilearn
 
+```tex
+@ARTICLE{2017arXiv170201460S,
+  author = {{Szyma{\'n}ski}, P. and {Kajdanowicz}, T.},
+  title = "{A scikit-based Python environment for performing multi-label classification}",
+  journal = {ArXiv e-prints},
+  archivePrefix = "arXiv",
+  eprint = {1702.01460},
+  primaryClass = "cs.LG",
+  keywords = {Computer Science - Learning, Computer Science - Mathematical Software},
+  year = 2017,
+  month = feb
+}
+```
 
 
 

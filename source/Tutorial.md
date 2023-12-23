@@ -44,8 +44,6 @@ Additional Information (how to cite), please refer to /
 
 
 
-
-
 ## Algorithm Architecture
 
 We propose a general MLL strategy framework, which can deal with both sequence-level and residue-level MLL analysis problem. Both of two level problem share the same MLL algorithm architecture, which can be categrized into two groups, i.e. Problem Transformation and Algorithm Adaptation. The implementation of this MLL algorithm architecture are listed in [table a)](#tableA) and [table b)](#tableB). The technique taken by residue-level construction is introduced in [Residue-level vs Sequence-level](#Residue-level-vs-Sequence-level). 
