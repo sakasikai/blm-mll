@@ -73,7 +73,7 @@ table a)
 
 
 
-(algorithmAdaptationMethods)=
+(algorithm-adaptation-methods)=
 
 ### Algorithm Adaptation methods
 

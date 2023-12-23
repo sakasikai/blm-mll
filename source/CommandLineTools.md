@@ -12,7 +12,7 @@ There are three sections in this page:
 
 Section 1) introduces one-stop scripts for multi-label learning tasks from both the sequence and residue level each of which provides a one-stop service. 
 
-Section 2) describes detailed options of multi-label learning algorithms in [Algorithm Architecture](https://blm-mll.readthedocs.io/en/latest/Tutorial.html#algorithmAdaptationMethods) for better training setting.
+Section 2) describes detailed options of multi-label learning algorithms in [Algorithm Architecture](https://blm-mll.readthedocs.io/en/latest/Tutorial.html#algorithm-adaptation-methods) for better training setting.
 
 Section 3) describes command line tools of single-label learning flow embeded in our system, corresponding to our previous study (see [BioSeq-BLM](http://bliulab.net/BioSeq-BLM/home/) furthur).
 
@@ -510,7 +510,7 @@ flow at residue level.
 
 ## Multi-label Learning Algorithms
 
-In this section, we describe detailed options for each multi-label learning algorithms supplied in our system for better training setting. For more infomation, see [Algorithm Adaptation methods](https://blm-mll.readthedocs.io/en/latest/Tutorial.html#algorithmAdaptationMethods) in Tutorial. 
+In this section, we describe detailed options for each multi-label learning algorithms supplied in our system for better training setting. For more infomation, see [Algorithm Adaptation methods](https://blm-mll.readthedocs.io/en/latest/Tutorial.html#algorithm-adaptation-methods) in Tutorial. 
 
 
 
