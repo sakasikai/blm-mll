@@ -2,8 +2,6 @@
 
 ## Introduction
 
-> focus on multi-label learning tasks in bioinfomatics
-
 With the rapid development of biological sequencing, Genome and Protein sequences are growing rapidly but their structure and function and are still unknown. 
 
 Compared with traditional lab-based methods, bioinfomatics plays an important role in exploring the relationship barried in the huge amont of biological sequences in various databases. 
@@ -44,11 +42,13 @@ Additional Information (how to cite), please refer to /
 
 
 
+(algorithm-architecture)=
+
 ## Algorithm Architecture
 
 We propose a general MLL strategy framework, which can deal with both sequence-level and residue-level MLL analysis problem. Both of two level problem share the same MLL algorithm architecture, which can be categrized into two groups, i.e. Problem Transformation and Algorithm Adaptation. The implementation of this MLL algorithm architecture are listed in [table a)](#tableA) and [table b)](#tableB). The technique taken by residue-level construction is introduced in [Residue-level vs Sequence-level](#Residue-level-vs-Sequence-level). 
 
-
+(problem-transformation)=
 
 ### Problem Transformation methods
 

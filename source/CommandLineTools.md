@@ -12,7 +12,7 @@ There are three sections in this page:
 
 Section 1) introduces one-stop scripts for multi-label learning tasks from both the sequence and residue level each of which provides a one-stop service. 
 
-Section 2) describes detailed options of multi-label learning algorithms in [Algorithm Architecture](https://blm-mll.readthedocs.io/en/latest/Tutorial.html#algorithm-adaptation-methods) for better training setting.
+Section 2) describes detailed options of multi-label learning algorithms in [Algorithm Architecture](https://blm-mll.readthedocs.io/en/latest/Tutorial.html#algorithm-architecture) for better training setting.
 
 Section 3) describes command line tools of single-label learning flow embeded in our system, corresponding to our previous study (see [BioSeq-BLM](http://bliulab.net/BioSeq-BLM/home/) furthur).
 
@@ -43,23 +43,23 @@ flow at sequence level.
 
   The feature extraction mode for input sequence which analogies with NLP, for example: bag of words (BOW).
 
-  Different from options in Single-label Learning scripts, `AF` mode and `Labeled-LDA` method of `TM` mode are unavaliable in blm-mll due to design.
+  Different from single-label learning, `AF` mode and `Labeled-LDA` method of `TM` mode are unavaliable in our system.
 
 - `-mll {BR,CC,LP,RakelD,RakelO,CLR,FP,RT,MLkNN,BRkNNaClassifier,BRkNNbClassifier,MLARAM}`
 
-  The multi-label learning algorithom for conducting multi-label learning tasks, for example: Binary Relevance (BR). See [Multi-label Learning Algorithms](#Multi-label Learning Algorithms) for more information.
+  The multi-label learning algorithom for conducting multi-label learning tasks. See section [Multi-label Learning Algorithms](#multi-label-learning-algorithms) for more information.
 
 - `-ml {SVM,RF,CNN,LSTM,GRU,Transformer,WeightedTransformer}`
 
-  The single-learning algorithm for constructing sub-predictors for the multi-label learning algorithom specified by `-mll` , for example: Support Vector Machine (SVM). This option is required only by multi-label learning algorithoms categoried as [Problem Transformation](#sequence-level problem). Pay attention to that different multi-label learning algorithom supports different set of sub-predictors, please refer to [multi-label learning algorithms in blm-mll](x). For more information about these single-learning algorithms, please refer to [blm manual](x). 
+  The base single-label method for implementing multi-label algorithom specified by `-mll`. This option is required only by multi-label learning algorithoms categoried as [Problem Transformation methods](https://blm-mll.readthedocs.io/en/latest/Tutorial.html#problem-transformation). It is worth noting that different multi-label learning algorithom supports different set of sub-predictors. 
 
 - `-seq_file SEQ_FILE`
 
-  The input sequence file in FASTA format.
+  The path of input sequence file (in FASTA format).
 
 - `-label_file LABEL_FILE`
 
-  The multi-label file corresponding to input sequence file in CSV format with a header. Each following line holds $q$ dimentional multi-label label of a specific sequence.
+  The path of multi-labels file (corresponding to input sequences) in CSV format with a header. Each line in the file holds $q$ dimentional label in one space.
 
 
 
@@ -309,6 +309,10 @@ flow at sequence level.
 - `-bp {0,1}`
 
   Select use batch mode or not, the parameter will change the directory for generating file based on the method you choose.
+  
+- `-mix_mode {as_dna, as_rna}`
+
+  For situation where nucleic acid data are mixed with DNA and RNA, treat mixed sequences as DNA or RNA totally.
 
 
 
@@ -337,17 +341,17 @@ flow at residue level.
 
   The category of input sequences.
 
-- `-method `
+- `-method METHOD `
 
-  Please select feature extraction method for residue level analysis.
+  Select feature extraction method for residue-level analysis.
 
 - `-mll {BR,CC,LP,RakelD,RakelO,CLR,FP,RT,MLkNN,BRkNNaClassifier,BRkNNbClassifier,MLARAM}`
 
-  The multi-label learning algorithom for conducting multi-label learning tasks, for example: Binary Relevance (BR). See [Multi-label Learning Algorithms](#Multi-label Learning Algorithms) for more information.
+  The multi-label learning algorithom for conducting multi-label learning tasks. See section [Multi-label Learning Algorithms](#multi-label-learning-algorithms) for more information.
 
 - `-ml {SVM,RF,CNN,LSTM,GRU,Transformer,WeightedTransformer}`
 
-  The single-learning algorithm for constructing sub-predictors for the multi-label learning algorithom specified by `-mll` , for example: Support Vector Machine (SVM). This option is required only by multi-label learning algorithoms categoried as [Problem Transformation](#sequence-level problem). Pay attention to that different multi-label learning algorithom supports different set of sub-predictors, please refer to [multi-label learning algorithms in blm-mll](x). For more information about these single-learning algorithms, please refer to [blm manual](x). 
+  The base single-label method for implementing multi-label algorithom specified by `-mll`. This option is required only by multi-label learning algorithoms categoried as [Problem Transformation methods](https://blm-mll.readthedocs.io/en/latest/Tutorial.html#problem-transformation). It is worth noting that different multi-label learning algorithom supports different set of sub-predictors. 
 
 - `-window WINDOW`
 
@@ -357,11 +361,11 @@ flow at residue level.
 
 - `-seq_file SEQ_FILE`
 
-  The input sequence file in FASTA format.
+  The path of input sequence file in FASTA format.
 
 - `-label_file LABEL_FILE`
 
-  The multi-label file corresponding to input sequence file in CSV format with a header. Each following line holds $L*q$ multi-label labels of a specific sequence, where $L$ is the number of residues in the sequence and $q$ is the dimension of multi-label of every residue.
+  The path of multi-labels file (corresponding to input sequence file) in CSV format with a header. Each line holds $L*q$ multi-labels, where $L$ is the number of residues in one sequence and $q$ is the dimension of label space for each residue.
 
 
 
@@ -505,8 +509,10 @@ flow at residue level.
 - `-bp {0,1}`
 
   Select use batch mode or not, the parameter will change the directory for generating file based on the method you choose.
+  
+- `-mix_mode {as_dna, as_rna}`
 
-
+  For situation where nucleic acid data are mixed with DNA and RNA, treat mixed sequences as DNA or RNA totally.
 
 
 
@@ -1874,7 +1880,7 @@ function at residue level. For more details, please refer to the manual of BLM [
 
   The machine-learning algorithm for constructing predictor, for example: Support Vector Machine (SVM).
 
-  Different from options in blm corresponding script, `Reformer` method is unavaliable in blm-mll.
+  Different from options in blm corresponding script, `Reformer` method is unavaliable in our system.
 
 - `-seq_file `
 
