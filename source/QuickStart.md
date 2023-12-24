@@ -10,7 +10,7 @@ First of all, confirm you have completed the installation of environment mention
 
 Here we choose the task of identifying subcellular localization of non-coding RNA for our example. We download the dataset from [work](https://github.com/guofei-tju/ Identify-NcRNA-Sub-Loc-MKGHkNN) [[1]](#ref1), and prepare the directory structure as following:
 
-```apl
+```bat
 .
 code/
 ├── BioSeq-BLM_Seq_mllearn.py
@@ -37,7 +37,7 @@ UCAAGACCAGACUCUGCCCUCCGUGUUCACAGCGGACCUUGAUUUAAUGUCAUACAAUUAAGGCACGCGGUGAAUGCCAA
 
 Run `head miRNA_label.csv` for a glimpse of label in csv format:
 
-```apl
+```bat
 Exosome,Nucleus,Cytoplasm,Mitochondrion,Circulating,Microvesicle
 0,1,1,0,0,0
 0,1,1,0,0,0
@@ -75,7 +75,7 @@ python BioSeq-BLM_Seq_mllearn.py -category RNA -mode TM -method LDA -in_tm BOW -
 
 Then you will see the console for leaning and testing information and find prediction summary under the results directory as follow. 
 
-```apl
+```bat
 ../results/batch/Seq/RNA/
 ├── BOW
 │   ├── Kmer

@@ -71,7 +71,7 @@ flow at sequence level.
 
 - `-words {Kmer,RevKmer,Mismatch,Subsequence,Top-NGram,DR,DT}`
 
-  If you select mode in ['BOW', 'TF-IDF', 'TR', 'WE', 'TM'], you should select word for corresponding mode, for example Mismatch. Pay attention to that different category has different words, please reference to [manual](bliu?).
+  If you select mode in ['BOW', 'TF-IDF', 'TR', 'WE', 'TM'], you should select word for corresponding mode, for example Mismatch. Pay attention to that different category has different words, please reference to [BioSeq-BLM_manual](http://bliulab.net/BioSeq-BLM/static/download/BioSeq-BLM_manual.pdf).
 
 - `-method METHODIf `
 
@@ -520,7 +520,7 @@ flow at residue level.
 
 ## Multi-label Learning Algorithms
 
-In this section, we describe detailed options for each multi-label learning algorithms supplied in our system for better training setting. For more infomation, see [Algorithm Adaptation](https://blm-mll.readthedocs.io/en/latest/Tutorial.html#algorithm-adaptation-methods) in Tutorial. 
+In this section, we describe detailed options for each multi-label learning algorithm implemented in our system for better training setting. For more infomation, see [Algorithm Architecture](https://blm-mll.readthedocs.io/en/latest/Tutorial.html#algorithm-architecture) in Tutorial. 
 
 
 
@@ -530,7 +530,7 @@ In this section, we describe detailed options for each multi-label learning algo
 
 ##### Synopsis
 
-Transforms a multi-label classification problem with L labels into L single-label separate binary classification problems using the same base classifier provided in the constructor. The prediction output is the union of all per label classifiers
+Transforms a multi-label classification problem with $L$ labels into $L$ separate binary classification problems using the same base classifier provided in the constructor. The prediction output is the union of all outputs of per-label classifiers.
 
 
 
