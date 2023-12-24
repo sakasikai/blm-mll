@@ -56,7 +56,7 @@ This strategy transforms MLL problem into other well-established learning scenar
 
 - *Binay* strategy transforms multi-label problem to multiple binary-class problems against label space each of which are solved by an individual binary classifier. Binary Relevance(BR) decomposes multi-label problem into multiple independent binary-class problems. While Classifier Chains(CC) decomposes multi-label problem into a *chain* of binary-class problems according to the *Bayesian chain rule*.
 - *Label Combination* strategy transforms multi-label problem to a multi-class problem where each label combination is a separate class and uses a multi-class classifier to solve the problem.
-- *Pairwise and Threshold* strategy transforms the multi-label problem into the *label ranking* problem, where ranking among labels is fulfilled by techniques of pairwise comparison.
+- *Pairwise and Threshold* strategy transforms the multi-label problem into a *label ranking* problem, where ranking among labels is fulfilled by techniques of pairwise comparison.
 - *Ensembles of MLL* strategy partitions label space and trains a Label Powerset(LP) classifier per partition with a base multi-class classifier. The labelsets partitioned may be disjoint(RakelD) or non-overlapping(RakelO).
 
 (tableA)=
