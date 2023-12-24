@@ -659,7 +659,7 @@ For $q$ possible class labels ${y_1, y_2, · · · , y_q}$, a total of $q(q − 
 
 ##### Synopsis
 
-The Fourclass Pairwise (FW) method. Trains a multi-class base classifier for each pair of labels ($(q*(q-1))/2$ in total), each with four possible class values: ${00,01,10,11}$ representing the possible combinations of relevant (1) or irrelevant (0) for the pair. Uses a voting and threshold scheme at testing time where any label with votes above the threshold is considered relevant. 
+*The Fourclass Pairwise* (FW) method. Trains a multi-class base classifier for each pair of labels ($(q*(q-1))/2$ in total), each with four possible class values: ${00,01,10,11}$ representing the possible combinations of relevant (1) or irrelevant (0) for the pair. Uses a voting and threshold scheme at testing time where any label with votes above the threshold is considered relevant. 
 
 
 
