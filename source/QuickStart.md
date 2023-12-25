@@ -1,8 +1,8 @@
 # Quick start
 
-This page give an example of runing our system to cnoduct biological multi-label tasks to help users get started quickly. 
+This page give an example of running our system to conduct biological multi-label tasks to help users get started quickly. 
 
-First of all, confirm you have completed the installation of environment mentioned in [Installation Guide](https://blm-mll.readthedocs.io/en/latest/InstallationGuide.html) successfully. Then prepare the multi-data in `fasta` format and it’s corresponding label in `csv` format. Finally run commands describled in [Multi-label Learning Algorithms](https://blm-mll.readthedocs.io/en/latest/CommandLineTools.html#multi-label-learning-algorithms) to conduct multi-lable learning task with the dataset.
+First of all, confirm you have completed the installation of environment mentioned in [Installation Guide](https://blm-mll.readthedocs.io/en/latest/InstallationGuide.html) successfully. Then prepare the multi-data in `fasta` format and it’s corresponding label in `csv` format. Finally run commands described in [Multi-label Learning Algorithms](https://blm-mll.readthedocs.io/en/latest/CommandLineTools.html#multi-label-learning-algorithms) to conduct multi-label learning task with the dataset.
 
 
 

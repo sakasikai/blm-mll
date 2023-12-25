@@ -2,7 +2,7 @@
 
 # Command line tools
 
-In this page, we mainly introduce the usage of command line tools for multi-label learning flow in our system. Meanwhile, commands of single-label learning flow are also documented for sake of users who need reference to both multi-label and single-label leanining at the same time. 
+In this page, we mainly introduce the usage of command line tools for multi-label learning flow in our system. Meanwhile, commands of single-label learning flow are also documented for sake of users who need reference to both multi-label and single-label learning at the same time. 
 
 There are three sections in this page:
 
@@ -14,7 +14,7 @@ Section 1) introduces one-stop scripts for multi-label learning tasks from both 
 
 Section 2) describes detailed options of multi-label learning algorithms in [Algorithm Architecture](https://blm-mll.readthedocs.io/en/latest/Tutorial.html#algorithm-architecture) for better training setting.
 
-Section 3) describes command line tools of single-label learning flow embeded in our system, corresponding to our previous study (see [BioSeq-BLM](http://bliulab.net/BioSeq-BLM/home/) furthur).
+Section 3) describes command line tools of single-label learning flow embedded in our system, corresponding to our previous study (see [BioSeq-BLM](http://bliulab.net/BioSeq-BLM/home/) further).
 
 
 
@@ -43,15 +43,15 @@ flow at sequence level.
 
   The feature extraction mode for input sequence which analogies with NLP, for example: bag of words (BOW).
 
-  Different from single-label learning, `AF` mode and `Labeled-LDA` method of `TM` mode are unavaliable in our system.
+  Different from single-label learning, `AF` mode and `Labeled-LDA` method of `TM` mode are unavailable in our system.
 
 - `-mll {BR,CC,LP,RakelD,RakelO,CLR,FP,RT,MLkNN,BRkNNaClassifier,BRkNNbClassifier,MLARAM}`
 
-  The multi-label learning algorithom for conducting multi-label learning tasks. See section [Multi-label Learning Algorithms](#multi-label-learning-algorithms) for more information.
+  The multi-label learning algorithm for conducting multi-label learning tasks. See section [Multi-label Learning Algorithms](#multi-label-learning-algorithms) for more information.
 
 - `-ml {SVM,RF,CNN,LSTM,GRU,Transformer,WeightedTransformer}`
 
-  The base single-label method for implementing multi-label algorithom specified by `-mll`. This option is required only by multi-label learning algorithoms categoried as [Problem Transformation methods](https://blm-mll.readthedocs.io/en/latest/Tutorial.html#problem-transformation). It is worth noting that different multi-label learning algorithom supports different set of sub-predictors. 
+  The base single-label method for implementing multi-label algorithm specified by `-mll`. This option is required only by multi-label learning algorithms categorized as [Problem Transformation methods](https://blm-mll.readthedocs.io/en/latest/Tutorial.html#problem-transformation). It is worth noting that different multi-label learning algorithm supports different set of sub-predictors. 
 
 - `-seq_file SEQ_FILE`
 
@@ -59,7 +59,7 @@ flow at sequence level.
 
 - `-label_file LABEL_FILE`
 
-  The path of multi-labels file (corresponding to input sequences) in CSV format with a header. Each line in the file holds $q$ dimentional label in one space.
+  The path of multi-labels file (corresponding to input sequences) in CSV format with a header. Each line in the file holds $q$ dimensional label in one space.
 
 
 
@@ -294,7 +294,7 @@ flow at sequence level.
 
 - `-fixed_len FIXED_LEN`
 
-  The length of sequence will be fixed via cutting orpadding. If you don't set value for 'fixed_len', it will be the maximum length of all input sequences.
+  The length of sequence will be fixed via cutting or padding. If you don't set value for 'fixed_len', it will be the maximum length of all input sequences.
 
 - `-format {tab,svm,csv,tsv}`
 
@@ -347,11 +347,11 @@ flow at residue level.
 
 - `-mll {BR,CC,LP,RakelD,RakelO,CLR,FP,RT,MLkNN,BRkNNaClassifier,BRkNNbClassifier,MLARAM}`
 
-  The multi-label learning algorithom for conducting multi-label learning tasks. See section [Multi-label Learning Algorithms](#multi-label-learning-algorithms) for more information.
+  The multi-label learning algorithm for conducting multi-label learning tasks. See section [Multi-label Learning Algorithms](#multi-label-learning-algorithms) for more information.
 
 - `-ml {SVM,RF,CNN,LSTM,GRU,Transformer,WeightedTransformer}`
 
-  The base single-label method for implementing multi-label algorithom specified by `-mll`. This option is required only by multi-label learning algorithoms categoried as [Problem Transformation methods](https://blm-mll.readthedocs.io/en/latest/Tutorial.html#problem-transformation). It is worth noting that different multi-label learning algorithom supports different set of sub-predictors. 
+  The base single-label method for implementing multi-label algorithm specified by `-mll`. This option is required only by multi-label learning algorithms categorized as [Problem Transformation methods](https://blm-mll.readthedocs.io/en/latest/Tutorial.html#problem-transformation). It is worth noting that different multi-label learning algorithm supports different set of sub-predictors. 
 
 - `-window WINDOW`
 
@@ -500,7 +500,7 @@ flow at residue level.
 
 - `-fixed_len FIXED_LEN`
 
-  The length of sequence will be fixed via cutting orpadding. If you don't set value for 'fixed_len', it will be the maximum length of all input sequences.
+  The length of sequence will be fixed via cutting or padding. If you don't set value for 'fixed_len', it will be the maximum length of all input sequences.
 
 - `-format {tab,svm,csv,tsv}`
 
@@ -520,7 +520,7 @@ flow at residue level.
 
 ## Multi-label Learning Algorithms
 
-In this section, we describe detailed options for each multi-label learning algorithm implemented in our system for better training setting. For more infomation, see [Algorithm Architecture](https://blm-mll.readthedocs.io/en/latest/Tutorial.html#algorithm-architecture) in Tutorial. 
+In this section, we describe detailed options for each multi-label learning algorithm implemented in our system for better training setting. For more information, see [Algorithm Architecture](https://blm-mll.readthedocs.io/en/latest/Tutorial.html#algorithm-architecture) in Tutorial. 
 
 
 
@@ -607,9 +607,8 @@ Constructs a bayesian conditioned chain of per-label classifiers. For $L$ labels
 
 - `-ml <method>`
 
-  All blm predictors but `CRF` can serve as base single-label classifier of the selected multi-label classifier. Valid methods are listed here: `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`, `Reformer`
+  Base single-label classifier including `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`. Options for these base classifiers are descripted in section [Single-label Learning Commands](#machineLearningSeq.py).
   
-- Base single-label classifier including `SVM`, `RF`, `CNN`, `LSTM`, `GRU`, `Transformer`, `Weighted-Transformer`. Options for these base classifiers are descripted in section [Single-label Learning Commands](#machineLearningSeq.py).
 
 
 
@@ -852,7 +851,7 @@ This strategy tackle multi-label learning problem by adapting popular learning t
 
 - `-mll_k <number>` `--mll_kNN_k <number>` should be within [1, max_neighbors]
 
-  number of neighbours of each input instance to take into account
+  number of neighbors of each input instance to take into account
 
 - `-mll_s <value>` ` --MLkNN_s <value>` default 1.0
 
@@ -862,7 +861,7 @@ This strategy tackle multi-label learning problem by adapting popular learning t
 
 - `-mll_ifn <number>` `--MLkNN_ignore_first_neighbours <number>`  should be within [1, max_neighbors]
 
-  number of neighbours of each input instance to take into account
+  number of neighbors of each input instance to take into account
 
 
 
@@ -917,7 +916,7 @@ The *b* version of the classifier assigns the most popular $m$ labels of the nei
 
 - `-mll_k <number>` `--mll_kNN_k <number>` should be within [1, max_neighbors]
 
-  number of neighbours of each input instance to take into account
+  number of neighbors of each input instance to take into account
 
 
 
@@ -970,9 +969,9 @@ This method aims at increasing the classification speed by adding an extra ART l
 
 ## Single-label Learning Commands
 
-Our system is an updated system of BioSeq-BLM sharing the same single-label learning functions and command line tools. In this section, we move the command lines sections from blm manual to this documen. And group them as single-label learning commands serving as a comparison with multi-label learning commands in the next section. The intention of adding this section is for the scenario in which users deal with both single-label learning and multi-label learning tasks. For complete materials for these scripts, please refer to [BioSeq-BLM_manual](http://bliulab.net/BioSeq-BLM/static/download/BioSeq-BLM_manual.pdf).
+Our system is an updated system of BioSeq-BLM sharing the same single-label learning functions and command line tools. In this section, we move the command lines sections from BLM manual to this document. And group them as single-label learning commands serving as a comparison with multi-label learning commands in the next section. The intention of adding this section is for the scenario in which users deal with both single-label learning and multi-label learning tasks. For complete materials for these scripts, please refer to [BioSeq-BLM_manual](http://bliulab.net/BioSeq-BLM/static/download/BioSeq-BLM_manual.pdf).
 
-These section introduces scripts about feature extraction, feature analysis and one-stop function for conduting single-label learning tasks using services provided by other scipts.
+These section introduces scripts about feature extraction, feature analysis and one-stop function for conducting single-label learning tasks using services provided by other scripts.
 
 
 
@@ -1016,7 +1015,7 @@ These section introduces scripts about feature extraction, feature analysis and 
 
 - `-method METHOD`
 
-  If you select mode in ['OHE', 'WE', 'TM', 'SR', 'AF'], you should select method for corresponding mode, for example, select 'LDA' for 'TM' mode, select 'word2vec' for 'WE' mode and so on. For different category, the methods belong to 'OHE' and 'SR' modeis different, please reference to manual. 
+  If you select mode in ['OHE', 'WE', 'TM', 'SR', 'AF'], you should select method for corresponding mode, for example, select 'LDA' for 'TM' mode, select 'word2vec' for 'WE' mode and so on. For different category, the methods belong to 'OHE' and 'SR' mode different, please reference to manual. 
 
 - `-auto_opt {0,1,2}`
 
@@ -1160,7 +1159,7 @@ These section introduces scripts about feature extraction, feature analysis and 
 
 - `-fixed_len FIXED_LEN`
 
-  The length of sequence will be fixed via cutting orpadding. If you don't set value for 'fixed_len', it will be the maximum length of all input sequences.
+  The length of sequence will be fixed via cutting or padding. If you don't set value for 'fixed_len', it will be the maximum length of all input sequences.
 
 - `-format {tab,svm,csv,tsv} `
 
@@ -1819,7 +1818,7 @@ function at sequence level.
 
 - `-fixed_len FIXED_LEN`
 
-  The length of sequence will be fixed via cutting orpadding. If you don't set value for 'fixed_len', it will be the maximum length of all input sequences.
+  The length of sequence will be fixed via cutting or padding. If you don't set value for 'fixed_len', it will be the maximum length of all input sequences.
 
 - `-format {tab,svm,csv,tsv}`
 
@@ -1854,7 +1853,7 @@ function at residue level.
 
   The machine-learning algorithm for constructing predictor, for example: Support Vector Machine (SVM).
 
-  Different from options in blm corresponding script, `Reformer` method is unavaliable in our system.
+  Different from options in blm corresponding script, `Reformer` method is unavailable in our system.
 
 - `-seq_file `
 
@@ -2010,7 +2009,7 @@ function at residue level.
 
 - `-fixed_len FIXED_LEN`
 
-  The length of sequence will be fixed via cutting orpadding. If you don't set value for 'fixed_len', it will be the maximum length of all input sequences.
+  The length of sequence will be fixed via cutting or padding. If you don't set value for 'fixed_len', it will be the maximum length of all input sequences.
 
 - `-format {tab,svm,csv,tsv}`
 

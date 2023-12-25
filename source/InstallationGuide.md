@@ -2,7 +2,7 @@
 
 ## Download stand-alone package
 
-clone the reposity using Git or checkout with SVN.
+clone the repository using Git or checkout with SVN.
 
 ```bash
 git clone https://github.com/tonqletSpace/BioSeq-BLM-mllearn
@@ -39,7 +39,7 @@ dependencies:
 Use anaconda command lines to create virtual environment with the configuration file.
 
 ```bash
-# creat virtual Python environment from configuration file.
+# create virtual Python environment from configuration file.
 conda env create -f venv_initial.yaml
 
 # conda activate blm_mll_linux
