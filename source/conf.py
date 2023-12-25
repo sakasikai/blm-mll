@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import os
 import sys
 
-project = 'blm-mll-alpha'
+project = 'blm-mll'
 copyright = '2022, tonqlet(BIT)'
 author = 'tonqlet(BIT)'
 release = '0.0.1'
