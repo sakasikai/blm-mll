@@ -28,7 +28,7 @@ In this section, we introduce one-stop scripts for multi-label learning tasks fr
 
 #### Synopsis
 
-“BioSeq-BLM_Seq_mll.py” is an executable Python script used for one-stop multi-label learning
+*BioSeq-BLM_Seq_mll.py* is an executable Python script used for one-stop multi-label learning
 flow at sequence level.
 
 
@@ -330,7 +330,7 @@ flow at sequence level.
 
 #### Synopsis
 
-“BioSeq-BLM_Res_mll.py” is an executable Python script used for one-stop multi-label learning
+*BioSeq-BLM_Res_mll.py* is an executable Python script used for one-stop multi-label learning
 flow at residue level.
 
 
